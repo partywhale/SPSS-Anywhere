@@ -1,0 +1,412 @@
+scopeName: 'source.spss'
+name: 'SPSS'
+fileTypes: [ 'sps' ]
+limitLineLength: false
+firstLineMatch: '^(?:\\* Encoding: UTF-8)'
+patterns: [
+  { include: '#metaMultilineComments' }
+  { include: '#metaCommandFriendlyComments' }
+  { include: '#metaQuoteStrings' }
+  { include: '#twoStageLeastSquares' }
+  {
+    name: 'support.class.command.spss'
+    match: '\\b(?i:(
+                ADD DOCUMENT|ADD FILES|ADD VALUE LABELS|ADP|AGGREGATE|AIM|ALTER TYPE|ALSCAL
+                |ANACOR|ANOVA|APPLY DICTIONARY|AREG|ARIMA|AUTORECODE|BEGIN (DATA|GPL|PROGRAM|EXPR)
+                |BAYES ANOVA|BAYES CORRELATION|BAYES INDEPENDENT|BAYES LOGLINEAR|BAYES ONESAMPLE
+                |BAYES REGRESSION|BAYES RELATED|BAYES REPEATED|BOOTSTRAP|BREAK
+                |CACHE|CASEPLOT|CASESTOVARS|CATPCA|CATREG|CCF|CD|CHAR.(INDEX|LENGTH|LPAD|MBLEN|RINDEX
+                |RPAD|SUBSTR)|CLEAR TIME PROGRAM|CLEAR TRANSFORMATIONS|CLUSTER|CNLR|CODEBOOK
+                |COMPARE DATASETS|COMPUTE|CONJOINT|CORRELATIONS|CORRESPONDENCE|COUNT|COXREG|CREATE
+                |CROSSTABS|CSCOXREG|CSDESCRIPTIVES|CSGLM|CSLOGISTIC|CSORDINAL|CSPLAN|CSSELECT
+                |CSTABULATE|CTABLES|CURVEFIT|DATA LIST|DATAFILE ATTRIBUTE
+                |DATASET (ACTIVATE|CLOSE|COPY|DECLARE|DISPLAY|NAME)|DATE|DEFINE|DELETE VARIABLES
+                |DESCRIPTIVES|DETECTANOMALY|DISCRIMINANT|DISPLAY|DMCLUSTER|DMLOGISTIC|DMROC|DMTABLES
+                |DMTREE|DOCUMENT|DROP DOCUMENTS|ECHO|END (CASE|DATA|FILE|FILE TYPE|GPL|INPUT PROGRAM
+                |LOOP|MATRIX|PROGRAM|EXPR)|ENDDEFINE|ERASE|EXAMINE|EXECUTE|EXPORT|EXSMOOTH|EXTENSION|FACTOR
+                |FILE (HANDLE|LABEL|TYPE)|FILTER|FINISH|FIT|FLEISS MULTIRATER KAPPA|FLIP|FORMATS|FREQUENCIES|GENLIN
+                |GENLINMIXED|GENLOG|GET (CAPTURE|DATA|SAS|STATA|TRANSLATE)|GETTM1|GET|GGRAPH|GLM|GRAPH|HILOGLINEAR
+                |HOMALS|HOST|IGRAPH|IMPORT|INCLUDE|INFO|INPUT PROGRAM|INSERT (EXEC|HIDDEN)|INSERT|KEYED DATA LIST|KM|KNN
+                |LEAVE|LINEAR|LIST|LOGISTIC REGRESSION|LOGNINEAR|LOOP|LOWER|MANOVA|MATCH FILES
+                |META BINARY|META ES BINARY|META CONTINUOUS|META ES CONTINUOUS|META REGRESSION
+                |MATRIX DATA|MATRIX|MCONVERT|MEANS|MISSING VALUES|MIXED|MLP|MODEL (CLOSE|HANDLE|LIST|NAME|PROGRAM)
+                |MRSETS|MULT RESPONSE|MULTIPLE (CORRESPONDENCE|IMPUTATION)|MVA|N OF CASES|NAIVEBAYES|NATRES
+                |NEW FILE|NLR|NOMINAL|NOMREG|NONPAR CORR|NPTEST(S?)|NPAR TESTS|NUMERIC|OLAP CUBES|OMS(END|INFO|LOG)
+                |OMS|ONEWAY|OPTIMAL BINNING|ORDINAL|ORTHOPLAN|POWER (ONEWAY ANOVA|MEANS (INDEPENDENT|ONESAMPLE|RELATED)
+                |PARTIALCORR|PEARSON ONESAMPLE|PROPORTIONS (INDEPENDENT|ONESAMPLE|RELATED)|SPEARMAN ONESAMPLE|UNIVARIATE LINEAR)
+                |OUTPUT (ACTIVATE|CLOSE|DISPLAY|EXPORT|NAME|NEW|OPEN|SAVE)|OVERALS|PACF|PARTIAL CORR
+                |PERMISSIONS|PLANCARDS|PLS|PLUM|POINT|PPLOT|PREDICT|PREFSCAL|PRESERVE|PRINCALS
+                |PRINT (EJECT|FORMATS|SPACE)|PRINT|PROBIT|PROCEDURE OUTPUT|PROPORTIONS|PROXIMITIES|PROXCAL|QUANTILE REGRESSION|QUICK CLUSTER
+                |RANK|RATIO STATISTICS|RBF|READ MODEL|READNAMES|RECODE|RECORD TYPE|REFORMAT|REGRESSION|RELATIONSHIP MAP
+                |RELIABILITY|RENAME VARIABLES|REPEATING DATA|REPORT|REPOSITORY (ATTRIBUTES|CONNECT|COPY)
+                |REREAD|RESPONSE RATE|RESTORE|RMV|ROC ANALYSIS|ROC|SAMPLE|SAVE (CODEPAGE|DATA COLLECTION|MODEL|TRANSLATE)|SAVETM1|SAVE|SCALE
+                |SCRIPT|SEASON|SELECTPRED|SELECT|SET|SHIFT VALUES|SHOW|SIMPLAN|SIMPREP (BEGIN|END)|SIMRUN|SORT (CASES|VARIABLES)
+                |SPATIAL (ASSOCIATION RULES|MAPSPEC|TEMPORAL PREDICTIONS)|SPCHART
+                |SPECTRA|SPLIT FILE|STAR JOIN|STRING|SUBTITLE|SUMMARIZE|SURVIVAL|SYSFILE INFO|TABLES
+                |TCM (ANALYSIS|APPLY|MODEL)|TDISPLAY|TEMPORARY
+                |TIME PROGRAM|TITLE|TMS (BEGIN|END|IMPORT|MERGE)|TREE|T(SAPPLY|SET|SHOW|SPLOT|SMODEL)
+                |TWOSTEP CLUSTER|UNIANOVA|UPCASE|UPDATE|USE|VALIDATEDATA|VALUE LABELS|VARCOMP
+                |VARIABLE (ALIGNMENT|ATTRIBUTE|LABELS|LEVEL|ROLE|WIDTH)|VARSTOCASES|VECTOR|VERIFY
+                |WEIGHT|WEIGHTED KAPPA|WLS|WRITE|WRITE FORMATS|X(GRAPH|SAVE)
+            ))\\b|(?i:(T-TEST))'
+  }
+  {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(
+                ACCELERATION|ADJUSTLEVEL|ANALYSIS|ANALYSISWEIGHT|APPEND|ARCHITECTURE|ARIMA
+                |ARRANGEMENT|AUTHOR|AUTOFIX|AUTOOUTLIER|AUXILIARY|BARCHART|BASE|BIN|BINOMIAL|BLANK(S?)
+                |BLOCK|BMP|BOOTSTRAP|BOUNDS|BOX|BREAK|C|CACHE|CALCULATE|CAPSIGMA|CASE|CASECHECKS
+                |CASEREPORT|CASEWISE|CATEGORICAL|CC|CCA|CCB|CCC|CCD|CCE|CELLRANGE|CELLS|CELLSBREAK
+                |CENTER|CHAID|CHISQUARE|CLABELS|CMPTRANS|COCHRAN|COLUMN(S?)|COMPARE|COMPRESSED|CONCAT
+                |CONDITION|CONFORM|CONFIGURATION|CONNECT|CONSTRAINTS|CONTENTS|CONTINUED
+                |CONTINUOUS|CONTRAST|CONVERGENCE|CONVERT|COORDINATE|COSTS|COUNT|COVARIATES|CPCHART
+                |CREATE|CRITERIA|CRITITER|CROSS|CROSSTAB|CRT|CSUM|CTEMPLATE|DATA|DECIMAL|DEFAULT
+                |DEFOLANG|DELCASE|DELETE|DELTA|DELIMITERS|DEPCATEGORIES|DEPENDENT|DESCENDING
+                |DESCRIPTION|DESCRIPTIVES|DESIGN|DESTINATION|DIGITGROUPING|DIMENSION|DIRECTORY
+                |DISPLAY|DISTR|DISTRIBUTION|DISCRETIZATION|DISTENCE|DOC|DOCUMENT|DOMAIN|DPATTERN|DROP
+                |DUPLICATE|EDITION|EM|EMF|EMMEANS|ENCODING|ENCRYPT|EPOCH|EPS|EQUAL
+                |ERRORBAR|ERRORS|EXCEPT|EXCEPTIF|EXPERTMODELER|EXPIRATION|EXSMOOTH|EXTENSIONS|EXTERNAL
+                |EXTPATHS|FACTORS|FFT|FIELDNAMES|FIELDS|FILE|FILEINFO|FILTER|FIRST|FIRSTCASE|FIXED
+                |FOOTER|FOOTNOTE|FORCE|FORMAT|FRACTION|FREQUENCIES|FRIEDMAN|FROM|FULLFACTORIAL
+                |FUZZBITS|GAIN|GROUP(S?)|GROUPBY|GROUPING|GROWTHLIMIT|HANDLENOISE|HANDLES|HEADER
+                |HIDESMALLCOUNTS|HOLDOUT|HTML|I|ICC|ID|IDCHECKS|IFFT|IMPORTCASE|IMPUTE
+                |IMPUTATIONSUMMARIES|IN|INDEPENDENT|INDEX|INFILE|INFLUENCE|INITIAL|INPUT
+                |INTERCEPT|INTERVAL|INTO|IR|J-T|JPG|JOINTPROB|JOURNAL|KEEP|KENDALL|KEY|KEYWORDS|KMATRIX
+                |K-S|K-W|LAG|LAST|LAYERED|LEAD|LENGTH|LEVEL|LICENSE|LINK|LISTWISE|LMATRIX|LOCALE
+                |LOCATION|LOGIN|LOSS|LSL|MA|MAKE|MAP|MARK|MATRIX|MAXCAT|MAXCOUNT|MAXITER|MEAN|MEASURE
+                |MCACHE|MCGROUP|MCNEMAR|MDGROUP|MEASURE|MEDIAN|MEMALLOCATE|MESSAGES|METADATA|METHOD
+                |MEXPAND|MH|MINIMUM|MINRATE|MINSAMPLE|MIOUTPUT|MISMATCH|MISSING|MISSINGSUMMARIES
+                |MITERATE|MIXHOLD|MNEST|MODEL|MODELDETAILS|MODELSTATISTICS|MODELSUMMARY|MOSES|MPATTERN
+                |MPRINT|MTINDEX|MXCELLS|MXCROSS|MXERRS|MXLOOPS|MXNEWVARS|MXPREDICT|MXWARNS
+                |M-W|N|NAME(S?)|NEWVAR(S?)|NOBSERVATIONS|NONCONFORM|NOORIGIN|NORMAL
+                |NORMALIZATION|NOSTANDARDIZE|NOTABLE|NOUNIVARIATE|NP|NULL|NUMBERED|NUMCLUSTERS|OATTRS
+                |OCCURS|OLANG|ON|ONESAMPLE|ONUMBERS|OPTIONS|ORIGIN|OTHER|OUTDATASET|OUTFILE|OUTLIER
+                |OUTLIERHANDLING|OUTPUTFILTER|OVARS|P|PAIRS|PAIRWISE|PANEL|PARTIALPLOT|PARTITION
+                |PATTERN|PDF|PENALTY|PERMANENT|PERMISSIONS|PLAN|PLATFORM|PLOT(S?)|PLOT MEANS
+                |PMA|PNG|POLYNOMIAL|POSTHOC|PPT|PRED|PREPDATETIME|PRESORTED|PRIORS|PRINTBACK
+                |PROFITS|PROXIMITIES|QUALIFIER|QUEST|RANDOM|RANGE|RANGES|RANK|RATIO|RECORDS|REFERENCE
+                |REGRESSION|REGULARIZATION|REGWGT|RELATED|RENAME|REORDERNOMINAL|REPDEFER|REPEATED
+                |REPLACE|REPLACEMISSING|RESAMPLE|RESCALE|RESIDUALS|RESTRICTIONS|RESULTS|RMED|RNG
+                |ROWSBREAK|RULES|RULESUMMARIES|RUNS|SAMPLE|SAMPLING|SCALE|SCALEMIN|SCATTERPLOT
+                |SCOMPRESSION|SCORE(S?)|SCREENING|SECURITY|SEED|SELECT|SEPARATE
+                |SEPARATOR|SEQUENCE|SERIESPLOT|SERVER|SETS|SHAPE|SHEET|SHOWDIM|SIGMAS|SIGN
+                |SIGNIFICANCE|SKIP|SLABELS|SMALL|SORT|SOURCE|SPAN|SPLINE|SPLIT|SPNOM|SPORD|SPREAD
+                |SQL|STANDARDIZE|STARTS|STATISTICS|STATUS|STEPWISE|STOPPINGRULES|STRATA|STRING
+                |SUBJECT|SUBPOP|SUBSET|SUBTITLE|SUM|SUMMARY|SURVIVALMETHOD|SUPPLEMENTARY|SYSMIS
+                |T4253H|TABLE(S?)|TABLERENDER|TAG|TARGET|TARGETRESPONSE|TEMPLATE|TEST|TESTASSUMPTIONS
+                |TESTVAL|TEXT|TEXTOPTIONS|TFIT|THREADS|TIES|TIF|TITLE(S?)|TLOOK|TMSRECORDING|TNUMBERS
+                |TOLERANCE|TOPICS|TPATTERN|TRAININGSAMPLE|TRANSFERFUNCTION|TRANSFORM|TRANSFORMATION(S?)
+                |TREE|TSET|TTEST|TVARS|TYPE|U|UNCOMPRESSED|UNDEFINED|UNENCRYPTED|UNICODE|UNSELECTED|USL
+                |UTILITY|VALFILE|VALIDATION|VARCHECKS|VARIANCES|VARINFO|VERSION|VERSIONLABEL
+                |VIEW|VIEWMODEL|VIND|WEIGHT(S?)|WIDTH|WILCOXON|WINDOW|WORKSPACE|WRITE|W-W|XR|XS|XVERSION
+                |ZCOMPRESSION|$VARS
+            ))\\b'
+  }
+  { include: '#metaConditionals' }
+  {
+    name: 'keyword.keyword.spss'
+    match: '\\b(?i:(BIPLOT|CENTR|DENOMINATOR|LOADING|NUMERATOR))\\b'
+  }
+  { include: '#metaOperators' }
+  { include: '#metaConstants' }
+  { include: '#metaPunctuation' }
+]
+
+repository:
+  # Meta groups, referenced in main patterns[]
+  metaMultilineComments: {
+    comment: 'These are the multiline comment types. They cannot go inside a command.'
+    patterns: [
+      { include: '#multilineCommentAsterisk' }
+      { include: '#multilineCommentCommand' }
+    ]
+  }
+  metaCommandFriendlyComments: {
+    comment: 'These comment types can be used within a command. Comments on their own line inside a command cause an error (blank line as terminator).'
+    patterns: [
+      { include: '#inlineComment' }
+      { include: '#lineComment' }
+    ]
+  }
+  metaQuoteStrings: {
+    comment: 'Includes both single and double quote strings. SPSS does not support other string types.'
+    patterns: [
+      { include: '#singleQuoteString' }
+      { include: '#doubleQuoteString' }
+    ]
+  }
+  metaConditionals: {
+    comment: 'Includes all conditionals for flow control (e.g. if, else).'
+    patterns: [
+      { include: '#controlConditionals' }
+    ]
+  }
+  metaOperators: {
+    comment: 'Includes all operators, in written form (e.g. EQ) or symbolic (e.g. =).'
+    patterns: [
+      { include: '#operatorsNumeric' }
+      { include: '#operatorsLogical' }
+      { include: '#operatorsLogicalSymbolic' }
+      { include: '#operatorsRelational' }
+      { include: '#operatorsRelationalSymbolic' }
+      { include: '#operatorsArithmetic' }
+    ]
+  }
+  metaConstants: {
+    comment: 'Includes constants provided by SPSS.'
+    patterns: [
+      { include: '#plainLanguageConstants' }
+    ]
+  }
+  metaPunctuation: {
+    comment: 'Includes punctuation, i.e. brackets.'
+    patterns: [
+      { include: '#punctuationForArray' }
+      { include: '#punctuationForFunction' }
+    ]
+  }
+
+  # Meta groups for command formatting:
+  metaCommandFormatting: {
+    comment: 'Everything that is formated in a command block, except the command word itself, subcommands, and command/subcom-specific keywords.'
+    patterns: [
+      { include: '#metaCommandFriendlyComments' }
+      { include: '#metaQuoteStrings' }
+      { include: '#metaConditionals' }
+      { include: '#metaOperators' }
+      { include: '#metaConstants' }
+      { include: '#metaPunctuation' }
+      { include: '#commandBodyText' }
+    ]
+  }
+
+  # Comments
+  multilineCommentAsterisk: {
+    comment: 'Identify multi-line comments beginning with an asterisk and ending with a period'
+    name: 'comment.block.asterisk.spss'
+    begin: '(^\\*)'
+    beginCaptures:
+      1: name: 'punctuation.definition.comment.spss'
+    end: '(\\.\\s*$)'
+    endCaptures:
+      0: name: 'punctuation.definition.comment.spss'
+  }
+  multilineCommentCommand: {
+    name: 'comment.block.comment.spss'
+    begin: '^(?i:COMMENT)'
+    beginCaptures:
+      1: name: 'punctuation.definition.comment.spss'
+    end: '(\\.\\s*$)'
+    endCaptures:
+      0: name: 'punctuation.definition.comment.spss'
+  }
+  inlineComment: {
+    comment: 'Identify inline comments beginning with `/*` and ending with `*/`'
+    name: 'comment.line.spss'
+    match: '(\\/\\*)(.*)(\\*\\/)'
+  }
+  lineComment: {
+    comment: 'Identify single-line comments beginning with `/*`'
+    name: 'comment.line.spss'
+    match: '\\/\\*.*$'
+  }
+
+  # Quote strings:
+  singleQuoteString: {
+    name: 'string.quoted.single.spss'
+    begin: '\''
+    end: '\''
+  }
+  doubleQuoteString: {
+    name: 'string.quoted.double.spss'
+    begin: '"'
+    end: '"'
+  }
+
+  # Global keywords & operators:
+  controlConditionals: {
+    name: 'keyword.control.conditionals.spss'
+    match: '\\b(?i:(IF|THEN|ELSE|WHILE|FOR|DO|END|REPEAT|BY|WITH|ALL|TO))\\b'
+  }
+  operatorsNumeric: {
+    name: 'keyword.operator.numeric.spss'
+    match: '\\b(?i:(LOWEST|LO|HIGHEST|HI|THRU|MISSING|SYSMIS))\\b'
+  }
+  operatorsLogical: {
+    name: 'keyword.operator.logical.spss'
+    match: '\\b(?i:(AND|OR|NOT))\\b'
+  }
+  operatorsLogicalSymbolic: {
+    name: 'keyword.operator.logical.symbolic.spss'
+    match: '\\&|\\|'
+  }
+  operatorsRelational: {
+    name: 'keyword.operator.relational.spss'
+    match: '\\b(?i:(EQ|NE|LT|LE|GT|GE))\\b'
+  }
+  operatorsRelationalSymbolic: {
+    name: 'keyword.operator.relational.symbolic.spss'
+    match: '=|<>|<|>|<=|>=|~=|¬='
+  }
+  operatorsArithmetic: {
+    name: 'keyword.operator.arithmetic.spss'
+    match: '\\+|\\-|\\*|/|\\*\\*'
+  }
+
+  # Constants:
+  plainLanguageConstants: {
+    name: 'constant.language.spss'
+    match: '\\b(?i:(true|false|null))\\b'
+  }
+
+  # Bracket punctuation:
+  punctuationForArray: {
+    name: 'punctuation.section.array.spss'
+    match: '\\[|\\]'
+  }
+  punctuationForFunction: {
+    name: 'punctuation.section.function.spss'
+    match: '\\(|\\)'
+  }
+
+  # Command body text:
+  commandBodyText: {
+    comment: 'The command takes up the whole code block, but we only want the command keyword and period to highlight. Also only highlight relevant subcommands and other scopes.'
+    name: 'punctuation.command.body.spss'
+    match: '(\\$*)(\\#*)(\\@*)\\b([0-9._\\p{L}]+)\\b'
+  }
+
+  # Commands:
+  twoStageLeastSquares: {
+    comment: '2SLS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(2SLS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to 2SLS.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(EQUATION|INSTRUMENTS|ENDOGENOUS))\\b'
+      }
+      { include: '#subcomConstant' }
+      { include: '#subcomNoConstant' }
+      { include: '#subcomSave' }
+      { include: '#subcomPrint' }
+      { include: '#subcomApply' }
+      {
+        comment: 'Valid keywords for 2SLS subcommands.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(PRED|RESSID|COV))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+  autocorrelationFunction: {
+    comment: 'ACF Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(ACF))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to ACF.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(SERROR|PACF))\\b'
+      }
+      { include: '#subcomVariables' }
+      { include: '#subcomDiff' }
+      { include: '#subcomSDiff' }
+      { include: '#subcomPeriod' }
+      { include: '#subcomNaturalLogarithm' }
+      { include: '#subcomNoLog' }
+      { include: '#subcomSeasonal' }
+      { include: '#subcomMXAuto' }
+      { include: '#subcomApply' }
+      {
+        comment: 'Valid keywords for ACF subcommands.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(IND|MA))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  # Common subcommands:
+  subcomApply: {
+    comment: 'Use a previously defined model.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(APPLY))\\b'
+  }
+  subcomConstant: {
+    comment: 'Subcommand to specify a constant term in a regression equation.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CONSTANT))\\b'
+  }
+  subcomDiff: {
+    comment: 'Specifies degree of differencing.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DIFF))\\b'
+  }
+  subcomMXAuto: {
+    comment: 'Specify maximum number of lags for a series.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MXAUTO))\\b'
+  }
+  subcomNaturalLogarithm: {
+    comment: 'Transforms data using natural logarithm.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(LN))\\b'
+  }
+  subcomNoConstant: {
+    comment: 'Subcommand to eliminate a constant term in a regression equation.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(NOCONSTANT))\\b'
+  }
+  subcomNoLog: {
+    comment: 'Indicate that data should not be log transformed.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(NOLOG))\\b'
+  }
+  subcomPeriod: {
+    comment: 'Indicates length of seasonal period.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PERIOD))\\b'
+  }
+  subcomPrint: {
+    comment: 'Prints an additional covariance matrix for each equation.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PRINT))\\b'
+  }
+  subcomSave: {
+    comment: 'Saves a value (specified by a keyword).'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SAVE))\\b'
+  }
+  subcomSDiff: {
+    comment: 'Specifies degree of seasonal differencing.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SDIFF))\\b'
+  }
+  subcomSeasonal: {
+    comment: 'Focus on seasonal component by plotting autocorrelations at periodic lags.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SEASONAL))\\b'
+  }
+  subcomVariables: {
+    comment: 'Specifies variable names.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(VARIABLES))\\b'
+  }
+  # Add highlighting for other system variables. We have $SYSMIS here but there are others
+  # Use scope invalid.deprecated for deprecated commands
