@@ -180,6 +180,17 @@ repository:
       { include: '#anacorCommand' }
       { include: '#analysisOfVariance' }
       { include: '#applyDictionary' }
+      { include: '#aregCommand' }
+      { include: '#arimaCommand' }
+      { include: '#autoRecode' }
+      { include: '#bayesANOVA' }
+      { include: '#bayesCorrelation' }
+      { include: '#bayesIndependent' }
+      { include: '#bayesLogLinear' }
+      { include: '#bayesOneSample' }
+      { include: '#bayesRegression' }
+      { include: '#bayesRelated' }
+      { include: '#bayesRepeated' }
     ]
   }
 
@@ -652,6 +663,317 @@ repository:
     ]
   }
 
+  aregCommand: {
+    comment: 'AREG Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(AREG))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to AREG.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(RHO|MXITER))\\b'
+      }
+      { include: '#subcomVariables' }
+      { include: '#subcomMethod' }
+      { include: '#subcomConstant' }
+      { include: '#subcomNoConstant' }
+      { include: '#subcomApply' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  arimaCommand: {
+    comment: 'ARIMA Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(ARIMA))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to ARIMA.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(CINPCT|FORECAST))\\b'
+      }
+      { include: '#subcomVariables' }
+      { include: '#subcomModel' }
+      { include: '#subcomApply' }
+      {
+        comment: 'Valid keywords for ARIMA.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(P|D|Q|SP|SD|SQ|AR|MA|SAR|SMA|REG|CON|CONSTANT|NOCONSTANT
+          |NOLOG|LG10|LN|MXITER|PAREPS|SSQPCT|MXLAMB|SPECIFICATIONS|INITIAL|FIT|EXACT
+          |CLS|AUTOINIT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  autoRecode: {
+    comment: 'AUTORECODE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(AUTORECODE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to AUTORECODE.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(BLANK|GROUP|SAVE TEMPLATE|APPLY TEMPLATE|DESCENDING))\\b'
+      }
+      { include: '#subcomVariables' }
+      { include: '#subcomInto' }
+      { include: '#subcomPrint' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  bayesANOVA: {
+    comment: 'BAYES ANOVA Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(BAYES ANOVA))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomCriteria' }
+      { include: '#subcomDesign' }
+      { include: '#subcomInference' }
+      { include: '#subcomESTBF' }
+      { include: '#subcomPrior' }
+      { include: '#subcomPlot' }
+      {
+        comment: 'Valid keywords for BAYES ANOVA.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(CILEVEL|TOL|MAXITER|REGWGT|VARIABLES|ANALYSIS|COMPUTATION
+          |TYPE|SHAPEPARAM|SCALEPARAM|MEANVECTOR|VMATRIX|MEANS|ERRORVAR))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  bayesCorrelation: {
+    comment: 'BAYES CORRELATION Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(BAYES CORRELATION))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomCriteria' }
+      { include: '#subcomMissing' }
+      { include: '#subcomInference' }
+      { include: '#subcomESTBF' }
+      {
+        comment: 'Valid keywords for BAYES CORRELATION.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(CILEVEL|SEED|TOL|MAXITER|MCSAMPLES|POSTSAMPLES|VARIABLES
+          |ANALYSIS|CVALUE|MAXPLOTS|TYPE|NULLVALUE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  bayesIndependent: {
+    comment: 'BAYES INDEPENDENT Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(BAYES INDEPENDENT))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomCriteria' }
+      { include: '#subcomMissing' }
+      { include: '#subcomInference' }
+      { include: '#subcomESTBF' }
+      { include: '#subcomPrior' }
+      {
+        comment: 'Valid keywords for BAYES INDEPENDENT.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(CILEVEL|TOL|MAXITER|VARIABLES|GROUP|SELECT|DATAVAR|ANALYSIS
+          |COMPUTATION|EQUALDATAVAR|VARDIST|MEANDIST))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  bayesLogLinear: {
+    comment: 'BAYES LOGLINEAR Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(BAYES LOGLINEAR))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomCriteria' }
+      { include: '#subcomInference' }
+      { include: '#subcomTable' }
+      { include: '#subcomESTBF' }
+      { include: '#subcomPrint' }
+      {
+        comment: 'Valid keywords for BAYES LOGLINEAR.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(CILEVEL|SEED|TOL|MAXITER|POSTSAMPLES|ORDER|ANALYSIS|MODEL
+          |FIXMARGIN|FIXMARGINS|FIX_MARGINS|PRIORTYPE|PRIOR_TYPE|SHAPEPARAMS|SCALEPARAM
+          |LAMBDAS|SUPPRESSTABLE|SUPPRESS_TABLE|CELLS|STATISTICS))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  bayesOneSample: {
+    comment: 'BAYES ONESAMPLE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(BAYES ONESAMPLE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomMissing' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomInference' }
+      { include: '#subcomData' }
+      { include: '#subcomPrior' }
+      {
+        comment: 'Valid keywords for BAYES ONESAMPLE.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(SCOPE|CILEVEL|DISTRIBUTION|VARIABLES|ANALYSIS|SUCCESS
+          |NULLPRIORPARAM|ALTERPRIORPARAM|VARDIST|PREDIST|TYPE|METHOD|SEED|TOL|MAXITER
+          |MCSAMPLES|VARIANCE|NULLVALUE|ALTERGVALUE|PRECDIST|MEANDIST|KAPPA))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  bayesRegression: {
+    comment: 'BAYES REGRESSION Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(BAYES REGRESSION))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to BAYES REGRESSION.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(PREDICT|FTEST))\\b'
+      }
+      { include: '#subcomCriteria' }
+      { include: '#subcomDesign' }
+      { include: '#subcomInference' }
+      { include: '#subcomESTBF' }
+      { include: '#subcomPrior' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomPlot' }
+      {
+        comment: 'Valid keywords for BAYES REGRESSION.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(CILEVEL|TOL|MAXITER|REGWGT|FACTORS|COVARIATES|ANALYSIS
+          |COMPUTATION|COMPARE|TYPE|SHAPEPARAM|SCALEPARAM|MEANVECTOR|VMATRIX|REGRESSORS
+          |PARAMETER|MAX_CATEGORY|INTERCEPT|ERRORVAR|BAYESPRED|LABEL|VARIABLES|TESTVALUES))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  bayesRelated: {
+    comment: 'BAYES RELATED Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(BAYES RELATED))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to BAYES RELATED.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(PAIR))\\b'
+      }
+      { include: '#subcomMissing' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomInference' }
+      { include: '#subcomPrior' }
+      {
+        comment: 'Valid keywords for BAYES RELATED.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(SCOPE|CILEVEL|METHOD|SEED|TOL|MAXITER|MCSAMPLES|ANALYSIS
+          |VARIABLES|VARIANCE|NULLVALUE|ALTERGVALUE|VARDIST|PRECDIST|MEANDIST|KAPPA))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  bayesRepeated: {
+    comment: 'BAYES REPEATED Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(BAYES REPEATED))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomCriteria' }
+      { include: '#subcomDesign' }
+      { include: '#subcomInference' }
+      { include: '#subcomESTBF' }
+      { include: '#subcomPlot' }
+      {
+        comment: 'Valid keywords for BAYES REPEATED.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(CILEVEL|SEED|MCSAMPLES|REGWGT|ANALYSIS|COMPUTATION|MEANS))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
   # Common subcommands:
   subcomApply: {
     comment: 'Use a previously defined model.'
@@ -688,6 +1010,16 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CRITERIA))\\b'
   }
+  subcomData: {
+    comment: 'Specifies recode data and set parameters for estimation of Bayes factors.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DATA))\\b'
+  }
+  subcomDesign: {
+    comment: 'Specifies the model design.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DESIGN))\\b'
+  }
   subcomDiff: {
     comment: 'Specifies degree of differencing.'
     name: 'support.function.subcommand.spss'
@@ -702,6 +1034,11 @@ repository:
     comment: 'Specifies variables to exclude.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DROP))\\b'
+  }
+  subcomESTBF: {
+    comment: 'Specifies approached used to estimate Bayes factors.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ESTBF))\\b'
   }
   subcomFGT: {
     comment: 'Fraction of cases greater than value.'
@@ -753,10 +1090,20 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(IN))\\b'
   }
+  subcomInference: {
+    comment: 'Controls which Bayesian analysis method is used to make statistical inference.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(INFERENCE))\\b'
+  }
   subcomInput: {
     comment: 'Specify number of rows in matrix.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(INPUT))\\b'
+  }
+  subcomInto: {
+    comment: 'Provide name of target variables that store new values.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(INTO))\\b'
   }
   subcomKeep: {
     comment: 'Specifies variables to retain.'
@@ -897,6 +1244,11 @@ repository:
     comment: 'Prints an additional output not available by default.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PRINT))\\b'
+  }
+  subcomPrior: {
+    comment: 'Specifies prior distribution settings.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PRIOR))\\b'
   }
   subcomRename: {
     comment: 'Renames variables before they are processed by command.'
