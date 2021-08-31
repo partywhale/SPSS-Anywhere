@@ -175,6 +175,11 @@ repository:
       { include: '#automatedDataPreparation' }
       { include: '#aggregateCommand' }
       { include: '#aimCommand' }
+      { include: '#alscalCommand' }
+      { include: '#alterType' }
+      { include: '#anacorCommand' }
+      { include: '#analysisOfVariance' }
+      { include: '#applyDictionary' }
     ]
   }
 
@@ -493,15 +498,153 @@ repository:
     endCaptures:
       0: name: 'support.class.command.end.spss'
     patterns: [
-      { include: '#' }
-      { include: '#' }
-      { include: '#' }
-      { include: '#' }
-      { include: '#' }
+      { include: '#subcomCategorical' }
+      { include: '#subcomContinuous' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomMissing' }
+      { include: '#subcomPlot' }
       {
         comment: 'Valid keywords for AIM.'
         name: 'keyword.other.spss'
-        match: '(/?)\\b(?i:(none))\\b'
+        match: '(/?)\\b(?i:(ADJUST|CI|HIDENOTSIG|SHOWREFLINE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  alscalCommand: {
+    comment: 'ALSCAL Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(ALSCAL))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to ALSCAL.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(LEVEL))\\b'
+      }
+      { include: '#subcomVariables' }
+      { include: '#subcomInput' }
+      { include: '#subcomShape' }
+      { include: '#subcomCondition' }
+      { include: '#subcomFile' }
+      { include: '#subcomModel' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomPrint' }
+      { include: '#subcomPlot' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomMatrix' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  alterType: {
+    comment: 'ALTER TYPE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(ALTER TYPE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomPrint' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  anacorCommand: {
+    comment: 'ANACOR Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(ANACOR))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to ANACOR.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(VARIANCES))\\b'
+      }
+      { include: '#subcomTable' }
+      { include: '#subcomDimension' }
+      { include: '#subcomNormalization' }
+      { include: '#subcomPrint' }
+      { include: '#subcomPlot' }
+      { include: '#subcomMatrix' }
+      {
+        comment: 'Valid keywords for ANACOR.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(OUT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  analysisOfVariance: {
+    comment: 'ANOVA Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(ANOVA))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to ANOVA.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(COVARIATES|MAXORDERS))\\b'
+      }
+      { include: '#subcomVariables' }
+      { include: '#subcomMethod' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomMissing' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  applyDictionary: {
+    comment: 'APPLY DICTIONARY Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(APPLY DICTIONARY))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to APPLY DICTIONARY.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(NEWVARS))\\b'
+      }
+      { include: '#subcomFrom' }
+      { include: '#subcomSource' }
+      { include: '#subcomTarget' }
+      { include: '#subcomFileInfo' }
+      { include: '#subcomVarInfo' }
+      {
+        comment: 'Valid keywords for ANACOR.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(PASSWORD|ATTRIBUTES|ALIGNMENT|DOCUMENTS|FILELABEL|FORMATS|LEVEL
+          |MRSETS|VARSETS|WEIGHT|ALL|MISSING|ROLE|VALLABELS|WIDTH))\\b'
       }
 
       # Global command includes:
@@ -520,13 +663,28 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(BREAK))\\b'
   }
+  subcomCategorical: {
+    comment: 'Treat variables as categorical.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CATEGORICAL))\\b'
+  }
+  subcomCondition: {
+    comment: 'Specify which numbers are comparable.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CONDITION))\\b'
+  }
   subcomConstant: {
     comment: 'Subcommand to specify a constant term in a regression equation.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CONSTANT))\\b'
   }
+  subcomContinuous: {
+    comment: 'Treat variables as continuous.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CONTINUOUS))\\b'
+  }
   subcomCriteria: {
-    comment: 'Specifies suffixes applied to transformed target.'
+    comment: 'Subcommand has various purposes depending on the command context.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CRITERIA))\\b'
   }
@@ -534,6 +692,11 @@ repository:
     comment: 'Specifies degree of differencing.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DIFF))\\b'
+  }
+  subcomDimension: {
+    comment: 'Specifies number of dimensions.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DIMENSION))\\b'
   }
   subcomDrop: {
     comment: 'Specifies variables to exclude.'
@@ -551,9 +714,14 @@ repository:
     match: '(/?)\\b(?i:(FIELDS))\\b'
   }
   subcomFile: {
-    comment: 'Identifies a file.'
+    comment: 'Identifies or reads a file.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FILE))\\b'
+  }
+  subcomFileInfo: {
+    comment: 'Applies file definition attributes from source dataset to target dataset.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FILEINFO))\\b'
   }
   subcomFIN: {
     comment: 'Fraction of cases between two values.'
@@ -575,10 +743,20 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FOUT))\\b'
   }
+  subcomFrom: {
+    comment: 'Specifies a datafile or dataset with dictionary information.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FROM))\\b'
+  }
   subcomIn: {
     comment: 'Creates a new variable indicating case source.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(IN))\\b'
+  }
+  subcomInput: {
+    comment: 'Specify number of rows in matrix.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(INPUT))\\b'
   }
   subcomKeep: {
     comment: 'Specifies variables to retain.'
@@ -595,6 +773,16 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MAP))\\b'
   }
+  subcomMatrix: {
+    comment: 'Reads matrix data file.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MATRIX))\\b'
+  }
+  subcomMax: {
+    comment: 'Maximum value across cases.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MAX))\\b'
+  }
   subcomMean: {
     comment: 'Mean across cases.'
     name: 'support.function.subcommand.spss'
@@ -605,10 +793,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MEDIAN))\\b'
   }
-  subcomMax: {
-    comment: 'Maximum value across cases.'
+  subcomMethod: {
+    comment: 'Method for decomposing sums of squares.'
     name: 'support.function.subcommand.spss'
-    match: '(/?)\\b(?i:(MAX))\\b'
+    match: '(/?)\\b(?i:(METHOD))\\b'
   }
   subcomMin: {
     comment: 'Minimum value across cases.'
@@ -616,9 +804,14 @@ repository:
     match: '(/?)\\b(?i:(MIN))\\b'
   }
   subcomMissing: {
-    comment: 'Alter treatment of nonmissing values.'
+    comment: 'Specify how missing values are treated.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MISSING))\\b'
+  }
+  subcomModel: {
+    comment: 'Defines scaling model.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MODEL))\\b'
   }
   subcomMXAuto: {
     comment: 'Specify maximum number of lags for a series.'
@@ -660,8 +853,13 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NOLOG))\\b'
   }
+  subcomNormalization: {
+    comment: 'Specify method for normalizing row and column scores.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(NORMALIZATION))\\b'
+  }
   subcomOutfile: {
-    comment: 'Saves file of rules for data preparation or specifies handling of results.'
+    comment: 'Saves file of rules, coordinates, weights, and so on used in data preparation.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(OUTFILE))\\b'
   }
@@ -685,13 +883,18 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PLT))\\b'
   }
+  subcomPlot: {
+    comment: 'Specifies a graph to produce.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PLOT))\\b'
+  }
   subcomPOUT: {
     comment: 'Percentage of cases not between two values.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(POUT))\\b'
   }
   subcomPrint: {
-    comment: 'Prints an additional covariance matrix for each equation.'
+    comment: 'Prints an additional output not available by default.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PRINT))\\b'
   }
@@ -725,15 +928,40 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SEASONAL))\\b'
   }
+  subcomShape: {
+    comment: 'Specify structure of matrix.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SHAPE))\\b'
+  }
+  subcomSource: {
+    comment: 'Specify variables in a source file.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SOURCE))\\b'
+  }
   subcomStandardDeviation: {
     comment: 'Standard deviation across cases.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SD))\\b'
   }
+  subcomStatistics: {
+    comment: 'Requests additional statistics.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(STATISTICS))\\b'
+  }
   subcomSum: {
     comment: 'Sum across cases.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SUM))\\b'
+  }
+  subcomTable: {
+    comment: 'Specifies row and column variables.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TABLE))\\b'
+  }
+  subcomTarget: {
+    comment: 'Specifies variables in active dataset.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TARGET))\\b'
   }
   subcomTransform: {
     comment: 'Merge similar categories.'
@@ -741,9 +969,14 @@ repository:
     match: '(/?)\\b(?i:(TRANSFORM))\\b'
   }
   subcomVariables: {
-    comment: 'Specifies variable names.'
+    comment: 'Specifies variables in analysis.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(VARIABLES))\\b'
+  }
+  subcomVarInfo: {
+    comment: 'Applies variable definition attributes from source dataset to active dataset.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(VARINFO))\\b'
   }
 
   # Add highlighting for other system variables. We have $SYSMIS here but there are others
