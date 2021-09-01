@@ -108,6 +108,14 @@ repository:
       { include: '#catpcaCommand' }
       { include: '#catregCommand' }
       { include: '#ccfCommand' }
+      { include: '#clusterCommand' }
+      { include: '#codeBook' }
+      { include: '#compareDatasets' }
+      { include: '#conjointCommand' }
+      { include: '#correlationsCommand' }
+      { include: '#correspondenceCommand' }
+      { include: '#coxregCommand' }
+      { include: '#createCommand' }
     ]
   }
 
@@ -225,7 +233,8 @@ repository:
   simpleCommands: {
     comment: 'Commands with no subcommands or special keywords.'
     name: 'meta.class.command.spss'
-    begin: '\\b(?i:(ADD DOCUMENT|ADD VALUE LABELS|CACHE))\\b'
+    begin: '\\b(?i:(ADD DOCUMENT|ADD VALUE LABELS|CACHE|CD|CLEAR TIME PROGRAM
+      |CLEAR TRANSFORMATIONS|COMPUTE|COUNT))\\b'
     beginCaptures:
       1: name: 'support.class.command.spss'
     end: '(\\.\\s*$)|(^\\s*$)'
@@ -1177,6 +1186,222 @@ repository:
     ]
   }
 
+  clusterCommand: {
+    comment: 'CLUSTER Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CLUSTER))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomMeasure' }
+      { include: '#subcomMethod' }
+      { include: '#subcomSave' }
+      { include: '#subcomID' }
+      { include: '#subcomPrint' }
+      { include: '#subcomPlot' }
+      { include: '#subcomMissing' }
+      { include: '#subcomMatrix' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  codeBook: {
+    comment: 'CODEBOOK Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CODEBOOK))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVarInfo' }
+      { include: '#subcomFileInfo' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomOptions' }
+      {
+        comment: 'Valid keywords for CODEBOOK.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(MAXCATS|VARORDER|SORT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  compareDatasets: {
+    comment: 'COMPARE DATASETS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(COMPARE DATASETS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to COMPARE DATASETS.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(COMPDATASET|CASEID))\\b'
+      }
+      { include: '#subcomVariables' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutput' }
+      {
+        comment: 'Valid keywords for COMPARE DATASETS.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(PASSWORD|FLAGMISMATCHES|MATCHDATASET|MISMATCHDATASET
+          |ENCRYPTEDPW|VARPROPERTIES|CASETABLE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  conjointCommand: {
+    comment: 'CONJOINT Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CONJOINT))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to CONJOINT.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(SEQUENCE|RANK|SCORE|SUBJECT|UTILITY))\\b'
+      }
+      { include: '#subcomPlan' }
+      { include: '#subcomData' }
+      { include: '#subcomFactors' }
+      { include: '#subcomPrint' }
+      { include: '#subcomPlot' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  correlationsCommand: {
+    comment: 'CORRELATIONS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CORRELATIONS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomPrint' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomMissing' }
+      { include: '#subcomMatrix' }
+      { include: '#subcomCI' }
+      {
+        comment: 'Valid keywords for CORRELATIONS.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(METHOD|BIAS|CILEVEL))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  correspondenceCommand: {
+    comment: 'CORRESPONDENCE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CORRESPONDENCE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to CORRESPONDENCE.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(EQUAL))\\b'
+      }
+      { include: '#subcomTable' }
+      { include: '#subcomDimension' }
+      { include: '#subcomSupplementary' }
+      { include: '#subcomMeasure' }
+      { include: '#subcomStandardize' }
+      { include: '#subcomNormalization' }
+      { include: '#subcomPrint' }
+      { include: '#subcomPlot' }
+      { include: '#subcomOutfile' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  coxregCommand: {
+    comment: 'COXREG Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(COXREG))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomStatus' }
+      { include: '#subcomStrata' }
+      { include: '#subcomCategorical' }
+      { include: '#subcomContrast' }
+      { include: '#subcomMethod' }
+      { include: '#subcomMissing' }
+      { include: '#subcomPrint' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomPlot' }
+      { include: '#subcomPattern' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomSave' }
+      { include: '#subcomExternal' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  createCommand: {
+    comment: 'CREATE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CREATE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to CREATE.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(CSUM|FFT|IFFT|LAG|LEAD|PMA|RMED|T4253H))\\b'
+      }
+      { include: '#subcomDiff' }
+      { include: '#subcomSDiff' }
+      { include: '#subcomMA' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
   # Common subcommands:
   subcomAnalysis: {
     comment: 'Specify variables used in computations, scaling level, weights.'
@@ -1198,6 +1423,11 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CATEGORICAL))\\b'
   }
+  subcomCI: {
+    comment: 'Controls estimation of confidence intervals.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CI))\\b'
+  }
   subcomCondition: {
     comment: 'Specify which numbers are comparable.'
     name: 'support.function.subcommand.spss'
@@ -1217,6 +1447,11 @@ repository:
     comment: 'Treat variables as continuous.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CONTINUOUS))\\b'
+  }
+  subcomContrast: {
+    comment: 'Specifies type of contrast for categorical covariates.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CONTRAST))\\b'
   }
   subcomCount: {
     comment: 'Create new variable containing rows in original data used to generate row in new data.'
@@ -1267,6 +1502,16 @@ repository:
     comment: 'Specifies approached used to estimate Bayes factors.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ESTBF))\\b'
+  }
+  subcomExternal: {
+    comment: 'Specifies that data should be held in external scratch file.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(EXTERNAL))\\b'
+  }
+  subcomFactors: {
+    comment: 'Specifies way each factor is expected to be related.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FACTORS))\\b'
   }
   subcomFGT: {
     comment: 'Fraction of cases greater than value.'
@@ -1368,6 +1613,11 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(LAST))\\b'
   }
+  subcomMA: {
+    comment: 'Produces a new series based on centered moving averages of existing series.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MA))\\b'
+  }
   subcomMap: {
     comment: 'Produces list of variables included in new dataset and their source.'
     name: 'support.function.subcommand.spss'
@@ -1397,6 +1647,11 @@ repository:
     comment: 'Mean across cases.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MEAN))\\b'
+  }
+  subcomMeasure: {
+    comment: 'Specifies distance or similarity measure used to cluster cases.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MEASURE))\\b'
   }
   subcomMedian: {
     comment: 'Median across cases.'
@@ -1468,10 +1723,25 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NORMALIZATION))\\b'
   }
+  subcomOptions: {
+    comment: 'Suppress display of certain variable information and control display order.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(OPTIONS))\\b'
+  }
   subcomOutfile: {
     comment: 'Saves file of rules, coordinates, weights, and so on used in data preparation.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(OUTFILE))\\b'
+  }
+  subcomOutput: {
+    comment: 'Produce a table that compares dictionary information.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(OUTPUT))\\b'
+  }
+  subcomPattern: {
+    comment: 'Specifies pattern of covariate values.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PATTERN))\\b'
   }
   subcomPeriod: {
     comment: 'Indicates length of seasonal period.'
@@ -1487,6 +1757,11 @@ repository:
     comment: 'Percentage of cases between two values.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PIN))\\b'
+  }
+  subcomPlan: {
+    comment: 'Identifies file containing full-concept profiles.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PLAN))\\b'
   }
   subcomPLT: {
     comment: 'Percentage of cases less than value.'
@@ -1573,10 +1848,25 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SD))\\b'
   }
+  subcomStandardize: {
+    comment: 'Specifies method of standardization.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(STANDARDIZE))\\b'
+  }
   subcomStatistics: {
     comment: 'Requests additional statistics.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(STATISTICS))\\b'
+  }
+  subcomStatus: {
+    comment: 'Lists status variable and code for occurrence of event.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(STATUS))\\b'
+  }
+  subcomStrata: {
+    comment: 'Identifies stratification variable.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(STRATA))\\b'
   }
   subcomSum: {
     comment: 'Sum across cases.'
@@ -1616,3 +1906,4 @@ repository:
 
   # Add highlighting for other system variables. We have $SYSMIS here but there are others
   # Use scope invalid.deprecated for deprecated commands
+  # Subcommand keywords in commands is inconsistent right now. Need to revise this later.
