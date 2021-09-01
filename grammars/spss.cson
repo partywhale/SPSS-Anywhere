@@ -116,6 +116,25 @@ repository:
       { include: '#correspondenceCommand' }
       { include: '#coxregCommand' }
       { include: '#createCommand' }
+      { include: '#crossTabulation' }
+      { include: '#csCoxReg' }
+      { include: '#csDescriptives' }
+      { include: '#csGLM' }
+      { include: '#csLogistic' }
+      { include: '#csOrdinal' }
+      { include: '#csPlan' }
+      { include: '#csSelect' }
+      { include: '#csTabulate' }
+      { include: '#customTables' }
+      { include: '#curveFit' }
+      { include: '#dataList' }
+      { include: '#datafileAttribute' }
+      { include: '#datasetActivate' }
+      { include: '#datasetCopy' }
+      { include: '#datasetDeclare' }
+      { include: '#datasetName' }
+      { include: '#dateCommand' }
+      { include: '#defineEndDefine' }
     ]
   }
 
@@ -226,7 +245,7 @@ repository:
   commandBodyText: {
     comment: 'The command takes up the whole code block, but we only want the command keyword and period to highlight. Also only highlight relevant subcommands and other scopes.'
     name: 'punctuation.command.body.spss'
-    match: '(\\$*)(\\#*)(\\@*)\\b([0-9._\\p{L}]+)\\b'
+    match: '((\\$*)(\\#*)(\\@*)\\b([0-9._\\p{L}]+)\\b)|([\\?!@#$%^\\.,;:\\\\{}`~])'
   }
 
   # Commands:
@@ -234,7 +253,7 @@ repository:
     comment: 'Commands with no subcommands or special keywords.'
     name: 'meta.class.command.spss'
     begin: '\\b(?i:(ADD DOCUMENT|ADD VALUE LABELS|CACHE|CD|CLEAR TIME PROGRAM
-      |CLEAR TRANSFORMATIONS|COMPUTE|COUNT))\\b'
+      |CLEAR TRANSFORMATIONS|COMPUTE|COUNT|DATASET CLOSE|DATASET DISPLAY))\\b'
     beginCaptures:
       1: name: 'support.class.command.spss'
     end: '(\\.\\s*$)|(^\\s*$)'
@@ -581,7 +600,7 @@ repository:
         comment: 'Valid keywords for ANACOR.'
         name: 'keyword.other.spss'
         match: '(/?)\\b(?i:(PASSWORD|ATTRIBUTES|ALIGNMENT|DOCUMENTS|FILELABEL|FORMATS|LEVEL
-          |MRSETS|VARSETS|WEIGHT|ALL|MISSING|ROLE|VALLABELS|WIDTH))\\b'
+          |MRSETS|VARSETS|WEIGHT|MISSING|ROLE|VALLABELS|WIDTH))\\b'
       }
 
       # Global command includes:
@@ -1401,507 +1420,1170 @@ repository:
       { include: '#metaCommandFormatting' }
     ]
   }
+  crossTabulation: {
+    comment: 'CROSSTABS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CROSSTABS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to CROSSTABS.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(SHOWDIM))\\b'
+      }
+      { include: '#subcomVariables' }
+      { include: '#subcomTables' }
+      { include: '#subcomCells' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomMethod' }
+      { include: '#subcomMissing' }
+      { include: '#subcomFormat' }
+      { include: '#subcomCount' }
+      { include: '#subcomBarChart' }
+      { include: '#subcomWrite' }
+      { include: '#subcomHideSmallCounts' }
+      {
+        comment: 'Valid keywords for CROSSTABS.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(COUNT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  csCoxReg: {
+    comment: 'CSCOXREG Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CSCOXREG))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to CSCOXREG.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(TESTASSUMPTIONS|SURVIVALMETHOD))\\b'
+      }
+      { include: '#subcomVariables' }
+      { include: '#subcomPlan' }
+      { include: '#subcomJointProb' }
+      { include: '#subcomModel' }
+      { include: '#subcomCustom' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomTest' }
+      { include: '#subcomDomain' }
+      { include: '#subcomMissing' }
+      { include: '#subcomPrint' }
+      { include: '#subcomSave' }
+      { include: '#subcomPlot' }
+      { include: '#subcomPattern' }
+      { include: '#subcomOutfile' }
+      {
+        comment: 'Valid keywords for CSCOXREG.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(STATUS|BASELINESTRATA|FILE|CILEVEL|DF|LCONVERGE|MXITER
+          |MXSTEP|PCONVERGE|SINGULAR|TIES|TYPE|PADJUST|PROPHAZARD|PARAMETER|COVB
+          |BASELINE|CI|CORB|SURVIVAL|LABEL|LMATRIX|KMATRIX|CLASSMISSING))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  csDescriptives: {
+    comment: 'CSDESCRIPTIVES Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CSDESCRIPTIVES))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to CSDESCRIPTIVES.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(RATIO))\\b'
+      }
+      { include: '#subcomPlan' }
+      { include: '#subcomJointProb' }
+      { include: '#subcomSummary' }
+      { include: '#subcomMean' }
+      { include: '#subcomSum' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomSubPop' }
+      { include: '#subcomMissing' }
+      {
+        comment: 'Valid keywords for CSDESCRIPTIVES.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(FILE|VARIABLES|TTEST|VALUE|VALUELIST|DISPLAY|SCOPE|CLASSMISSING))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  csGLM: {
+    comment: 'CSGLM Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CSGLM))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomPlan' }
+      { include: '#subcomJointProb' }
+      { include: '#subcomModel' }
+      { include: '#subcomIntercept' }
+      { include: '#subcomCustom' }
+      { include: '#subcomEMMeans' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomTest' }
+      { include: '#subcomDomain' }
+      { include: '#subcomMissing' }
+      { include: '#subcomPrint' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      {
+        comment: 'Valid keywords for CSGLM.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(FILE|INCLUDE|SHOW|TABLES|OTHER|CONTRAST|COMPARE|CILEVEL|DF
+          |SINGULAR|TYPE|PADJUST|CLASSMISSING|COVB|CORB|PARAMETER|LABEL|LMATRIX|KMATRIX))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  csLogistic: {
+    comment: 'CSLOGISTIC Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CSLOGISTIC))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomPlan' }
+      { include: '#subcomJointProb' }
+      { include: '#subcomModel' }
+      { include: '#subcomIntercept' }
+      { include: '#subcomCustom' }
+      { include: '#subcomOddsRatios' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomTest' }
+      { include: '#subcomDomain' }
+      { include: '#subcomMissing' }
+      { include: '#subcomPrint' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      {
+        comment: 'Valid keywords for CSLOGISTIC.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(FILE|INCLUDE|SHOW|LABEL|FACTOR|COVARIATE|CONTROL|CHKSEP
+          |CILEVEL|DF|LCONVERGE|MXITER|MXSTEP|PCONVERGE|SINGULAR|TYPE|PADJUST|VARIABLE
+          |CLASSMISSING|COVB|CORB|PARAMETER|LMATRIX|KMATRIX))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  csOrdinal: {
+    comment: 'CSORDINAL Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CSORDINAL))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomPlan' }
+      { include: '#subcomJointProb' }
+      { include: '#subcomModel' }
+      { include: '#subcomLink' }
+      { include: '#subcomCustom' }
+      { include: '#subcomOddsRatios' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomNonParallel' }
+      { include: '#subcomTest' }
+      { include: '#subcomDomain' }
+      { include: '#subcomMissing' }
+      { include: '#subcomPrint' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      {
+        comment: 'Valid keywords for CSORDINAL.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(FILE|FUNCTION|LABEL|LMATRIX|KMATRIX|FACTOR|COVARIATE|CONTROL
+          |CHKSEP|CILEVEL|DF|LCONVERGE|METHOD|MXITER|MXSTEP|PCONVERGE|SINGULAR|TYPE
+          |PADJUST|CLASSMISSING|COVB|CORB|PARAMETER))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  csPlan: {
+    comment: 'CSPLAN Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CSPLAN))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomPlan' }
+      { include: '#subcomPlanVars' }
+      { include: '#subcomSRSEstimator' }
+      { include: '#subcomPrint' }
+      { include: '#subcomDesign' }
+      { include: '#subcomMethod' }
+      { include: '#subcomSize' }
+      { include: '#subcomRate' }
+      { include: '#subcomMOS' }
+      { include: '#subcomStageVars' }
+      { include: '#subcomEstimator' }
+      { include: '#subcomPopSize' }
+      { include: '#subcomInclProb' }
+      {
+        comment: 'Valid keywords for CSPLAN.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(FILE|ANALYSISWEIGHT|SAMPLEWEIGHT|PREVIOUSWEIGHT|STAGELABEL
+          |STRATA|CLUSTER|ESTIMATION|VALUE|MATRIX|VARIABLE|MINSIZE|MAXSIZE|SOURCE
+          |MIN|MAX))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  csSelect: {
+    comment: 'CSSELECT Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CSSELECT))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomPlan' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomClassMissing' }
+      { include: '#subcomData' }
+      { include: '#subcomSampleFile' }
+      { include: '#subcomJointProb' }
+      { include: '#subcomSelectRule' }
+      { include: '#subcomPrint' }
+      {
+        comment: 'Valid keywords for CSSELECT.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(FILE|STAGES|SEED|RENAMEVARS|PRESORTED|OUTFILE|KEEP|DROP))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  csTabulate: {
+    comment: 'CSTABULATE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CSTABULATE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomPlan' }
+      { include: '#subcomJointProb' }
+      { include: '#subcomTables' }
+      { include: '#subcomCells' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomTest' }
+      { include: '#subcomSubPop' }
+      { include: '#subcomMissing' }
+      {
+        comment: 'Valid keywords for CSTABULATE.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(FILE|VARIABLES|DISPLAY|SCOPE|CLASSMISSING))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  customTables: {
+    comment: 'CTABLES Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CTABLES))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomTable' }
+      { include: '#subcomSLabels' }
+      { include: '#subcomCLabels' }
+      { include: '#subcomCategories' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomTitles' }
+      { include: '#subcomFormat' }
+      { include: '#subcomVLabels' }
+      { include: '#subcomSMissing' }
+      { include: '#subcomMRSets' }
+      { include: '#subcomWeight' }
+      { include: '#subcomPCompute' }
+      { include: '#subcomPProperties' }
+      { include: '#subcomHideSmallCounts' }
+      {
+        comment: 'Valid keywords for CTABLES.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(POSITION|VISIBLE|ROWLABELS|COLLABELS|MISSING|OTHERNM|SUBTOTAL
+          |HSUBTOTAL|ORDER|KEY|TOTAL|LABEL|EMPTY|CILEVEL|CAPTION|CORNER|TITLE|TYPE
+          |ALPHA|INCLUDEMRSETS|ADJUST|MEANSVARIANCE|MERGE|STYLE|SHOWSIG|ORIGIN
+          |MINCOLWIDTH|MAXCOLWIDTH|UNITS|VARIABLES|DISPLAY|COUNTDUPLICATES|FORMAT
+          |HIDESOURCECATS|COUNT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  curveFit: {
+    comment: 'CURVEFIT Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CURVEFIT))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomModel' }
+      { include: '#subcomUpperBound' }
+      { include: '#subcomConstant' }
+      { include: '#subcomNoConstant' }
+      { include: '#subcomCIN' }
+      { include: '#subcomPlot' }
+      { include: '#subcomID' }
+      { include: '#subcomSave' }
+      { include: '#subcomPrint' }
+      { include: '#subcomApply' }
+      { include: '#subcomTemplate' }
+      {
+        comment: 'Valid keywords for CURVEFIT.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(ANOVA))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  dataList: {
+    comment: 'DATA LIST Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(DATA LIST))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomFile' }
+      { include: '#subcomEncoding' }
+      { include: '#subcomTable' }
+      { include: '#subcomNoTable' }
+      { include: '#subcomRecords' }
+      { include: '#subcomSkip' }
+      {
+        comment: 'Valid keywords for DATA LIST.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(FIXED|FREE|LIST))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  datafileAttribute: {
+    comment: 'DATAFILE ATTRIBUTE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(DATAFILE ATTRIBUTE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'Valid keywords for DATAFILE ATTRIBUTE.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(ATTRIBUTE|DELETE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  datasetActivate: {
+    comment: 'DATASET ACTIVATE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(DATASET ACTIVATE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'Valid keywords for DATASET ACTIVATE.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(WINDOW))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  datasetCopy: {
+    comment: 'DATASET COPY Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(DATASET COPY))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'Valid keywords for DATASET COPY.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(WINDOW))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  datasetDeclare: {
+    comment: 'DATASET DECLARE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(DATASET DECLARE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'Valid keywords for DATASET DECLARE.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(WINDOW))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  datasetName: {
+    comment: 'DATASET NAME Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(DATASET NAME))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'Valid keywords for DATASET NAME.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(WINDOW))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  dateCommand: {
+    comment: 'DATASET NAME Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(DATASET NAME))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'Valid keywords for DATASET NAME.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(YEAR|QUARTER|MONTH|WEEK|DAY|HOUR|MINUTE|SECOND|CYCLE|OBS))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  defineEndDefine: {
+    comment: 'DEFINE-!ENDDEFINE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(DEFINE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(!)\\b(?i:(ENDDEFINE))\\b((\\.\\s*$)*|(^\\s*$)*)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomMPrint' }
+      { include: '#subcomMExpand' }
+      { include: '#subcomMNest' }
+      { include: '#subcomMIterate' }
+      {
+        comment: 'Valid keywords for BEGIN PROGRAM-END PROGRAM.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(PRESERVE|RESTORE))\\b'
+      }
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
 
   # Common subcommands:
   subcomAnalysis: {
-    comment: 'Specify variables used in computations, scaling level, weights.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ANALYSIS))\\b'
   }
   subcomApply: {
-    comment: 'Use a previously defined model.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(APPLY))\\b'
   }
+  subcomBarChart: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(BARCHART))\\b'
+  }
   subcomBreak: {
-    comment: 'Lists optional grouping variables.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(BREAK))\\b'
   }
   subcomCategorical: {
-    comment: 'Treat variables as categorical.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CATEGORICAL))\\b'
   }
+  subcomCategories: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CATEGORIES))\\b'
+  }
+  subcomCells: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CELLS))\\b'
+  }
   subcomCI: {
-    comment: 'Controls estimation of confidence intervals.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CI))\\b'
   }
+  subcomCIN: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CIN))\\b'
+  }
+  subcomCLabels: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CLABELS))\\b'
+  }
+  subcomClassMissing: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CLASSMISSING))\\b'
+  }
   subcomCondition: {
-    comment: 'Specify which numbers are comparable.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CONDITION))\\b'
   }
   subcomConfiguration: {
-    comment: 'Read data from file containing coodinates of a configuration.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CONFIGURATION))\\b'
   }
   subcomConstant: {
-    comment: 'Subcommand to specify a constant term in a regression equation.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CONSTANT))\\b'
   }
   subcomContinuous: {
-    comment: 'Treat variables as continuous.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CONTINUOUS))\\b'
   }
   subcomContrast: {
-    comment: 'Specifies type of contrast for categorical covariates.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CONTRAST))\\b'
   }
   subcomCount: {
-    comment: 'Create new variable containing rows in original data used to generate row in new data.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(COUNT))\\b'
   }
   subcomCriteria: {
-    comment: 'Subcommand has various purposes depending on the command context.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CRITERIA))\\b'
   }
   subcomCritIter: {
-    comment: 'Specifies convergence criterion value.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CRITITER))\\b'
   }
+  subcomCustom: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CUSTOM))\\b'
+  }
   subcomData: {
-    comment: 'Specifies recode data and set parameters for estimation of Bayes factors.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DATA))\\b'
   }
   subcomDesign: {
-    comment: 'Specifies the model design.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DESIGN))\\b'
   }
   subcomDiff: {
-    comment: 'Specifies degree of differencing.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DIFF))\\b'
   }
   subcomDimension: {
-    comment: 'Specifies number of dimensions.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DIMENSION))\\b'
   }
   subcomDiscretization: {
-    comment: 'Specifies fractional-value variables to discretize.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DISCRETIZATION))\\b'
   }
+  subcomDomain: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DOMAIN))\\b'
+  }
   subcomDrop: {
-    comment: 'Specifies variables to exclude.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DROP))\\b'
   }
+  subcomEMMeans: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(EMMEANS))\\b'
+  }
+  subcomEncoding: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ENCODING))\\b'
+  }
   subcomESTBF: {
-    comment: 'Specifies approached used to estimate Bayes factors.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ESTBF))\\b'
   }
+  subcomEstimator: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ESTIMATOR))\\b'
+  }
   subcomExternal: {
-    comment: 'Specifies that data should be held in external scratch file.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(EXTERNAL))\\b'
   }
   subcomFactors: {
-    comment: 'Specifies way each factor is expected to be related.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FACTORS))\\b'
   }
   subcomFGT: {
-    comment: 'Fraction of cases greater than value.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FGT))\\b'
   }
   subcomFields: {
-    comment: 'Specifies target, inputs, weights.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FIELDS))\\b'
   }
   subcomFile: {
-    comment: 'Identifies or reads a file.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FILE))\\b'
   }
   subcomFileInfo: {
-    comment: 'Applies file definition attributes from source dataset to target dataset.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FILEINFO))\\b'
   }
   subcomFIN: {
-    comment: 'Fraction of cases between two values.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FIN))\\b'
   }
   subcomFirst: {
-    comment: 'Creates logical variable to flag first case, or returns first nonmissing value.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FIRST))\\b'
   }
   subcomFixed: {
-    comment: 'Names variables to be copied from original data to new data file.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FIXED))\\b'
   }
   subcomFLT: {
-    comment: 'Fraction of cases less than value.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FLT))\\b'
   }
   subcomFormat: {
-    comment: 'Controls plot format.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FORMAT))\\b'
   }
   subcomFOUT: {
-    comment: 'Fraction of cases not between two values.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FOUT))\\b'
   }
   subcomFrom: {
-    comment: 'Specifies a datafile or dataset with dictionary information.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FROM))\\b'
   }
+  subcomHideSmallCounts: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(HIDESMALLCOUNTS))\\b'
+  }
   subcomID: {
-    comment: 'Names variable whose values will be used.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ID))\\b'
   }
   subcomIn: {
-    comment: 'Creates a new variable indicating case source.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(IN))\\b'
   }
+  subcomInclProb: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(INCLPROB))\\b'
+  }
   subcomIndex: {
-    comment: 'Names variables in original data used to create new columns.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(INDEX))\\b'
   }
   subcomInference: {
-    comment: 'Controls which Bayesian analysis method is used to make statistical inference.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(INFERENCE))\\b'
   }
   subcomInitial: {
-    comment: 'Specify method to compute initial value or configuration.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(INITIAL))\\b'
   }
   subcomInput: {
-    comment: 'Specify number of rows in matrix.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(INPUT))\\b'
   }
+  subcomIntercept: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(INTERCEPT))\\b'
+  }
   subcomInto: {
-    comment: 'Provide name of target variables that store new values.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(INTO))\\b'
   }
+  subcomJointProb: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(JOINTPROB))\\b'
+  }
   subcomKeep: {
-    comment: 'Specifies variables to retain.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(KEEP))\\b'
   }
   subcomLast: {
-    comment: 'Creates logical variable to flag last case, or returns last nonmissing value.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(LAST))\\b'
   }
+  subcomLink: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(LINK))\\b'
+  }
   subcomMA: {
-    comment: 'Produces a new series based on centered moving averages of existing series.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MA))\\b'
   }
   subcomMap: {
-    comment: 'Produces list of variables included in new dataset and their source.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MAP))\\b'
   }
   subcomMark: {
-    comment: 'Indicates the onset of an intervention variable.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MARK))\\b'
   }
   subcomMatrix: {
-    comment: 'Reads matrix data file.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MATRIX))\\b'
   }
   subcomMax: {
-    comment: 'Maximum value across cases.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MAX))\\b'
   }
   subcomMaxIter: {
-    comment: 'Maximum number of iterations a procedure can go through.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MAXITER))\\b'
   }
   subcomMean: {
-    comment: 'Mean across cases.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MEAN))\\b'
   }
   subcomMeasure: {
-    comment: 'Specifies distance or similarity measure used to cluster cases.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MEASURE))\\b'
   }
   subcomMedian: {
-    comment: 'Median across cases.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MEDIAN))\\b'
   }
   subcomMethod: {
-    comment: 'Method for decomposing sums of squares.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(METHOD))\\b'
   }
+  subcomMExpand: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MEXPAND))\\b'
+  }
   subcomMin: {
-    comment: 'Minimum value across cases.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MIN))\\b'
   }
   subcomMissing: {
-    comment: 'Specify how missing values are treated.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MISSING))\\b'
   }
+  subcomMIterate: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MITERATE))\\b'
+  }
+  subcomMNest: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MNEST))\\b'
+  }
   subcomModel: {
-    comment: 'Defines scaling model.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MODEL))\\b'
   }
+  subcomMOS: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MOS))\\b'
+  }
+  subcomMPrint: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MPRINT))\\b'
+  }
+  subcomMRSets: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MRSETS))\\b'
+  }
   subcomMXAuto: {
-    comment: 'Specify maximum number of lags for a series.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MXAUTO))\\b'
   }
   subcomN: {
-    comment: 'Weighted number of cases in break group.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(N))\\b'
   }
   subcomNU: {
-    comment: 'Unweighted number of cases in break group.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NU))\\b'
   }
   subcomNaturalLogarithm: {
-    comment: 'Transforms data using natural logarithm.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(LN))\\b'
   }
   subcomNMiss: {
-    comment: 'Weighted number of missing cases.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NMISS))\\b'
   }
   subcomNUMiss: {
-    comment: 'Unweighted number of missing cases.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NUMISS))\\b'
   }
   subcomNoConstant: {
-    comment: 'Subcommand to eliminate a constant term in a regression equation.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NOCONSTANT))\\b'
   }
   subcomNoLog: {
-    comment: 'Indicate that data should not be log transformed.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NOLOG))\\b'
   }
+  subcomNonParallel: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(NONPARALLEL))\\b'
+  }
   subcomNormalization: {
-    comment: 'Specify method for normalizing row and column scores.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NORMALIZATION))\\b'
   }
+  subcomNoTable: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(NOTABLE))\\b'
+  }
+  subcomOddsRatios: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ODDSRATIOS))\\b'
+  }
   subcomOptions: {
-    comment: 'Suppress display of certain variable information and control display order.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(OPTIONS))\\b'
   }
   subcomOutfile: {
-    comment: 'Saves file of rules, coordinates, weights, and so on used in data preparation.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(OUTFILE))\\b'
   }
   subcomOutput: {
-    comment: 'Produce a table that compares dictionary information.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(OUTPUT))\\b'
   }
   subcomPattern: {
-    comment: 'Specifies pattern of covariate values.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PATTERN))\\b'
   }
+  subcomPCompute: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PCOMPUTE))\\b'
+  }
   subcomPeriod: {
-    comment: 'Indicates length of seasonal period.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PERIOD))\\b'
   }
   subcomPGT: {
-    comment: 'Percentage of cases greater than value.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PGT))\\b'
   }
   subcomPIN: {
-    comment: 'Percentage of cases between two values.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PIN))\\b'
   }
   subcomPlan: {
-    comment: 'Identifies file containing full-concept profiles.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PLAN))\\b'
   }
+  subcomPlanVars: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PLANVARS))\\b'
+  }
   subcomPLT: {
-    comment: 'Percentage of cases less than value.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PLT))\\b'
   }
   subcomPlot: {
-    comment: 'Specifies a graph to produce.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PLOT))\\b'
   }
+  subcomPopSize: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(POPSIZE))\\b'
+  }
   subcomPOUT: {
-    comment: 'Percentage of cases not between two values.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(POUT))\\b'
   }
+  subcomPProperties: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PPROPERTIES))\\b'
+  }
   subcomPrint: {
-    comment: 'Prints an additional output not available by default.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PRINT))\\b'
   }
   subcomPrior: {
-    comment: 'Specifies prior distribution settings.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PRIOR))\\b'
   }
+  subcomRate: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(RATE))\\b'
+  }
+  subcomRecords: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(RECORDS))\\b'
+  }
   subcomRename: {
-    comment: 'Renames variables before they are processed by command.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(RENAME))\\b'
   }
   subcomResample: {
-    comment: 'Specifies resampling method.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(RESAMPLE))\\b'
   }
   subcomRescale: {
-    comment: 'Rescale continuous fields.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(RESCALE))\\b'
   }
   subcomRotation: {
-    comment: 'Specifies rotation method.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ROTATION))\\b'
   }
+  subcomSampleFile: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SAMPLEFILE))\\b'
+  }
   subcomSave: {
-    comment: 'Saves a value (specified by a keyword).'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SAVE))\\b'
   }
   subcomScreening: {
-    comment: 'Specifies settings for excluding unsuitable fields.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SCREENING))\\b'
   }
   subcomSDiff: {
-    comment: 'Specifies degree of seasonal differencing.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SDIFF))\\b'
   }
   subcomSeasonal: {
-    comment: 'Focus on seasonal component by plotting autocorrelations at periodic lags.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SEASONAL))\\b'
   }
+  subcomSelectRule: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SELECTRULE))\\b'
+  }
   subcomShape: {
-    comment: 'Specify structure of matrix.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SHAPE))\\b'
   }
+  subcomSize: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SIZE))\\b'
+  }
+  subcomSkip: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SKIP))\\b'
+  }
+  subcomSLabels: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SLABELS))\\b'
+  }
+  subcomSMissing: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SMISSING))\\b'
+  }
   subcomSource: {
-    comment: 'Specify variables in a source file.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SOURCE))\\b'
   }
   subcomSplit: {
-    comment: 'Specifies how to plot data divided into subgroups.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SPLIT))\\b'
   }
+  subcomSRSEstimator: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SRSESTIMATOR))\\b'
+  }
+  subcomStageVars: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(STAGEVARS))\\b'
+  }
   subcomStandardDeviation: {
-    comment: 'Standard deviation across cases.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SD))\\b'
   }
   subcomStandardize: {
-    comment: 'Specifies method of standardization.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(STANDARDIZE))\\b'
   }
   subcomStatistics: {
-    comment: 'Requests additional statistics.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(STATISTICS))\\b'
   }
   subcomStatus: {
-    comment: 'Lists status variable and code for occurrence of event.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(STATUS))\\b'
   }
   subcomStrata: {
-    comment: 'Identifies stratification variable.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(STRATA))\\b'
   }
+  subcomSubPop: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SUBPOP))\\b'
+  }
   subcomSum: {
-    comment: 'Sum across cases.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SUM))\\b'
   }
+  subcomSummary: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SUMMARY))\\b'
+  }
   subcomSupplementary: {
-    comment: 'Specifies objects or variables to treat as supplementary.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SUPPLEMENTARY))\\b'
   }
   subcomTable: {
-    comment: 'Specifies row and column variables.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TABLE))\\b'
   }
+  subcomTables: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TABLES))\\b'
+  }
   subcomTarget: {
-    comment: 'Specifies variables in active dataset.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TARGET))\\b'
   }
+  subcomTemplate: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TEMPLATE))\\b'
+  }
+  subcomTest: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TEST))\\b'
+  }
+  subcomTitles: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TITLES))\\b'
+  }
   subcomTransform: {
-    comment: 'Merge similar categories.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TRANSFORM))\\b'
   }
+  subcomUpperBound: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(UPPERBOUND))\\b'
+  }
   subcomVariables: {
-    comment: 'Specifies variables in analysis.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(VARIABLES))\\b'
   }
   subcomVarInfo: {
-    comment: 'Applies variable definition attributes from source dataset to active dataset.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(VARINFO))\\b'
+  }
+  subcomVLabels: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(VLABELS))\\b'
+  }
+  subcomWeight: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(WEIGHT))\\b'
+  }
+  subcomWrite: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(WRITE))\\b'
   }
 
   # Add highlighting for other system variables. We have $SYSMIS here but there are others
