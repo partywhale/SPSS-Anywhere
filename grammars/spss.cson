@@ -8,100 +8,6 @@ patterns: [
   { include: '#metaCommandFriendlyComments' }
   { include: '#metaQuoteStrings' }
   { include: '#metaCommands' }
-  {
-    name: 'support.class.command.spss'
-    match: '\\b(?i:(
-                AIM|ALTER TYPE|ALSCAL
-                |ANACOR|ANOVA|APPLY DICTIONARY|AREG|ARIMA|AUTORECODE|BEGIN (DATA|GPL|PROGRAM|EXPR)
-                |BAYES ANOVA|BAYES CORRELATION|BAYES INDEPENDENT|BAYES LOGLINEAR|BAYES ONESAMPLE
-                |BAYES REGRESSION|BAYES RELATED|BAYES REPEATED|BOOTSTRAP|BREAK
-                |CACHE|CASEPLOT|CASESTOVARS|CATPCA|CATREG|CCF|CD|CHAR.(INDEX|LENGTH|LPAD|MBLEN|RINDEX
-                |RPAD|SUBSTR)|CLEAR TIME PROGRAM|CLEAR TRANSFORMATIONS|CLUSTER|CNLR|CODEBOOK
-                |COMPARE DATASETS|COMPUTE|CONJOINT|CORRELATIONS|CORRESPONDENCE|COUNT|COXREG|CREATE
-                |CROSSTABS|CSCOXREG|CSDESCRIPTIVES|CSGLM|CSLOGISTIC|CSORDINAL|CSPLAN|CSSELECT
-                |CSTABULATE|CTABLES|CURVEFIT|DATA LIST|DATAFILE ATTRIBUTE
-                |DATASET (ACTIVATE|CLOSE|COPY|DECLARE|DISPLAY|NAME)|DATE|DEFINE|DELETE VARIABLES
-                |DESCRIPTIVES|DETECTANOMALY|DISCRIMINANT|DISPLAY|DMCLUSTER|DMLOGISTIC|DMROC|DMTABLES
-                |DMTREE|DOCUMENT|DROP DOCUMENTS|ECHO|END (CASE|DATA|FILE|FILE TYPE|GPL|INPUT PROGRAM
-                |LOOP|MATRIX|PROGRAM|EXPR)|ENDDEFINE|ERASE|EXAMINE|EXECUTE|EXPORT|EXSMOOTH|EXTENSION|FACTOR
-                |FILE (HANDLE|LABEL|TYPE)|FILTER|FINISH|FIT|FLEISS MULTIRATER KAPPA|FLIP|FORMATS|FREQUENCIES|GENLIN
-                |GENLINMIXED|GENLOG|GET (CAPTURE|DATA|SAS|STATA|TRANSLATE)|GETTM1|GET|GGRAPH|GLM|GRAPH|HILOGLINEAR
-                |HOMALS|HOST|IGRAPH|IMPORT|INCLUDE|INFO|INPUT PROGRAM|INSERT (EXEC|HIDDEN)|INSERT|KEYED DATA LIST|KM|KNN
-                |LEAVE|LINEAR|LIST|LOGISTIC REGRESSION|LOGNINEAR|LOOP|LOWER|MANOVA|MATCH FILES
-                |META BINARY|META ES BINARY|META CONTINUOUS|META ES CONTINUOUS|META REGRESSION
-                |MATRIX DATA|MATRIX|MCONVERT|MEANS|MISSING VALUES|MIXED|MLP|MODEL (CLOSE|HANDLE|LIST|NAME|PROGRAM)
-                |MRSETS|MULT RESPONSE|MULTIPLE (CORRESPONDENCE|IMPUTATION)|MVA|N OF CASES|NAIVEBAYES|NATRES
-                |NEW FILE|NLR|NOMINAL|NOMREG|NONPAR CORR|NPTEST(S?)|NPAR TESTS|NUMERIC|OLAP CUBES|OMS(END|INFO|LOG)
-                |OMS|ONEWAY|OPTIMAL BINNING|ORDINAL|ORTHOPLAN|POWER (ONEWAY ANOVA|MEANS (INDEPENDENT|ONESAMPLE|RELATED)
-                |PARTIALCORR|PEARSON ONESAMPLE|PROPORTIONS (INDEPENDENT|ONESAMPLE|RELATED)|SPEARMAN ONESAMPLE|UNIVARIATE LINEAR)
-                |OUTPUT (ACTIVATE|CLOSE|DISPLAY|EXPORT|NAME|NEW|OPEN|SAVE)|OVERALS|PACF|PARTIAL CORR
-                |PERMISSIONS|PLANCARDS|PLS|PLUM|POINT|PPLOT|PREDICT|PREFSCAL|PRESERVE|PRINCALS
-                |PRINT (EJECT|FORMATS|SPACE)|PRINT|PROBIT|PROCEDURE OUTPUT|PROPORTIONS|PROXIMITIES|PROXCAL|QUANTILE REGRESSION|QUICK CLUSTER
-                |RANK|RATIO STATISTICS|RBF|READ MODEL|READNAMES|RECODE|RECORD TYPE|REFORMAT|REGRESSION|RELATIONSHIP MAP
-                |RELIABILITY|RENAME VARIABLES|REPEATING DATA|REPORT|REPOSITORY (ATTRIBUTES|CONNECT|COPY)
-                |REREAD|RESPONSE RATE|RESTORE|RMV|ROC ANALYSIS|ROC|SAMPLE|SAVE (CODEPAGE|DATA COLLECTION|MODEL|TRANSLATE)|SAVETM1|SAVE|SCALE
-                |SCRIPT|SEASON|SELECTPRED|SELECT|SET|SHIFT VALUES|SHOW|SIMPLAN|SIMPREP (BEGIN|END)|SIMRUN|SORT (CASES|VARIABLES)
-                |SPATIAL (ASSOCIATION RULES|MAPSPEC|TEMPORAL PREDICTIONS)|SPCHART
-                |SPECTRA|SPLIT FILE|STAR JOIN|STRING|SUBTITLE|SUMMARIZE|SURVIVAL|SYSFILE INFO|TABLES
-                |TCM (ANALYSIS|APPLY|MODEL)|TDISPLAY|TEMPORARY
-                |TIME PROGRAM|TITLE|TMS (BEGIN|END|IMPORT|MERGE)|TREE|T(SAPPLY|SET|SHOW|SPLOT|SMODEL)
-                |TWOSTEP CLUSTER|UNIANOVA|UPCASE|UPDATE|USE|VALIDATEDATA|VALUE LABELS|VARCOMP
-                |VARIABLE (ALIGNMENT|ATTRIBUTE|LABELS|LEVEL|ROLE|WIDTH)|VARSTOCASES|VECTOR|VERIFY
-                |WEIGHT|WEIGHTED KAPPA|WLS|WRITE|WRITE FORMATS|X(GRAPH|SAVE)
-            ))\\b|(?i:(T-TEST))'
-  }
-  {
-    name: 'support.function.subcommand.spss'
-    match: '(/?)\\b(?i:(
-                ACCELERATION|ANALYSIS|ANALYSISWEIGHT|APPEND|ARCHITECTURE|ARIMA
-                |ARRANGEMENT|AUTHOR|AUTOFIX|AUTOOUTLIER|AUXILIARY|BARCHART|BASE|BIN|BINOMIAL|BLANK(S?)
-                |BLOCK|BMP|BOOTSTRAP|BOUNDS|BOX|C|CACHE|CALCULATE|CAPSIGMA|CASE|CASECHECKS
-                |CASEREPORT|CASEWISE|CATEGORICAL|CC|CCA|CCB|CCC|CCD|CCE|CELLRANGE|CELLS|CELLSBREAK
-                |CENTER|CHAID|CHISQUARE|CLABELS|CMPTRANS|COCHRAN|COLUMN(S?)|COMPARE|COMPRESSED|CONCAT
-                |CONDITION|CONFORM|CONFIGURATION|CONNECT|CONSTRAINTS|CONTENTS|CONTINUED
-                |CONTINUOUS|CONTRAST|CONVERGENCE|CONVERT|COORDINATE|COSTS|COUNT|COVARIATES|CPCHART
-                |CREATE|CRITITER|CROSS|CROSSTAB|CRT|CSUM|CTEMPLATE|DATA|DECIMAL|DEFAULT
-                |DEFOLANG|DELCASE|DELETE|DELTA|DELIMITERS|DEPCATEGORIES|DEPENDENT|DESCENDING
-                |DESCRIPTION|DESCRIPTIVES|DESIGN|DESTINATION|DIGITGROUPING|DIMENSION|DIRECTORY
-                |DISPLAY|DISTR|DISTRIBUTION|DISCRETIZATION|DISTENCE|DOC|DOMAIN|DPATTERN
-                |DUPLICATE|EDITION|EM|EMF|EMMEANS|ENCODING|ENCRYPT|EPOCH|EPS|EQUAL
-                |ERRORBAR|ERRORS|EXCEPT|EXCEPTIF|EXPERTMODELER|EXPIRATION|EXSMOOTH|EXTENSIONS|EXTERNAL
-                |EXTPATHS|FACTORS|FFT|FIELDNAMES|FILEINFO|FILTER|FIRSTCASE|FIXED
-                |FOOTER|FOOTNOTE|FORCE|FORMAT|FRACTION|FREQUENCIES|FRIEDMAN|FROM|FULLFACTORIAL
-                |FUZZBITS|GAIN|GROUP(S?)|GROUPBY|GROUPING|GROWTHLIMIT|HANDLENOISE|HANDLES|HEADER
-                |HIDESMALLCOUNTS|HOLDOUT|HTML|I|ICC|ID|IDCHECKS|IFFT|IMPORTCASE|IMPUTE
-                |IMPUTATIONSUMMARIES|INDEPENDENT|INDEX|INFILE|INFLUENCE|INITIAL|INPUT
-                |INTERCEPT|INTERVAL|INTO|IR|J-T|JPG|JOINTPROB|JOURNAL|KENDALL|KEY|KEYWORDS|KMATRIX
-                |K-S|K-W|LAG|LAYERED|LEAD|LENGTH|LEVEL|LICENSE|LINK|LISTWISE|LMATRIX|LOCALE
-                |LOCATION|LOGIN|LOSS|LSL|MA|MAKE|MARK|MATRIX|MAXCAT|MAXCOUNT|MAXITER|MEASURE
-                |MCACHE|MCGROUP|MCNEMAR|MDGROUP|MEASURE|MEMALLOCATE|MESSAGES|METADATA|METHOD
-                |MEXPAND|MH|MINIMUM|MINRATE|MINSAMPLE|MIOUTPUT|MISMATCH|MISSINGSUMMARIES
-                |MITERATE|MIXHOLD|MNEST|MODEL|MODELDETAILS|MODELSTATISTICS|MODELSUMMARY|MOSES|MPATTERN
-                |MPRINT|MTINDEX|MXCELLS|MXCROSS|MXERRS|MXLOOPS|MXNEWVARS|MXPREDICT|MXWARNS
-                |M-W|NAME(S?)|NEWVAR(S?)|NOBSERVATIONS|NONCONFORM|NOORIGIN|NORMAL
-                |NORMALIZATION|NOSTANDARDIZE|NOTABLE|NOUNIVARIATE|NP|NULL|NUMBERED|NUMCLUSTERS|OATTRS
-                |OCCURS|OLANG|ON|ONESAMPLE|ONUMBERS|OPTIONS|ORIGIN|OTHER|OUTDATASET|OUTLIER
-                |OUTPUTFILTER|OVARS|P|PAIRS|PAIRWISE|PANEL|PARTIALPLOT|PARTITION
-                |PATTERN|PDF|PENALTY|PERMANENT|PERMISSIONS|PLAN|PLATFORM|PLOT(S?)|PLOT MEANS
-                |PMA|PNG|POLYNOMIAL|POSTHOC|PPT|PRED|PRIORS|PRINTBACK
-                |PROFITS|PROXIMITIES|QUALIFIER|QUEST|RANDOM|RANGE|RANGES|RANK|RATIO|RECORDS|REFERENCE
-                |REGRESSION|REGULARIZATION|REGWGT|RELATED|REPDEFER|REPEATED
-                |REPLACE|RESAMPLE|RESIDUALS|RESTRICTIONS|RESULTS|RMED|RNG
-                |ROWSBREAK|RULES|RULESUMMARIES|RUNS|SAMPLE|SAMPLING|SCALE|SCALEMIN|SCATTERPLOT
-                |SCOMPRESSION|SCORE(S?)|SECURITY|SEED|SELECT|SEPARATE
-                |SEPARATOR|SEQUENCE|SERIESPLOT|SERVER|SETS|SHAPE|SHEET|SHOWDIM|SIGMAS|SIGN
-                |SIGNIFICANCE|SKIP|SLABELS|SMALL|SORT|SOURCE|SPAN|SPLINE|SPLIT|SPNOM|SPORD|SPREAD
-                |SQL|STANDARDIZE|STARTS|STATISTICS|STATUS|STEPWISE|STOPPINGRULES|STRATA|STRING
-                |SUBJECT|SUBPOP|SUBSET|SUBTITLE|SUMMARY|SURVIVALMETHOD|SUPPLEMENTARY|SYSMIS
-                |T4253H|TABLE(S?)|TABLERENDER|TAG|TARGET|TARGETRESPONSE|TEMPLATE|TEST|TESTASSUMPTIONS
-                |TESTVAL|TEXT|TEXTOPTIONS|TFIT|THREADS|TIES|TIF|TITLE(S?)|TLOOK|TMSRECORDING|TNUMBERS
-                |TOLERANCE|TOPICS|TPATTERN|TRAININGSAMPLE|TRANSFERFUNCTION|TRANSFORMATION(S?)
-                |TREE|TSET|TTEST|TVARS|TYPE|U|UNCOMPRESSED|UNDEFINED|UNENCRYPTED|UNICODE|UNSELECTED|USL
-                |UTILITY|VALFILE|VALIDATION|VARCHECKS|VARIANCES|VARINFO|VERSION|VERSIONLABEL
-                |VIEW|VIEWMODEL|VIND|WEIGHT(S?)|WIDTH|WILCOXON|WINDOW|WORKSPACE|WRITE|W-W|XR|XS|XVERSION
-                |ZCOMPRESSION|$VARS
-            ))\\b'
-  }
   { include: '#metaConditionals' }
   {
     name: 'keyword.keyword.spss'
@@ -191,6 +97,17 @@ repository:
       { include: '#bayesRegression' }
       { include: '#bayesRelated' }
       { include: '#bayesRepeated' }
+      { include: '#beginData' }
+      { include: '#beginExpr' }
+      { include: '#simprepBegin' }
+      { include: '#beginGPL' }
+      { include: '#beginProgram' }
+      { include: '#bootStrap' }
+      { include: '#casePlot' }
+      { include: '#casesToVars' }
+      { include: '#catpcaCommand' }
+      { include: '#catregCommand' }
+      { include: '#ccfCommand' }
     ]
   }
 
@@ -254,7 +171,7 @@ repository:
   # Global keywords & operators:
   controlConditionals: {
     name: 'keyword.control.conditionals.spss'
-    match: '\\b(?i:(IF|THEN|ELSE|WHILE|FOR|DO|END|REPEAT|BY|WITH|ALL|TO))\\b'
+    match: '\\b(?i:(IF|THEN|ELSE|WHILE|FOR|DO|END|REPEAT|BY|WITH|ALL|TO|BREAK))\\b'
   }
   operatorsNumeric: {
     name: 'keyword.operator.numeric.spss'
@@ -308,7 +225,7 @@ repository:
   simpleCommands: {
     comment: 'Commands with no subcommands or special keywords.'
     name: 'meta.class.command.spss'
-    begin: '\\b(?i:(ADD DOCUMENT|ADD VALUE LABELS))\\b'
+    begin: '\\b(?i:(ADD DOCUMENT|ADD VALUE LABELS|CACHE))\\b'
     beginCaptures:
       1: name: 'support.class.command.spss'
     end: '(\\.\\s*$)|(^\\s*$)'
@@ -974,7 +891,298 @@ repository:
     ]
   }
 
+  beginData: {
+    comment: 'BEGIN DATA-END DATA Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(BEGIN DATA))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '\\b(?i:(END DATA))\\b((\\.\\s*$)*|(^\\s*$)*)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  beginExpr: {
+    comment: 'BEGIN EXPR-END EXPR Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(BEGIN EXPR))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '\\b(?i:(END EXPR))\\b((\\.\\s*$)*|(^\\s*$)*)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomOutfile' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  simprepBegin: {
+    comment: 'SIMPREP BEGIN-SIMPREP END Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(SIMPREP BEGIN))\\b'
+    beginCaptures:
+      1: name: 'invalid.deprecated.command.spss'
+    end: '\\b(?i:(SIMPREP END))\\b((\\.\\s*$)*|(^\\s*$)*)'
+    endCaptures:
+      0: name: 'invalid.deprecated.command.end.spss'
+    patterns: [
+      { include: '#subcomOutfile' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  beginGPL: {
+    comment: 'BEGIN GPL-END GPL Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(BEGIN GPL))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '\\b(?i:(END GPL))\\b((\\.\\s*$)*|(^\\s*$)*)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'Valid keywords for BEGIN GPL-END GPL.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(SOURCE|DATA|SCALE|GUIDE|ELEMENT|COORD|PAGE|GRAPH|COMMENT|TRANS))\\b'
+      }
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  beginProgram: {
+    comment: 'BEGIN PROGRAM-END PROGRAM Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(BEGIN PROGRAM))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '\\b(?i:(END PROGRAM))\\b((\\.\\s*$)*|(^\\s*$)*)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'Valid keywords for BEGIN PROGRAM-END PROGRAM.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(PYTHON3))\\b'
+      }
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  bootStrap: {
+    comment: 'BOOTSTRAP Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(BOOTSTRAP))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to BOOTSTRAP.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(SAMPLING))\\b'
+      }
+      { include: '#subcomVariables' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomMissing' }
+      {
+        comment: 'Valid keywords for BOOTSTRAP.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(SIMPLE|STRATIFIED|RESIDUAL|WILD|TARGET|INPUT|CILEVEL|CITYPE
+          |NSAMPLES|USERMISSING))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  casePlot: {
+    comment: 'CASEPLOT Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CASEPLOT))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomDiff' }
+      { include: '#subcomSDiff' }
+      { include: '#subcomPeriod' }
+      { include: '#subcomNaturalLogarithm' }
+      { include: '#subcomNoLog' }
+      { include: '#subcomID' }
+      { include: '#subcomFormat' }
+      { include: '#subcomMark' }
+      { include: '#subcomSplit' }
+      { include: '#subcomApply' }
+      {
+        comment: 'Valid keywords for CASEPLOT.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(REFERENCE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  casesToVars: {
+    comment: 'CASESTOVARS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CASESTOVARS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to CASESTOVARS.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(VIND|AUTOFIX|SEPARATOR|GROUPBY))\\b'
+      }
+      { include: '#subcomID' }
+      { include: '#subcomIndex' }
+      { include: '#subcomCount' }
+      { include: '#subcomFixed' }
+      { include: '#subcomRename' }
+      { include: '#subcomDrop' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  catpcaCommand: {
+    comment: 'CATPCA Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CATPCA))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomAnalysis' }
+      { include: '#subcomDiscretization' }
+      { include: '#subcomMissing' }
+      { include: '#subcomSupplementary' }
+      { include: '#subcomConfiguration' }
+      { include: '#subcomDimension' }
+      { include: '#subcomNormalization' }
+      { include: '#subcomMaxIter' }
+      { include: '#subcomCritIter' }
+      { include: '#subcomRotation' }
+      { include: '#subcomResample' }
+      { include: '#subcomPrint' }
+      { include: '#subcomPlot' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      {
+        comment: 'Valid keywords for CATPCA.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(WEIGHT|LEVEL|BOOTSTRAP|OBJECT|CATEGORY|LOADING|TRANS|RESID
+          |BIPLOT|TRIPLOT|JOINTCAT|PROJCENTR|VAF|LDELLAREA|OBELLAREA|CTELLAREA|NELLPNT
+          |NONE|NDIM|CENTR|DISCRDATA|TRDATA|APPROX|ELLCOORD))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  catregCommand: {
+    comment: 'CATREG Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CATREG))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to CATREG.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(REGULARIZATION))\\b'
+      }
+      { include: '#subcomVariables' }
+      { include: '#subcomAnalysis' }
+      { include: '#subcomDiscretization' }
+      { include: '#subcomMissing' }
+      { include: '#subcomSupplementary' }
+      { include: '#subcomInitial' }
+      { include: '#subcomMaxIter' }
+      { include: '#subcomCritIter' }
+      { include: '#subcomResample' }
+      { include: '#subcomPrint' }
+      { include: '#subcomPlot' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      {
+        comment: 'Valid keywords for CATREG.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(LEVEL|OBJECT|NONE|RIDGE|LASSO|ENET|CROSSVAL|BOOTSTRAP
+          |TRANS|RESID|REGU|DISCRDATA|TRDATA))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  ccfCommand: {
+    comment: 'CCF Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CCF))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'These subcommands are exclusive to CCF.'
+        name: 'support.function.subcommand.spss'
+        match: '(/?)\\b(?i:(MXCROSS))\\b'
+      }
+      { include: '#subcomVariables' }
+      { include: '#subcomDiff' }
+      { include: '#subcomSDiff' }
+      { include: '#subcomPeriod' }
+      { include: '#subcomNaturalLogarithm' }
+      { include: '#subcomNoLog' }
+      { include: '#subcomSeasonal' }
+      { include: '#subcomApply' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
   # Common subcommands:
+  subcomAnalysis: {
+    comment: 'Specify variables used in computations, scaling level, weights.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ANALYSIS))\\b'
+  }
   subcomApply: {
     comment: 'Use a previously defined model.'
     name: 'support.function.subcommand.spss'
@@ -995,6 +1203,11 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CONDITION))\\b'
   }
+  subcomConfiguration: {
+    comment: 'Read data from file containing coodinates of a configuration.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CONFIGURATION))\\b'
+  }
   subcomConstant: {
     comment: 'Subcommand to specify a constant term in a regression equation.'
     name: 'support.function.subcommand.spss'
@@ -1005,10 +1218,20 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CONTINUOUS))\\b'
   }
+  subcomCount: {
+    comment: 'Create new variable containing rows in original data used to generate row in new data.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(COUNT))\\b'
+  }
   subcomCriteria: {
     comment: 'Subcommand has various purposes depending on the command context.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CRITERIA))\\b'
+  }
+  subcomCritIter: {
+    comment: 'Specifies convergence criterion value.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CRITITER))\\b'
   }
   subcomData: {
     comment: 'Specifies recode data and set parameters for estimation of Bayes factors.'
@@ -1029,6 +1252,11 @@ repository:
     comment: 'Specifies number of dimensions.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DIMENSION))\\b'
+  }
+  subcomDiscretization: {
+    comment: 'Specifies fractional-value variables to discretize.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DISCRETIZATION))\\b'
   }
   subcomDrop: {
     comment: 'Specifies variables to exclude.'
@@ -1070,10 +1298,20 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FIRST))\\b'
   }
+  subcomFixed: {
+    comment: 'Names variables to be copied from original data to new data file.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FIXED))\\b'
+  }
   subcomFLT: {
     comment: 'Fraction of cases less than value.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FLT))\\b'
+  }
+  subcomFormat: {
+    comment: 'Controls plot format.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FORMAT))\\b'
   }
   subcomFOUT: {
     comment: 'Fraction of cases not between two values.'
@@ -1085,15 +1323,30 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FROM))\\b'
   }
+  subcomID: {
+    comment: 'Names variable whose values will be used.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ID))\\b'
+  }
   subcomIn: {
     comment: 'Creates a new variable indicating case source.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(IN))\\b'
   }
+  subcomIndex: {
+    comment: 'Names variables in original data used to create new columns.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(INDEX))\\b'
+  }
   subcomInference: {
     comment: 'Controls which Bayesian analysis method is used to make statistical inference.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(INFERENCE))\\b'
+  }
+  subcomInitial: {
+    comment: 'Specify method to compute initial value or configuration.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(INITIAL))\\b'
   }
   subcomInput: {
     comment: 'Specify number of rows in matrix.'
@@ -1120,6 +1373,11 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MAP))\\b'
   }
+  subcomMark: {
+    comment: 'Indicates the onset of an intervention variable.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MARK))\\b'
+  }
   subcomMatrix: {
     comment: 'Reads matrix data file.'
     name: 'support.function.subcommand.spss'
@@ -1129,6 +1387,11 @@ repository:
     comment: 'Maximum value across cases.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MAX))\\b'
+  }
+  subcomMaxIter: {
+    comment: 'Maximum number of iterations a procedure can go through.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MAXITER))\\b'
   }
   subcomMean: {
     comment: 'Mean across cases.'
@@ -1255,10 +1518,20 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(RENAME))\\b'
   }
+  subcomResample: {
+    comment: 'Specifies resampling method.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(RESAMPLE))\\b'
+  }
   subcomRescale: {
     comment: 'Rescale continuous fields.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(RESCALE))\\b'
+  }
+  subcomRotation: {
+    comment: 'Specifies rotation method.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ROTATION))\\b'
   }
   subcomSave: {
     comment: 'Saves a value (specified by a keyword).'
@@ -1290,6 +1563,11 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SOURCE))\\b'
   }
+  subcomSplit: {
+    comment: 'Specifies how to plot data divided into subgroups.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SPLIT))\\b'
+  }
   subcomStandardDeviation: {
     comment: 'Standard deviation across cases.'
     name: 'support.function.subcommand.spss'
@@ -1304,6 +1582,11 @@ repository:
     comment: 'Sum across cases.'
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SUM))\\b'
+  }
+  subcomSupplementary: {
+    comment: 'Specifies objects or variables to treat as supplementary.'
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SUPPLEMENTARY))\\b'
   }
   subcomTable: {
     comment: 'Specifies row and column variables.'
