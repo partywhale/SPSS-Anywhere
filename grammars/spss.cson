@@ -135,6 +135,35 @@ repository:
       { include: '#datasetName' }
       { include: '#dateCommand' }
       { include: '#defineEndDefine' }
+      { include: '#descriptivesCommand' }
+      { include: '#detectAnomaly' }
+      { include: '#discriminantCommand' }
+      { include: '#displayCommand' }
+      { include: '#eraseCommand' }
+      { include: '#examineCommand' }
+      { include: '#exportCommand' }
+      { include: '#exSmooth' }
+      { include: '#extensionCommand' }
+      { include: '#factorCommand' }
+      { include: '#fileHandle' }
+      { include: '#fileType' }
+      { include: '#filterCommand' }
+      { include: '#fitCommand' }
+      { include: '#fleissMultiraterKappa' }
+      { include: '#flipCommand' }
+      { include: '#frequenciesCommand' }
+      { include: '#generalizedLinear' }
+      { include: '#generalizedLinearMixed' }
+      { include: '#generalizedLog' }
+      { include: '#getCommand' }
+      { include: '#getCapture' }
+      { include: '#getData' }
+      { include: '#getSAS' }
+      { include: '#getStata' }
+      { include: '#getTranslate' }
+      { include: '#getCognos' }
+      { include: '#getTM1' }
+      { include: '#ggraphCommand' }
     ]
   }
 
@@ -253,7 +282,8 @@ repository:
     comment: 'Commands with no subcommands or special keywords.'
     name: 'meta.class.command.spss'
     begin: '\\b(?i:(ADD DOCUMENT|ADD VALUE LABELS|CACHE|CD|CLEAR TIME PROGRAM
-      |CLEAR TRANSFORMATIONS|COMPUTE|COUNT|DATASET CLOSE|DATASET DISPLAY))\\b'
+      |CLEAR TRANSFORMATIONS|COMPUTE|COUNT|DATASET CLOSE|DATASET DISPLAY|DELETE VARIABLES
+      |DOCUMENT|DROP DOCUMENTS|ECHO|END CASE|END FILE|EXECUTE|FILE LABEL|FINISH|FORMATS))\\b'
     beginCaptures:
       1: name: 'support.class.command.spss'
     end: '(\\.\\s*$)|(^\\s*$)'
@@ -411,7 +441,6 @@ repository:
         match: '(/?)\\b(?i:(DOCUMENT|PRESORTED))\\b'
       }
       { include: '#subcomOutfile' }
-      { include: '#subcomBreak' }
       { include: '#subcomMissing' }
       { include: '#subcomSum' }
       { include: '#subcomMean' }
@@ -1740,9 +1769,9 @@ repository:
   }
 
   customTables: {
-    comment: 'CTABLES Command'
+    comment: 'CTABLES Command (DMTABLES alias)'
     name: 'meta.class.command.spss'
-    begin: '\\b(?i:(CTABLES))\\b'
+    begin: '\\b(?i:(CTABLES|DMTABLES))\\b'
     beginCaptures:
       1: name: 'support.class.command.spss'
     end: '(\\.\\s*$)|(^\\s*$)'
@@ -1988,6 +2017,762 @@ repository:
     ]
   }
 
+  descriptivesCommand: {
+    comment: 'DESCRIPTIVES Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(DESCRIPTIVES))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomSave' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomSort' }
+      { include: '#subcomMissing' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  detectAnomaly: {
+    comment: 'DETECTANOMALY Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(DETECTANOMALY))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomHandleMissing' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomPrint' }
+      {
+        comment: 'Valid keywords for DETECTANOMALY.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(CATEGORICAL|SCALE|ID|EXCEPT|APPLY|CREATEMISPROPVAR
+          |MINNUMPEERS|MAXNUMPEERS|MLWEIGHT|NUMREASONS|PCTANOMALOUSCASES
+          |NUMANOMALOUSCASES|ANOMALYCUTPOINT|MODEL))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  discriminantCommand: {
+    comment: 'DISCRIMINANT Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(DISCRIMINANT))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomGroups' }
+      { include: '#subcomVariables' }
+      { include: '#subcomSelect' }
+      { include: '#subcomAnalysis' }
+      { include: '#subcomMethod' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomTolerance' }
+      { include: '#subcomPIN' }
+      { include: '#subcomPOUT' }
+      { include: '#subcomFIN' }
+      { include: '#subcomFOUT' }
+      { include: '#subcomVIN' }
+      { include: '#subcomMaxSteps' }
+      { include: '#subcomFunctions' }
+      { include: '#subcomPriors' }
+      { include: '#subcomSave' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomRotate' }
+      { include: '#subcomHistory' }
+      { include: '#subcomClassify' }
+      { include: '#subcomPlot' }
+      { include: '#subcomMissing' }
+      { include: '#subcomMatrix' }
+      {
+        comment: 'Valid keywords for DISCRIMINANT.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(MODEL|MAX|IN|OUT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  displayCommand: {
+    comment: 'DISPLAY Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(DISPLAY))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      {
+        comment: 'Valid keywords for DISPLAY.'
+        name: 'keyword.other.spss'
+        match: '((/?)\\b(?i:(SORTED|NAMES|DOCUMENTS|DICTIONARY|ATTRIBUTES|INDEX|LABELS
+          |SCRATCH|VECTOR|MACROS))\\b)|((/?)(@)(\\b(?i:(ATTRIBUTES))\\b))'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  eraseCommand: {
+    comment: 'ERASE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(ERASE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'Valid keywords for ERASE.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(FILE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  examineCommand: {
+    comment: 'EXAMINE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(EXAMINE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomCompare' }
+      { include: '#subcomTotal' }
+      { include: '#subcomNoTotal' }
+      { include: '#subcomID' }
+      { include: '#subcomPercentiles' }
+      { include: '#subcomPlot' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomCInterval' }
+      { include: '#subcomMEstimators' }
+      { include: '#subcomMissing' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  exportCommand: {
+    comment: 'EXPORT Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(EXPORT))\\b'
+    beginCaptures:
+      1: name: 'invalid.deprecated.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'invalid.deprecated.command.end.spss'
+    patterns: [
+      { include: '#subcomOutfile' }
+      { include: '#subcomType' }
+      { include: '#subcomUnselected' }
+      { include: '#subcomDrop' }
+      { include: '#subcomKeep' }
+      { include: '#subcomRename' }
+      { include: '#subcomMap' }
+      { include: '#subcomDigits' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  exSmooth: {
+    comment: 'EXSMOOTH Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(EXSMOOTH))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomModel' }
+      { include: '#subcomPeriod' }
+      { include: '#subcomSeasFact' }
+      { include: '#subcomInitial' }
+      { include: '#subcomApply' }
+      {
+        comment: 'Valid keywords for EXSMOOTH.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(ALPHA|GAMMA|DELTA|PHI|GRID))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  extensionCommand: {
+    comment: 'EXTENSION Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(EXTENSION))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomSpecification' }
+      {
+        comment: 'Valid keywords for EXTENSION.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(ACTION|COMMAND))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  factorCommand: {
+    comment: 'FACTOR Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(FACTOR))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomMissing' }
+      { include: '#subcomMethod' }
+      { include: '#subcomSelect' }
+      { include: '#subcomAnalysis' }
+      { include: '#subcomFormat' }
+      { include: '#subcomPrint' }
+      { include: '#subcomPlot' }
+      { include: '#subcomDiagonal' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomExtraction' }
+      { include: '#subcomRotation' }
+      { include: '#subcomSave' }
+      { include: '#subcomMatrix' }
+      {
+        comment: 'Valid keywords for FACTOR.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(OUT|IN))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  fileHandle: {
+    comment: 'FILE HANDLE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(FILE HANDLE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomName' }
+      { include: '#subcomMode' }
+      { include: '#subcomRecForm' }
+      { include: '#subcomLRECL' }
+      { include: '#subcomEncoding' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  fileType: {
+    comment: 'FILE TYPE-END FILE TYPE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(FILE TYPE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '\\b(?i:(END FILE TYPE))\\b((\\.\\s*$)*|(^\\s*$)*)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomFile' }
+      { include: '#subcomEncoding' }
+      { include: '#subcomRecord' }
+      { include: '#subcomCase' }
+      { include: '#subcomWild' }
+      { include: '#subcomDuplicate' }
+      { include: '#subcomMissing' }
+      { include: '#subcomOrdered' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  filterCommand: {
+    comment: 'FILTER Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(FILTER))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'Valid keywords for FILTER.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(OFF))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  fitCommand: {
+    comment: 'FIT Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(FIT))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomErrors' }
+      { include: '#subcomOBS' }
+      { include: '#subcomDFE' }
+      { include: '#subcomDFH' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  fleissMultiraterKappa: {
+    comment: 'FLEISS MULTIRATER KAPPA Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(FLEISS MULTIRATER KAPPA))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomMissing' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomPrint' }
+      {
+        comment: 'Valid keywords for FLEISS MULTIRATER KAPPA.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(CLASSMISSING|ASYMPTOTIC_CILEVEL|IGNORE_CASE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  flipCommand: {
+    comment: 'FLIP Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(FLIP))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomNewNames' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  frequenciesCommand: {
+    comment: 'FREQUENCIES Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(FREQUENCIES))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomFormat' }
+      { include: '#subcomBarChart' }
+      { include: '#subcomPieChart' }
+      { include: '#subcomHistogram' }
+      { include: '#subcomGrouped' }
+      { include: '#subcomPercentiles' }
+      { include: '#subcomNTiles' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomMissing' }
+      { include: '#subcomOrder' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  generalizedLinear: {
+    comment: 'GENLIN Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(GENLIN))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomModel' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomRepeated' }
+      { include: '#subcomEMMeans' }
+      { include: '#subcomMissing' }
+      { include: '#subcomPrint' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      {
+        comment: 'Valid keywords for GENLIN.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(INTERCEPT|OFFSET|SCALEWEIGHT|DISTRIBUTION|LINK|ANALYSISTYPE
+          |CHECKSEP|CILEVEL|CITYPE|COVB|HCONVERGE|INITIAL|LCONVERGE|LIKELIHOOD
+          |MAXITERATIONS|MAXSTEPHALVING|METHOD|PCONVERGE|SCALE|SINGULAR|SUBJECT
+          |WITHINSUBJECT|SORT|CORRTYPE|ADJUSTCORR|UPDATECORR|TABLES|CONTROL|COMPARE
+          |CONTRAST|PADJUST|CLASSMISSING|CORB|PARAMETER))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  generalizedLinearMixed: {
+    comment: 'GENLINMIXED Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(GENLINMIXED))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomDataStructure' }
+      { include: '#subcomFields' }
+      { include: '#subcomTargetOptions' }
+      { include: '#subcomFixed' }
+      { include: '#subcomRandom' }
+      { include: '#subcomBuildOptions' }
+      { include: '#subcomEMMeans' }
+      { include: '#subcomEMMeansOptions' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomSave' }
+      {
+        comment: 'Valid keywords for GENLINMIXED.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(SUBJECTS|REPEATED_MEASURES|KNONECKER_MEASURES|GROUPING
+          |COVARIANCE_TYPE|SPCOORDS|TARGET|TRIALS|ANALYSIS_WEIGHT|OFFSET|REFERENCE
+          |DISTRIBUTION|LINK|LINKPARAMETER|EFFECTS|USE_INTERCEPT|SOLUTION
+          |TARGET_CATEGORY_ORDER|INPUTS_CATEGORY_ORDER|MAX_ITERATIONS|CONFIDENCE_LEVEL
+          |DF_METHOD|COVB|PCONVERGE|LCONVERGE|HCONVERGE|SCORING|SINGULAR|TABLES|COMPARE
+          |CONTRAST|CONTROL|SCALE|PADJUST|MODEL|MAX_CATEGORIES))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  generalizedLog: {
+    comment: 'GENLOG Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(GENLOG))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomCStructure' }
+      { include: '#subcomGResid' }
+      { include: '#subcomGLOR' }
+      { include: '#subcomModel' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomPrint' }
+      { include: '#subcomPlot' }
+      { include: '#subcomMissing' }
+      { include: '#subcomSave' }
+      { include: '#subcomDesign' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  getCommand: {
+    comment: 'GET Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(GET))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomFile' }
+      { include: '#subcomDrop' }
+      { include: '#subcomKeep' }
+      { include: '#subcomRename' }
+      { include: '#subcomMap' }
+      {
+        comment: 'Valid keywords for GET.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(LOCK|PASSWORD))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  getCapture: {
+    comment: 'GET CAPTURE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(GET CAPTURE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomConnect' }
+      { include: '#subcomUnencrypted' }
+      { include: '#subcomSQL' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  getData: {
+    comment: 'GET DATA Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(GET DATA))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomType' }
+      { include: '#subcomFile' }
+      { include: '#subcomConnect' }
+      { include: '#subcomEncrypted' }
+      { include: '#subcomUnencrypted' }
+      { include: '#subcomSQL' }
+      { include: '#subcomAssumedStrWidth' }
+      { include: '#subcomDataTypeMin' }
+      { include: '#subcomLeadingSpaces' }
+      { include: '#subcomSheet' }
+      { include: '#subcomCellRange' }
+      { include: '#subcomReadNames' }
+      { include: '#subcomHidden' }
+      { include: '#subcomTrailingSpaces' }
+      { include: '#subcomEncoding' }
+      { include: '#subcomArrangement' }
+      { include: '#subcomFirstCase' }
+      { include: '#subcomDelCase' }
+      { include: '#subcomFixCase' }
+      { include: '#subcomImportCase' }
+      { include: '#subcomDelimiters' }
+      { include: '#subcomMultipleSpaces' }
+      { include: '#subcomQualifier' }
+      { include: '#subcomVariables' }
+      {
+        comment: 'Valid keywords for GET DATA.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(PERCENTAGE|IGNORE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  getSAS: {
+    comment: 'GET SAS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(GET SAS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomData' }
+      { include: '#subcomEncoding' }
+      { include: '#subcomFormats' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  getStata: {
+    comment: 'GET STATA Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(GET STATA))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomFile' }
+      { include: '#subcomEncoding' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  getTranslate: {
+    comment: 'GET TRANSLATE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(GET TRANSLATE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomFile' }
+      { include: '#subcomType' }
+      { include: '#subcomFieldNames' }
+      { include: '#subcomRange' }
+      { include: '#subcomDrop' }
+      { include: '#subcomKeep' }
+      { include: '#subcomMap' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  getCognos: {
+    comment: 'GETCOGNOS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(GETCOGNOS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomMode' }
+      { include: '#subcomConnection' }
+      { include: '#subcomLocation' }
+      { include: '#subcomImport' }
+      { include: '#subcomFilter' }
+      { include: '#subcomParameters' }
+      {
+        comment: 'Valid keywords for GETCOGNOS.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(TYPE|SERVERURL|MODE|CREDENTIALS|NAMESPACE|USERNAME|PASSWORD
+          |STOREDCREDENTIAL|PACKAGE|FIELDS|REPORT|VALUE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  getTM1: {
+    comment: 'GETTM1 Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(GETTM1))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomConnection' }
+      { include: '#subcomView' }
+      { include: '#subcomRename' }
+      {
+        comment: 'Valid keywords for GETTM1.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(PMSYSURL|SERVER|MODE|USERNAME|PASSWORD|NAMESPACE|CREDENTIAL
+          |CUBE|NAME|FIELDS))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  ggraphCommand: {
+    comment: 'GGRAPH Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(GGRAPH))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomGraphDataSet' }
+      { include: '#subcomGraphSpec' }
+      { include: '#subcomColorCycle' }
+      { include: '#subcomFrame' }
+      { include: '#subcomGridLines' }
+      { include: '#subcomFitLines' }
+      {
+        comment: 'Valid keywords for GGRAPH.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(NAME|VARIABLES|DATASET|LEVEL|VALUES|UNLABELED|SOURCE|LOCATION
+          |EDITABLE|LABEL|DEFAULTTEMPLATE|TEMPLATE|VIZSTYLESHEET|VIZMAP|MAPKEY
+          |SHOWALLFEATURES|OUTER|INNER|XAXIS|YAXIS|TOTAL|SUBGROUPS))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
   # Common subcommands:
   subcomAnalysis: {
     name: 'support.function.subcommand.spss'
@@ -1997,13 +2782,25 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(APPLY))\\b'
   }
+  subcomArrangement: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ARRANGEMENT))\\b'
+  }
+  subcomAssumedStrWidth: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ASSUMEDSTRWIDTH))\\b'
+  }
   subcomBarChart: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(BARCHART))\\b'
   }
-  subcomBreak: {
+  subcomBuildOptions: {
     name: 'support.function.subcommand.spss'
-    match: '(/?)\\b(?i:(BREAK))\\b'
+    match: '(/?)\\b(?i:(BUILD_OPTIONS))\\b'
+  }
+  subcomCase: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CASE))\\b'
   }
   subcomCategorical: {
     name: 'support.function.subcommand.spss'
@@ -2012,6 +2809,10 @@ repository:
   subcomCategories: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CATEGORIES))\\b'
+  }
+  subcomCellRange: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CELLRANGE))\\b'
   }
   subcomCells: {
     name: 'support.function.subcommand.spss'
@@ -2025,17 +2826,41 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CIN))\\b'
   }
+  subcomCInterval: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CINTERVAL))\\b'
+  }
   subcomCLabels: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CLABELS))\\b'
+  }
+  subcomClassify: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CLASSIFY))\\b'
   }
   subcomClassMissing: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CLASSMISSING))\\b'
   }
+  subcomColorCycle: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(COLORCYCLE))\\b'
+  }
+  subcomCompare: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(COMPARE))\\b'
+  }
   subcomCondition: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CONDITION))\\b'
+  }
+  subcomConnect: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CONNECT))\\b'
+  }
+  subcomConnection: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CONNECTION))\\b'
   }
   subcomConfiguration: {
     name: 'support.function.subcommand.spss'
@@ -2065,6 +2890,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CRITITER))\\b'
   }
+  subcomCStructure: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CSTRUCTURE))\\b'
+  }
   subcomCustom: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CUSTOM))\\b'
@@ -2073,13 +2902,45 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DATA))\\b'
   }
+  subcomDataStructure: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DATA_STRUCTURE))\\b'
+  }
+  subcomDataTypeMin: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DATATYPEMIN))\\b'
+  }
+  subcomDelCase: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DELCASE))\\b'
+  }
+  subcomDelimiters: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DELIMITERS))\\b'
+  }
   subcomDesign: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DESIGN))\\b'
   }
+  subcomDFE: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DFE))\\b'
+  }
+  subcomDFH: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DFH))\\b'
+  }
+  subcomDiagonal: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DIAGONAL))\\b'
+  }
   subcomDiff: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DIFF))\\b'
+  }
+  subcomDigits: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DIGITS))\\b'
   }
   subcomDimension: {
     name: 'support.function.subcommand.spss'
@@ -2097,13 +2958,29 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DROP))\\b'
   }
+  subcomDuplicate: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DUPLICATE))\\b'
+  }
   subcomEMMeans: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(EMMEANS))\\b'
   }
+  subcomEMMeansOptions: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(EMMEANS_OPTIONS))\\b'
+  }
   subcomEncoding: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ENCODING))\\b'
+  }
+  subcomEncrypted: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ENCRYPTED))\\b'
+  }
+  subcomErrors: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ERRORS))\\b'
   }
   subcomESTBF: {
     name: 'support.function.subcommand.spss'
@@ -2117,6 +2994,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(EXTERNAL))\\b'
   }
+  subcomExtraction: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(EXTRACTION))\\b'
+  }
   subcomFactors: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FACTORS))\\b'
@@ -2124,6 +3005,10 @@ repository:
   subcomFGT: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FGT))\\b'
+  }
+  subcomFieldNames: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FIELDNAMES))\\b'
   }
   subcomFields: {
     name: 'support.function.subcommand.spss'
@@ -2137,6 +3022,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FILEINFO))\\b'
   }
+  subcomFilter: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FILTER))\\b'
+  }
   subcomFIN: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FIN))\\b'
@@ -2144,6 +3033,18 @@ repository:
   subcomFirst: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FIRST))\\b'
+  }
+  subcomFirstCase: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FIRSTCASE))\\b'
+  }
+  subcomFitLines: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FITLINES))\\b'
+  }
+  subcomFixCase: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FIXCASE))\\b'
   }
   subcomFixed: {
     name: 'support.function.subcommand.spss'
@@ -2157,21 +3058,85 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FORMAT))\\b'
   }
+  subcomFormats: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FORMATS))\\b'
+  }
   subcomFOUT: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FOUT))\\b'
+  }
+  subcomFrame: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FRAME))\\b'
   }
   subcomFrom: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FROM))\\b'
   }
+  subcomFunctions: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FUNCTIONS))\\b'
+  }
+  subcomGLOR: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(GLOR))\\b'
+  }
+  subcomGraphDataSet: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(GRAPHDATASET))\\b'
+  }
+  subcomGraphSpec: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(GRAPHSPEC))\\b'
+  }
+  subcomGResid: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(GRESID))\\b'
+  }
+  subcomGridLines: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(GRIDLINES))\\b'
+  }
+  subcomGrouped: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(GROUPED))\\b'
+  }
+  subcomGroups: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(GROUPS))\\b'
+  }
+  subcomHandleMissing: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(HANDLEMISSING))\\b'
+  }
+  subcomHidden: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(HIDDEN))\\b'
+  }
   subcomHideSmallCounts: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(HIDESMALLCOUNTS))\\b'
   }
+  subcomHistogram: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(HISTOGRAM))\\b'
+  }
+  subcomHistory: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(HISTORY))\\b'
+  }
   subcomID: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ID))\\b'
+  }
+  subcomImport: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(IMPORT))\\b'
+  }
+  subcomImportCase: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(IMPORTCASE))\\b'
   }
   subcomIn: {
     name: 'support.function.subcommand.spss'
@@ -2217,9 +3182,21 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(LAST))\\b'
   }
+  subcomLeadingSpaces: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(LEADINGSPACES))\\b'
+  }
   subcomLink: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(LINK))\\b'
+  }
+  subcomLocation: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(LOCATION))\\b'
+  }
+  subcomLRECL: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(LRECL))\\b'
   }
   subcomMA: {
     name: 'support.function.subcommand.spss'
@@ -2245,6 +3222,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MAXITER))\\b'
   }
+  subcomMaxSteps: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MAXSTEPS))\\b'
+  }
   subcomMean: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MEAN))\\b'
@@ -2256,6 +3237,10 @@ repository:
   subcomMedian: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MEDIAN))\\b'
+  }
+  subcomMEstimators: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MESTIMATORS))\\b'
   }
   subcomMethod: {
     name: 'support.function.subcommand.spss'
@@ -2281,6 +3266,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MNEST))\\b'
   }
+  subcomMode: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MODE))\\b'
+  }
   subcomModel: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MODEL))\\b'
@@ -2297,6 +3286,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MRSETS))\\b'
   }
+  subcomMultipleSpaces: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MULTIPLESPACES))\\b'
+  }
   subcomMXAuto: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MXAUTO))\\b'
@@ -2309,9 +3302,17 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NU))\\b'
   }
+  subcomName: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(NAME))\\b'
+  }
   subcomNaturalLogarithm: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(LN))\\b'
+  }
+  subcomNewNames: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(NEWNAMES))\\b'
   }
   subcomNMiss: {
     name: 'support.function.subcommand.spss'
@@ -2341,6 +3342,18 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NOTABLE))\\b'
   }
+  subcomNoTotal: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(NOTOTAL))\\b'
+  }
+  subcomNTiles: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(NTILES))\\b'
+  }
+  subcomOBS: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(OBS))\\b'
+  }
   subcomOddsRatios: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ODDSRATIOS))\\b'
@@ -2348,6 +3361,14 @@ repository:
   subcomOptions: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(OPTIONS))\\b'
+  }
+  subcomOrder: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ORDER))\\b'
+  }
+  subcomOrdered: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ORDERED))\\b'
   }
   subcomOutfile: {
     name: 'support.function.subcommand.spss'
@@ -2357,6 +3378,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(OUTPUT))\\b'
   }
+  subcomParameters: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PARAMETERS))\\b'
+  }
   subcomPattern: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PATTERN))\\b'
@@ -2365,6 +3390,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PCOMPUTE))\\b'
   }
+  subcomPercentiles: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PERCENTILES))\\b'
+  }
   subcomPeriod: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PERIOD))\\b'
@@ -2372,6 +3401,10 @@ repository:
   subcomPGT: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PGT))\\b'
+  }
+  subcomPieChart: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PIECHART))\\b'
   }
   subcomPIN: {
     name: 'support.function.subcommand.spss'
@@ -2413,9 +3446,37 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PRIOR))\\b'
   }
+  subcomPriors: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PRIORS))\\b'
+  }
+  subcomQualifier: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(QUALIFIER))\\b'
+  }
+  subcomRandom: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(RANDOM))\\b'
+  }
+  subcomRange: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(RANGE))\\b'
+  }
   subcomRate: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(RATE))\\b'
+  }
+  subcomReadNames: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(READNAMES))\\b'
+  }
+  subcomRecForm: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(RECFORM))\\b'
+  }
+  subcomRecord: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(RECORD))\\b'
   }
   subcomRecords: {
     name: 'support.function.subcommand.spss'
@@ -2425,6 +3486,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(RENAME))\\b'
   }
+  subcomRepeated: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(REPEATED))\\b'
+  }
   subcomResample: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(RESAMPLE))\\b'
@@ -2432,6 +3497,10 @@ repository:
   subcomRescale: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(RESCALE))\\b'
+  }
+  subcomRotate: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ROTATE))\\b'
   }
   subcomRotation: {
     name: 'support.function.subcommand.spss'
@@ -2453,9 +3522,17 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SDIFF))\\b'
   }
+  subcomSeasFact: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SEASFACT))\\b'
+  }
   subcomSeasonal: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SEASONAL))\\b'
+  }
+  subcomSelect: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SELECT))\\b'
   }
   subcomSelectRule: {
     name: 'support.function.subcommand.spss'
@@ -2464,6 +3541,10 @@ repository:
   subcomShape: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SHAPE))\\b'
+  }
+  subcomSheet: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SHEET))\\b'
   }
   subcomSize: {
     name: 'support.function.subcommand.spss'
@@ -2481,13 +3562,25 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SMISSING))\\b'
   }
+  subcomSort: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SORT))\\b'
+  }
   subcomSource: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SOURCE))\\b'
   }
+  subcomSpecification: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SPECIFICATION))\\b'
+  }
   subcomSplit: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SPLIT))\\b'
+  }
+  subcomSQL: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SQL))\\b'
   }
   subcomSRSEstimator: {
     name: 'support.function.subcommand.spss'
@@ -2545,6 +3638,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TARGET))\\b'
   }
+  subcomTargetOptions: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TARGET_OPTIONS))\\b'
+  }
   subcomTemplate: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TEMPLATE))\\b'
@@ -2557,9 +3654,33 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TITLES))\\b'
   }
+  subcomTolerance: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TOLERANCE))\\b'
+  }
+  subcomTotal: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TOTAL))\\b'
+  }
+  subcomTrailingSpaces: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TRAILINGSPACES))\\b'
+  }
   subcomTransform: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TRANSFORM))\\b'
+  }
+  subcomType: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TYPE))\\b'
+  }
+  subcomUnencrypted: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(UNENCRYPTED))\\b'
+  }
+  subcomUnselected: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(UNSELECTED))\\b'
   }
   subcomUpperBound: {
     name: 'support.function.subcommand.spss'
@@ -2573,6 +3694,14 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(VARINFO))\\b'
   }
+  subcomView: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(VIEW))\\b'
+  }
+  subcomVIN: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(VIN))\\b'
+  }
   subcomVLabels: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(VLABELS))\\b'
@@ -2581,11 +3710,18 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(WEIGHT))\\b'
   }
+  subcomWild: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(WILD))\\b'
+  }
   subcomWrite: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(WRITE))\\b'
   }
 
-  # Add highlighting for other system variables. We have $SYSMIS here but there are others
-  # Use scope invalid.deprecated for deprecated commands
+  # Add highlighting for other system variables. We have $SYSMIS here but there are others.
+  # Use scope invalid.deprecated for deprecated commands.
   # Subcommand keywords in commands is inconsistent right now. Need to revise this later.
+  #     Use scope support.constant for keywords that are predefined values.
+  #     Use scope keyword.other for keywords that take parameters.
+  # Check for deprecated commands (docu and elsewhere).
