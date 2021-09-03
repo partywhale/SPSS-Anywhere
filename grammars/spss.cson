@@ -8,6 +8,7 @@ patterns: [
   { include: '#metaCommandFriendlyComments' }
   { include: '#metaQuoteStrings' }
   { include: '#metaCommands' }
+  { include: '#metaCommandsDeprecated' }
   { include: '#metaConditionals' }
   {
     name: 'keyword.keyword.spss'
@@ -99,7 +100,6 @@ repository:
       { include: '#bayesRepeated' }
       { include: '#beginData' }
       { include: '#beginExpr' }
-      { include: '#simprepBegin' }
       { include: '#beginGPL' }
       { include: '#beginProgram' }
       { include: '#bootStrap' }
@@ -111,6 +111,7 @@ repository:
       { include: '#clusterCommand' }
       { include: '#codeBook' }
       { include: '#compareDatasets' }
+      { include: '#computeCommand' }
       { include: '#conjointCommand' }
       { include: '#correlationsCommand' }
       { include: '#correspondenceCommand' }
@@ -139,9 +140,10 @@ repository:
       { include: '#detectAnomaly' }
       { include: '#discriminantCommand' }
       { include: '#displayCommand' }
+      { include: '#endCase' }
+      { include: '#endFile' }
       { include: '#eraseCommand' }
       { include: '#examineCommand' }
-      { include: '#exportCommand' }
       { include: '#exSmooth' }
       { include: '#extensionCommand' }
       { include: '#factorCommand' }
@@ -169,8 +171,25 @@ repository:
       { include: '#hierarchicalLogLinear' }
       { include: '#homalsCommand' }
       { include: '#hostCommand' }
-      { include: '#iGraphCommand' }
       { include: '#importCommand' }
+      { include: '#includeCommand' }
+      { include: '#inputProgram' }
+      { include: '#insertCommand' }
+      { include: '#insertExec' }
+      { include: '#insertHidden' }
+      { include: '#keyedDataList' }
+      { include: '#kaplanMeier' }
+      { include: '#kNearestNeighbour' }
+      { include: '#linearCommand' }
+    ]
+  }
+  metaCommandsDeprecated: {
+    comment: 'Includes commands provided by SPSS that are now deprecated or obsolete.'
+    patterns: [
+      { include: '#exportCommand' }
+      { include: '#iGraphCommand' }
+      { include: '#infoCommand' }
+      { include: '#simprepBegin' }
     ]
   }
 
@@ -234,7 +253,7 @@ repository:
   # Global keywords & operators:
   controlConditionals: {
     name: 'keyword.control.conditionals.spss'
-    match: '\\b(?i:(IF|THEN|ELSE|WHILE|FOR|DO|END|REPEAT|BY|WITH|ALL|TO|BREAK|VS|AT))\\b'
+    match: '\\b(?i:(IF|THEN|ELSE|WHILE|FOR|DO|END|REPEAT|BY|WITH|ALL|TO|BREAK|VS|AT|LOOP))\\b'
   }
   operatorsNumeric: {
     name: 'keyword.operator.numeric.spss'
@@ -289,8 +308,8 @@ repository:
     comment: 'Commands with no subcommands or special keywords.'
     name: 'meta.class.command.spss'
     begin: '\\b(?i:(ADD DOCUMENT|ADD VALUE LABELS|CACHE|CD|CLEAR TIME PROGRAM
-      |CLEAR TRANSFORMATIONS|COMPUTE|COUNT|DATASET CLOSE|DATASET DISPLAY|DELETE VARIABLES
-      |DOCUMENT|DROP DOCUMENTS|ECHO|END CASE|END FILE|EXECUTE|FILE LABEL|FINISH|FORMATS))\\b'
+      |CLEAR TRANSFORMATIONS|COUNT|DATASET CLOSE|DATASET DISPLAY|DELETE VARIABLES
+      |DOCUMENT|DROP DOCUMENTS|ECHO|EXECUTE|FILE LABEL|FINISH|FORMATS|LEAVE))\\b'
     beginCaptures:
       1: name: 'support.class.command.spss'
     end: '(\\.\\s*$)|(^\\s*$)'
@@ -1320,6 +1339,21 @@ repository:
     ]
   }
 
+  computeCommand: {
+    comment: 'COMPUTE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(COMPUTE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
   conjointCommand: {
     comment: 'CONJOINT Command'
     name: 'meta.class.command.spss'
@@ -2136,6 +2170,36 @@ repository:
           |SCRATCH|VECTOR|MACROS))\\b)|((/?)(@)(\\b(?i:(ATTRIBUTES))\\b))'
       }
 
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  endCase: {
+    comment: 'END CASE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(END CASE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  endFile: {
+    comment: 'END FILE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(END FILE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
       # Global command includes:
       { include: '#metaCommandFormatting' }
     ]
@@ -2976,6 +3040,259 @@ repository:
     ]
   }
 
+  includeCommand: {
+    comment: 'INCLUDE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(INCLUDE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomFile' }
+      {
+        comment: 'Valid keywords for INCLUDE.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(ENCODING|PASSWORD))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  infoCommand: {
+    comment: 'INFO Command - no longer supported'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(INFO))\\b'
+    beginCaptures:
+      1: name: 'invalid.deprecated.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'invalid.deprecated.command.end.spss'
+    patterns: [
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  inputProgram: {
+    comment: 'INPUT PROGRAM-END INPUT PROGRAM Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(INPUT PROGRAM))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '\\b(?i:(END INPUT PROGRAM))\\b((\\.\\s*$)*|(^\\s*$)*)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      # Global command includes:
+      { include: '#computeCommand' }
+      { include: '#dataList' }
+      { include: '#endCase' }
+      { include: '#endFile' }
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  insertCommand: {
+    comment: 'INSERT Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(INSERT))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomFile' }
+      { include: '#subcomSyntax' }
+      { include: '#subcomError' }
+      { include: '#subcomCD' }
+      { include: '#subcomEncoding' }
+      {
+        comment: 'Valid keywords for INSERT.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(PASSWORD))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  insertExec: {
+    comment: 'INSERT EXEC Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(INSERT EXEC))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomSuccess' }
+      { include: '#subcomFailure' }
+      { include: '#subcomClear' }
+      { include: '#subcomFile' }
+      { include: '#subcomSyntax' }
+      { include: '#subcomEncoding' }
+      {
+        comment: 'Valid keywords for INSERT EXEC.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(PASSWORD))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  insertHidden: {
+    comment: 'INSERT HIDDEN Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(INSERT HIDDEN))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomSource' }
+      { include: '#subcomSyntax' }
+      { include: '#subcomError' }
+      { include: '#subcomEncoding' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  keyedDataList: {
+    comment: 'KEYED DATA LIST Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(KEYED DATA LIST))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomFile' }
+      { include: '#subcomKey' }
+      { include: '#subcomIn' }
+      { include: '#subcomTable' }
+      { include: '#subcomNoTable' }
+      { include: '#subcomEncoding' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  kaplanMeier: {
+    comment: 'KM Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(KM))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomStatus' }
+      { include: '#subcomStrata' }
+      { include: '#subcomPlot' }
+      { include: '#subcomID' }
+      { include: '#subcomPrint' }
+      { include: '#subcomPercentiles' }
+      { include: '#subcomTest' }
+      { include: '#subcomCompare' }
+      { include: '#subcomTrend' }
+      { include: '#subcomSave' }
+      {
+        comment: 'Valid keywords for KM.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(EVENT|LOST))\\b'
+      }
+      {
+        comment: 'Temporary variables for KM.'
+        name: 'support.variable.spss'
+        match: '(/?)\\b(?i:(SURVIVAL|HAZARD|SE|CUMEVENT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  kNearestNeighbour: {
+    comment: 'KNN Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(KNN))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomExcept' }
+      { include: '#subcomCaseLabels' }
+      { include: '#subcomFocalCases' }
+      { include: '#subcomRescale' }
+      { include: '#subcomPartition' }
+      { include: '#subcomModel' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomCrossValidation' }
+      { include: '#subcomMissing' }
+      { include: '#subcomViewModel' }
+      { include: '#subcomPrint' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      {
+        comment: 'Valid keywords for KNN.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(COVARIATE|TRAINING|HOLDOUT|VARIABLE|METRIC|NEIGHBORS|FEATURES
+          |NUMFEATURES|PREDICTED|WEIGHTFEATURES|FOLDS|USERMISSING|DISPLAY|CPS|NONE|PREDVAL
+          |PREDPROB|MAXCAT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  linearCommand: {
+    comment: 'LINEAR Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(LINEAR))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomFields' }
+      { include: '#subcomBuildOptions' }
+      { include: '#subcomEnsembles' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      {
+        comment: 'Valid keywords for LINEAR.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(TARGET|INPUTS|ANALYSIS_WEIGHT|OBJECTIVE
+          |USE_AUTO_DATA_PREPARATION|CONFIDENCE_LEVEL|MODEL_SELECTION
+          |CRITERIA_FORWARD_STEPWISE|PROBABILITY_ENTRY|PROBABILITY_REMOVAL
+          |MAX_EFFECTS|MAX_STEPS|CRITERIA_BEST_SUBSETS|REPLICATE_RESULTS|SEED
+          |COMBINING_RULE_CONTINUOUS|COMPONENT_MODELS_N|MODEL|PREDICTED_VALUES))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
   # Common subcommands:
   subcomAnalysis: {
     name: 'support.function.subcommand.spss'
@@ -3013,6 +3330,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CASE))\\b'
   }
+  subcomCaseLabels: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CASELABELS))\\b'
+  }
   subcomCategorical: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CATEGORICAL))\\b'
@@ -3020,6 +3341,10 @@ repository:
   subcomCategories: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CATEGORIES))\\b'
+  }
+  subcomCD: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CD))\\b'
   }
   subcomCellRange: {
     name: 'support.function.subcommand.spss'
@@ -3052,6 +3377,10 @@ repository:
   subcomClassMissing: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CLASSMISSING))\\b'
+  }
+  subcomClear: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CLEAR))\\b'
   }
   subcomColorCycle: {
     name: 'support.function.subcommand.spss'
@@ -3104,6 +3433,10 @@ repository:
   subcomCritIter: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CRITITER))\\b'
+  }
+  subcomCrossValidation: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CROSSVALIDATION))\\b'
   }
   subcomCStructure: {
     name: 'support.function.subcommand.spss'
@@ -3197,6 +3530,14 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ENCRYPTED))\\b'
   }
+  subcomEnsembles: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ENSEMBLES))\\b'
+  }
+  subcomError: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ERROR))\\b'
+  }
   subcomErrorBar: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ERRORBAR))\\b'
@@ -3213,6 +3554,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ESTIMATOR))\\b'
   }
+  subcomExcept: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(EXCEPT))\\b'
+  }
   subcomExternal: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(EXTERNAL))\\b'
@@ -3224,6 +3569,10 @@ repository:
   subcomFactors: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FACTORS))\\b'
+  }
+  subcomFailure: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FAILURE))\\b'
   }
   subcomFDesign: {
     name: 'support.function.subcommand.spss'
@@ -3280,6 +3629,10 @@ repository:
   subcomFLT: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FLT))\\b'
+  }
+  subcomFocalCases: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FOCALCASES))\\b'
   }
   subcomFootNote: {
     name: 'support.function.subcommand.spss'
@@ -3416,6 +3769,10 @@ repository:
   subcomKeep: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(KEEP))\\b'
+  }
+  subcomKey: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(KEY))\\b'
   }
   subcomKMatrix: {
     name: 'support.function.subcommand.spss'
@@ -3656,6 +4013,10 @@ repository:
   subcomPareto: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PARETO))\\b'
+  }
+  subcomPartition: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PARTITION))\\b'
   }
   subcomPattern: {
     name: 'support.function.subcommand.spss'
@@ -3913,6 +4274,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SUBTITLE))\\b'
   }
+  subcomSuccess: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SUCCESS))\\b'
+  }
   subcomSum: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SUM))\\b'
@@ -3924,6 +4289,10 @@ repository:
   subcomSupplementary: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SUPPLEMENTARY))\\b'
+  }
+  subcomSyntax: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SYNTAX))\\b'
   }
   subcomTable: {
     name: 'support.function.subcommand.spss'
@@ -3973,6 +4342,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TRANSFORM))\\b'
   }
+  subcomTrend: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TREND))\\b'
+  }
   subcomType: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TYPE))\\b'
@@ -4000,6 +4373,10 @@ repository:
   subcomView: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(VIEW))\\b'
+  }
+  subcomViewModel: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(VIEWMODEL))\\b'
   }
   subcomVIN: {
     name: 'support.function.subcommand.spss'
@@ -4036,3 +4413,4 @@ repository:
   #     Use scope support.constant for keywords that are predefined values.
   #     Use scope keyword.other for keywords that take parameters (parentheses or otherwise).
   # Check for deprecated commands (docu and elsewhere).
+  # REREAD and REPEATING DATA need to be added to inputProgram as global includes.
