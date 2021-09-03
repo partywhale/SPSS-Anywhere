@@ -181,6 +181,12 @@ repository:
       { include: '#kaplanMeier' }
       { include: '#kNearestNeighbour' }
       { include: '#linearCommand' }
+      { include: '#listCommand' }
+      { include: '#logisticRegression' }
+      { include: '#logLinear' }
+      { include: '#manovaCommand' }
+      { include: '#matchFiles' }
+      { include: '#matrixCommand' }
     ]
   }
   metaCommandsDeprecated: {
@@ -253,7 +259,7 @@ repository:
   # Global keywords & operators:
   controlConditionals: {
     name: 'keyword.control.conditionals.spss'
-    match: '\\b(?i:(IF|THEN|ELSE|WHILE|FOR|DO|END|REPEAT|BY|WITH|ALL|TO|BREAK|VS|AT|LOOP))\\b'
+    match: '\\b(?i:(IF|THEN|ELSE|WHILE|FOR|DO|END|REPEAT|BY|WITH|ALL|TO|BREAK|VS|AT|LOOP|FROM))\\b'
   }
   operatorsNumeric: {
     name: 'keyword.operator.numeric.spss'
@@ -261,7 +267,7 @@ repository:
   }
   operatorsLogical: {
     name: 'keyword.operator.logical.spss'
-    match: '\\b(?i:(AND|OR|NOT))\\b'
+    match: '\\b(?i:(AND|OR|NOT|XOR))\\b'
   }
   operatorsLogicalSymbolic: {
     name: 'keyword.operator.logical.symbolic.spss'
@@ -646,7 +652,6 @@ repository:
         name: 'support.function.subcommand.spss'
         match: '(/?)\\b(?i:(NEWVARS))\\b'
       }
-      { include: '#subcomFrom' }
       { include: '#subcomSource' }
       { include: '#subcomTarget' }
       { include: '#subcomFileInfo' }
@@ -3293,6 +3298,245 @@ repository:
     ]
   }
 
+  listCommand: {
+    comment: 'LIST Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(LIST))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomFormat' }
+      { include: '#subcomCases' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  logisticRegression: {
+    comment: 'LOGISTIC REGRESSION Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(LOGISTIC REGRESSION))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomCategorical' }
+      { include: '#subcomContrast' }
+      { include: '#subcomMethod' }
+      { include: '#subcomSelect' }
+      { include: '#subcomOrigin' }
+      { include: '#subcomNoOrigin' }
+      { include: '#subcomID' }
+      { include: '#subcomPrint' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomClassPlot' }
+      { include: '#subcomCaseWise' }
+      { include: '#subcomMissing' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomSave' }
+      { include: '#subcomExternal' }
+      {
+        comment: 'Valid keywords for LOGISTIC REGRESSION.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(INDICATOR|DEVIATION|SIMPLE|POLYNOMIAL|SPECIAL|ENTER|FSTEP|
+          |BSTEP|COND|WALD|LR|ITER|CI|BCON|ITERATE|LCON|PIN|POUT|EPS|CUT|OUTLIER|MODEL|
+          |PARAMETER))\\b'
+      }
+      {
+        comment: 'Constants for LOGISTIC REGRESSION.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(DIFFERENCE|HELMERT|REPEATED|DEFAULT|SUMMARY|CORR|GOODFIT
+          |EXCLUDE|INCLUDE))\\b'
+      }
+      {
+        comment: 'Temporary variables for LOGISTIC REGRESSION.'
+        name: 'support.variable.spss'
+        match: '(/?)\\b(?i:(PRED|PGROUP|RESID|DEV|LRESID|SRESID|ZRESID|LEVER|COOK|DFBETA))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  logLinear: {
+    comment: 'LOGLINEAR Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(LOGLINEAR))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomCWeight' }
+      { include: '#subcomGResid' }
+      { include: '#subcomContrast' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomPrint' }
+      { include: '#subcomPlot' }
+      { include: '#subcomMissing' }
+      { include: '#subcomDesign' }
+      {
+        comment: 'Valid keywords for LOGLINEAR.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(DEVIATION|SIMPLE|POLYNOMIAL|SPECIAL|CONVERGE|ITERATE|DELTA))\\b'
+      }
+      {
+        comment: 'Constants for LOGLINEAR.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(DIFFERENCE|HELMERT|REPEATED|BASIS|DEFAULT|FREQ|RESID|DESIGN|ESTIM|COR|NONE|NORMPROB|EXCLUDE|INCLUDE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  manovaCommand: {
+    comment: 'MANOVA Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MANOVA))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomError' }
+      { include: '#subcomContrast' }
+      { include: '#subcomPartition' }
+      { include: '#subcomMethod' }
+      { include: '#subcomPrint' }
+      { include: '#subcomNoPrint' }
+      { include: '#subcomOMeans' }
+      { include: '#subcomPMeans' }
+      { include: '#subcomResiduals' }
+      { include: '#subcomPower' }
+      { include: '#subcomCInterval' }
+      { include: '#subcomPlot' }
+      { include: '#subcomMissing' }
+      { include: '#subcomMatrix' }
+      { include: '#subcomAnalysis' }
+      { include: '#subcomDesign' }
+      { include: '#subcomTransform' }
+      { include: '#subcomRename' }
+      { include: '#subcomPComps' }
+      { include: '#subcomDiscrim' }
+      { include: '#subcomWSFactors' }
+      { include: '#subcomWSDesign' }
+      { include: '#subcomMeasure' }
+      {
+        comment: 'Valid keywords for MANOVA.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(DEVIATION|POLYNOMIAL|SIMPLE|SPECIAL|CELLINFO|PARAMETERS|SIGNIF
+          |HOMOGENEITY|VARIABLES|TABLES|T|F|INDIVIDUAL|JOINT|UNIVARIATE|NCOMP|MINEIGEN|ALPHA
+          |MWITHIN))\\b'
+      }
+      {
+        comment: 'Constants for MANOVA.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(WITHIN|RESIDUAL|DIFFERENCE|HELMERT|REPEATED|UNIQUE|SEQUENTIAL
+          |QR|CHOLESKY|CONSTANT|NOCONSTANT|MEANS|SSCP|COV|COR|ESTIM|NEGSUM|ORTHO|EFSIZE
+          |OPTIMAL|SINGLEDF|BARTLETT|COCHRAN|OVERALL|ONEWAY|DECOMP|BIAS|SOLUTION|REDUNDANCY
+          |COLLINEARITY|STDDEV|CASEWISE|EXACT|APPROXIMATE|BOXPLOTS|CELLPLOTS|NORMAL
+          |LISTWISE|EXCLUDE|INCLUDE|IN|OUT|MUPLUS|SEED|BASIS|ORTHONORM|MULTIV|EIGEN|DIMENR
+          |UNIV|HYPOTH|STEPDOWN|BRIEF|BOXM|ZCORR|ROTATE|RAW|STAN|ROY|PILLAI|WILKS|HOTELLING
+          |BONFER|CONDITIONAL|UNCONDITIONAL|AVERF|AVONLY|HF|GG))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  matchFiles: {
+    comment: 'MATCH FILES Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MATCH FILES))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomFile' }
+      { include: '#subcomTable' }
+      { include: '#subcomRename' }
+      { include: '#subcomDrop' }
+      { include: '#subcomKeep' }
+      { include: '#subcomIn' }
+      { include: '#subcomFirst' }
+      { include: '#subcomLast' }
+      { include: '#subcomMap' }
+      {
+        comment: 'Valid keywords for MATCH FILES.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(PASSWORD))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  matrixCommand: {
+    comment: 'MATRIX-END MATRIX Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MATRIX))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '\\b(?i:(END MATRIX))\\b((\\.\\s*$)*|(^\\s*$)*)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'Valid statements for MATRIX.'
+        name: 'support.function.matrixstatement.spss'
+        match: '(/?)\\b(?i:(CALL|COMPUTE|DISPLAY|GET|MGET|MSAVE|PRINT|READ|RELEASE|SAVE|WRITE))\\b'
+      }
+      {
+        comment: 'MATRIX functions.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(ABS|ANY|ARSIN|ARTAN|BLOCK|CDF|CDFNORM|CHICDF|CHOL|CMAX|CMIN|COS|CSSQ|CSUM|DESIGN
+          |DET|DIAG|EOF|EVAL|EXP|FCDF|GINV|GRADE|GSCH|IDF|INDENT|INV|KRONEKER|LG10|LN|MAGIC|MAKE
+          |MDIAG|MMAX|MMIN|MOD|MSSQ|MSUM|NCDF|NCOL|NORMAL|NPDF|NROW|PDF|PROBIT|RANK|RESHAPE|RMAX|RMIN|RND|RNKORDER
+          |RSSQ|RSUM|RV|SIG|SIN|SOLVE|SQRT|SSCP|SVAL|SWEEP|TCDF|TRACE|TRANSPOS|TRUNC|UNIFORM))\\b'
+      }
+      {
+        comment: 'MATRIX function dot keywords.'
+        name: 'support.constant.spss'
+        match: '(\\.)\\b(?i:(BERNOULLI|BETA|BINOM|BVNOR|CAUCHY|CHISQ|EXP|F|GAMMA|GEOM|HALFNRM
+          |HYPER|IGAUSS|LAPLACE|LOGISTIC|LNORMAL|LOGISTIC|NEGBIN|NORMAL|PARETO|POISSON|SMOD
+          |SRANGE|T|UNIFORM|WEIBULL))\\b'
+      }
+      {
+        comment: 'Valid keywords for MATRIX.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(EIGEN|SETDIAG|SVD|FORMAT|TITLE|SPACE|RLABELS|RNAMES|CLABELS|CNAMES
+          |FILE|FIELD|SIZE|MODE|REREAD|OUTFILE|HOLD|VARIABLES|NAMES|MISSING|STRINGS|TYPE
+          |SNAMES|SPLIT|FNAMES|FACTOR))\\b'
+      }
+      {
+        comment: 'Constants for MATRIX.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(NEWPAGE|RECTANGULAR|SYMMETRIC|TRIANGULAR|ACCEPT|OMIT|COV|CORR
+          |MEAN|STDDEV|N|COUNT|DICTIONARY|STATUS))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
   # Common subcommands:
   subcomAnalysis: {
     name: 'support.function.subcommand.spss'
@@ -3333,6 +3577,14 @@ repository:
   subcomCaseLabels: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CASELABELS))\\b'
+  }
+  subcomCases: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CASES))\\b'
+  }
+  subcomCaseWise: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CASEWISE))\\b'
   }
   subcomCategorical: {
     name: 'support.function.subcommand.spss'
@@ -3377,6 +3629,10 @@ repository:
   subcomClassMissing: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CLASSMISSING))\\b'
+  }
+  subcomClassPlot: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CLASSPLOT))\\b'
   }
   subcomClear: {
     name: 'support.function.subcommand.spss'
@@ -3501,6 +3757,10 @@ repository:
   subcomDiscretization: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DISCRETIZATION))\\b'
+  }
+  subcomDiscrim: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DISCRIM))\\b'
   }
   subcomDomain: {
     name: 'support.function.subcommand.spss'
@@ -3653,10 +3913,6 @@ repository:
   subcomFrame: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FRAME))\\b'
-  }
-  subcomFrom: {
-    name: 'support.function.subcommand.spss'
-    match: '(/?)\\b(?i:(FROM))\\b'
   }
   subcomFunctions: {
     name: 'support.function.subcommand.spss'
@@ -3954,6 +4210,14 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NOLOG))\\b'
   }
+  subcomNoOrigin: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(NOORIGIN))\\b'
+  }
+  subcomNoPrint: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(NOPRINT))\\b'
+  }
   subcomNonParallel: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NONPARALLEL))\\b'
@@ -3982,6 +4246,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ODDSRATIOS))\\b'
   }
+  subcomOMeans: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(OMEANS))\\b'
+  }
   subcomOptions: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(OPTIONS))\\b'
@@ -3993,6 +4261,10 @@ repository:
   subcomOrdered: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ORDERED))\\b'
+  }
+  subcomOrigin: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ORIGIN))\\b'
   }
   subcomOutfile: {
     name: 'support.function.subcommand.spss'
@@ -4021,6 +4293,10 @@ repository:
   subcomPattern: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PATTERN))\\b'
+  }
+  subcomPComps: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PCOMPS))\\b'
   }
   subcomPCompute: {
     name: 'support.function.subcommand.spss'
@@ -4066,6 +4342,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PLOT))\\b'
   }
+  subcomPMeans: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PMEANS))\\b'
+  }
   subcomPopSize: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(POPSIZE))\\b'
@@ -4077,6 +4357,10 @@ repository:
   subcomPOUT: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(POUT))\\b'
+  }
+  subcomPower: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(POWER))\\b'
   }
   subcomPProperties: {
     name: 'support.function.subcommand.spss'
@@ -4145,6 +4429,10 @@ repository:
   subcomRescale: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(RESCALE))\\b'
+  }
+  subcomResiduals: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(RESIDUALS))\\b'
   }
   subcomRobust: {
     name: 'support.function.subcommand.spss'
@@ -4406,11 +4694,22 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(WSFACTOR))\\b'
   }
+  subcomWSFactors: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(WSFACTORS))\\b'
+  }
 
   # Add highlighting for other system variables. We have $SYSMIS here but there are others.
   # Use scope invalid.deprecated for deprecated commands.
   # Subcommand keywords in commands is inconsistent right now. Need to revise this later.
   #     Use scope support.constant for keywords that are predefined values.
+  #     Use scope support.variable for temporary variables created by commands.
   #     Use scope keyword.other for keywords that take parameters (parentheses or otherwise).
+  #     Started doing this properly with command LOGISITC REGRESSION.
   # Check for deprecated commands (docu and elsewhere).
   # REREAD and REPEATING DATA need to be added to inputProgram as global includes.
+  # Regex isn't matching right when there's a linebreak in the regex match. Need | at beginning and end of line
+  #     Or just use one line. Or break into multiple matches.
+  #     Will fix this later.
+  # Reorder keywords alphabetically - easier to keep track of when changes are needed.
+  # 'MISSING' is currently in #operatorsNumeric - should it be?
