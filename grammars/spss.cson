@@ -187,6 +187,22 @@ repository:
       { include: '#manovaCommand' }
       { include: '#matchFiles' }
       { include: '#matrixCommand' }
+      { include: '#matrixData' }
+      { include: '#mConvert' }
+      { include: '#meansCommand' }
+      { include: '#metaBinary' }
+      { include: '#metaESBinary' }
+      { include: '#metaContinuous' }
+      { include: '#metaESContinuous' }
+      { include: '#metaRegression' }
+      { include: '#mixedCommand' }
+      { include: '#multilayerPerceptron' }
+      { include: '#modelHandle' }
+      { include: '#mrSets' }
+      { include: '#multResponse' }
+      { include: '#multipleCorrespondence' }
+      { include: '#multipleImputation' }
+      { include: '#missingValuesAnalysis' }
     ]
   }
   metaCommandsDeprecated: {
@@ -315,7 +331,8 @@ repository:
     name: 'meta.class.command.spss'
     begin: '\\b(?i:(ADD DOCUMENT|ADD VALUE LABELS|CACHE|CD|CLEAR TIME PROGRAM
       |CLEAR TRANSFORMATIONS|COUNT|DATASET CLOSE|DATASET DISPLAY|DELETE VARIABLES
-      |DOCUMENT|DROP DOCUMENTS|ECHO|EXECUTE|FILE LABEL|FINISH|FORMATS|LEAVE))\\b'
+      |DOCUMENT|DROP DOCUMENTS|ECHO|EXECUTE|FILE LABEL|FINISH|FORMATS|LEAVE|MISSING VALUES
+      |MODEL CLOSE|MODEL LIST|MODEL NAME|N OF CASES))\\b'
     beginCaptures:
       1: name: 'support.class.command.spss'
     end: '(\\.\\s*$)|(^\\s*$)'
@@ -3318,9 +3335,9 @@ repository:
   }
 
   logisticRegression: {
-    comment: 'LOGISTIC REGRESSION Command'
+    comment: 'LOGISTIC REGRESSION Command - DMLOGISTIC is alias'
     name: 'meta.class.command.spss'
-    begin: '\\b(?i:(LOGISTIC REGRESSION))\\b'
+    begin: '\\b(?i:(LOGISTIC REGRESSION|DMLOGISTIC))\\b'
     beginCaptures:
       1: name: 'support.class.command.spss'
     end: '(\\.\\s*$)|(^\\s*$)'
@@ -3537,14 +3554,666 @@ repository:
     ]
   }
 
+  matrixData: {
+    comment: 'MATRIX DATA Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MATRIX DATA))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomFile' }
+      { include: '#subcomFormat' }
+      { include: '#subcomSplit' }
+      { include: '#subcomFactors' }
+      { include: '#subcomCells' }
+      { include: '#subcomContents' }
+      { include: '#subcomN' }
+      {
+        comment: 'Temporary variables for MATRIX DATA.'
+        name: 'support.variable.spss'
+        match: '(/?)\\b(?i:(ROWTYPE_|VARNAME_))\\b'
+      }
+      {
+        comment: 'Constants for MATRIX DATA.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(CORR|COV|MAT|MSE|DFE|MEAN|STDDEV|SD|N_VECTOR|N_SCALAR
+          |N_MATRIX|COUNT|PROX|LIST|FREE|LOWER|UPPER|FULL|DIAGONAL|NODIAGONAL))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  mConvert: {
+    comment: 'MCONVERT Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MCONVERT))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomMatrix' }
+      { include: '#subcomAppend' }
+      { include: '#subcomReplace' }
+      {
+        comment: 'Constants for MCONVERT.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(IN|OUT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  meansCommand: {
+    comment: 'MEANS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MEANS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomTables' }
+      { include: '#subcomCells' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomMissing' }
+      {
+        comment: 'Valid keywords for MEANS.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(NPCT|SPCT))\\b'
+      }
+      {
+        comment: 'Constants for MEANS.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(DEFAULT|MEAN|STDDEV|COUNT|MEDIAN|GMEDIAN|SEMEAN|SUM|MIN|MAX
+          |RANGE|VARIANCE|KURT|SEKURT|SKEW|SESKEW|FIRST|LAST|HARMONIC|GEOMETRIC|ANOVA
+          |LINEARITY|NONE|TABLE|INCLUDE|DEPENDENT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  metaBinary: {
+    comment: 'META BINARY Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(META BINARY))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomCriteria' }
+      { include: '#subcomData' }
+      { include: '#subcomAnalysis' }
+      { include: '#subcomInference' }
+      { include: '#subcomContrast' }
+      { include: '#subcomBias' }
+      { include: '#subcomTrimFill' }
+      { include: '#subcomPrint' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomForestPlot' }
+      { include: '#subcomCumForestPlot' }
+      { include: '#subcomBubblePlot' }
+      { include: '#subcomFunnelPlot' }
+      { include: '#subcomGalbraithPlot' }
+      { include: '#subcomLabbePlot' }
+      {
+        comment: 'Valid keywords for META BINARY.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(SCOPE|CLASSMISSING|CILEVEL|MAXITER|MAXSTEP|CONVERGENCE|DROP
+          |ZEROCOUNTS|ADD|TREATMENT|CONTROL|ESTYPE|ID|STUDY|SUBGROUP|CUMULATIVE|SORT|MODEL
+          |FIXED|ESTIMATE|ADJUSTSE|VARIABLES|COEFFICIENTS|EFORM|TEST|COVARIATES|FACTORS
+          |INTERCEPT|MULTIPLICATIVE|DISTRIBUTION|SIDE|METHOD|CUMSTATS|DISPLAY|ESFORM
+          |ADDCOLS|POSITION|REFLINES|ANNOTATIONS|CROP|PREDICTORS|CENTER|PROPORTION
+          |FITLINE|CI|LABEL|YRANGE|XRANGE|IMPUTE|YAXIS|OVERALL))\\b'
+      }
+      {
+        comment: 'Constants for META BINARY.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(AVAILABLE|LISTWISE|EXCLUDE|INCLUDE|ONLY|IFALL|KEEP|SUCCESS|FAILURE
+          |LOGOR|LOGPETO|LOGRR|RD|ASCENDING|DESCENDING|RANDOM|INV_VAR|MAN-TEL_HAENSZEL
+          |REML|ML|BAYES|HEDGES|HUNTER_SCHMIDT|DERSIMONIAN_LAIRD|SIDIK_JONKMAN|NONE
+          |KNAPP_HARTUNG|TRUNCATED_KNAPP_HARTUNG|EGGER|HARBORD|PETERS|T|NORMAL|EGGERSLOPE
+          |LEFT|RIGHT|HOMOGENEITY|HETEROGENEITY|INDIVIDUAL|PREDICTION|ES|ES_EXP|SE_ES
+          |CIL_ES|CIL_ES_EXP|CIU_ES|CIU_ES_EXP|PVAL_ES|WEIGHT|WEIGHT_PCT|CUMES|CUMES_EXP
+          |SE_CUMES|CIL_CUMES|CIL_CUMES_EXP|CIU_CUMES|CIU_CUMES_EXP|PVAL_CUMES|SE|PVAL
+          |UPPER|BOTTOM|INVSE|VAR|INVVAR|AUTO))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  metaESBinary: {
+    comment: 'META ES BINARY Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(META ES BINARY))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomCriteria' }
+      { include: '#subcomData' }
+      { include: '#subcomAnalysis' }
+      { include: '#subcomInference' }
+      { include: '#subcomContrast' }
+      { include: '#subcomBias' }
+      { include: '#subcomTrimFill' }
+      { include: '#subcomPrint' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomForestPlot' }
+      { include: '#subcomCumForestPlot' }
+      { include: '#subcomBubblePlot' }
+      { include: '#subcomFunnelPlot' }
+      { include: '#subcomGalbraithPlot' }
+      {
+        comment: 'Valid keywords for META ES BINARY.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(SCOPE|CLASSMISSING|CILEVEL|MAXITER|MAXSTEP|CONVERGENCE|ES
+          |ESTYPE|VAR|SE|ID|STUDY|SUBGROUP|CUMULATIVE|MODEL|ESTIMATE|ADJUSTSE|VARIABLES
+          |COEFFICIENTS|EFORM|COVARIATES|FACTORS|INTERCEPT|MULTIPLICATIVE|DISTRIBUTION
+          |SIDE|METHOD|CUMSTATS|DISPLAY|ESFORM|ADDCOLS|POSITION|SORT|REFLINES|ANNOTATIONS
+          |CROP|PREDICTORS|CENTER|PROPORTION|FITLINE|CI|LABEL|YRANGE|XRANGE|IMPUTE|YAXIS))\\b'
+      }
+      {
+        comment: 'Constants for META ES BINARY.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(AVAILABLE|LISTWISE|EXCLUDE|INCLUDE|LOGOR|LOGPETO|LOGRR|RD|RANDOM|FIXED|REML|ML|BAYES|HEDGES
+          |HUNTER_SCHMIDT|DERSIMONIAN_LAIRD|SIDIK_JONKMAN|NONE|KNAPP_HARTUNG
+          |TRUNCATED_KNAPP_HARTUNG|T|NORMAL|EGGERSLOPE|RIGHT|LEFT|HOMOGENEITY
+          |HETEROGENEITY|INDIVIDUAL|CUMULATIVE|PREDICTION|ES_EXP|SE_ES|CIL_ES|CIL_ES_EXP
+          |CIU_ES|CIU_ES_EXP|PVAL_ES|CUMES|WEIGHT|WEIGHT_PCT|CUMES_EXP|SE_CUMES|SIL_CUMES
+          |CIL_CUMES_EXP|CIU_CUMES|CIU_CUMES_EXP|PVAL_CUMES|PVAL|ASCENDING|DESCENDING
+          |OVERALL|TEST|INVSE|INVVAR|UPPER|BOTTOM|AUTO))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  metaContinuous: {
+    comment: 'META CONTINUOUS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(META CONTINUOUS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomCriteria' }
+      { include: '#subcomData' }
+      { include: '#subcomAnalysis' }
+      { include: '#subcomInference' }
+      { include: '#subcomContrast' }
+      { include: '#subcomBias' }
+      { include: '#subcomTrimFill' }
+      { include: '#subcomPrint' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomForestPlot' }
+      { include: '#subcomCumForestPlot' }
+      { include: '#subcomBubblePlot' }
+      { include: '#subcomFunnelPlot' }
+      { include: '#subcomGalbraithPlot' }
+      {
+        comment: 'Valid keywords for META CONTINUOUS.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(SCOPE|CLASSMISSING|CILEVEL|MAXITER|MAXSTEP|CONVERGENCE|TREATMENT
+          |CONTROL|ESTYPE|ID|STUDY|SUBGROUP|CUMULATIVE|MODEL|ESTIMATE|ADJUSTSE|VARIABLES
+          |COEFFICIENTS|COVARIATES|FACTORS|INTERCEPT|MULTIPLICATIVE|DISTRIBUTION|SIDE|METHOD
+          |DISPLAY|ADDCOLS|POSITION|SORT|REFLINES|ANNOTATIONS|CROP|PREDICTORS|CENTER
+          |PROPORTION|FITLINE|CI|LABEL|YRANGE|XRANGE|IMPUTE|YAXIS))\\b'
+      }
+      {
+        comment: 'Constants for META CONTINUOUS.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(AVAILABLE|LISTWISE|EXCLUDE|INCLUDE|N|MEAN|VAR|STD|COHEN_D
+          |ADJUST|HEDGES_G|GLASS_DELTA|MEAN_DIFF|TREAT|UNEQUAL|RANDOM|FIXED|REML|ML|BAYES
+          |HEDGES|HUNTER_SCHMIDT|DERSIMONIAN_LAIRD|SIDIK_JONKMAN|NONE|KNAPP_HARTUNG
+          |TRUNCATED_KNAPP_HARTUNG|T|NORMAL|EGGERSLOPE|LEFT|RIGHT|HOMOGENEITY|HETEROGENEITY
+          |INDIVIDUAL|PREDICTION|ES|SE_ES|CIL_ES|CIU_ES|PVAL_ES|WEIGHT|WEIGHT_PCT|CUMSTATS
+          |CUMES|SE_CUMES|CIL_CUMES|CIU_CUMES|PVAL_CUMES|SE|PVAL|ASCENDING|DESCENDING
+          |OVERALL|TEST|UPPER|BOTTOM|INVSE|INVVAR|AUTO))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  metaESContinuous: {
+    comment: 'META ES CONTINUOUS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(META ES CONTINUOUS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomCriteria' }
+      { include: '#subcomData' }
+      { include: '#subcomAnalysis' }
+      { include: '#subcomInference' }
+      { include: '#subcomContrast' }
+      { include: '#subcomBias' }
+      { include: '#subcomTrimFill' }
+      { include: '#subcomPrint' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomForestPlot' }
+      { include: '#subcomCumForestPlot' }
+      { include: '#subcomBubblePlot' }
+      { include: '#subcomFunnelPlot' }
+      { include: '#subcomGalbraithPlot' }
+      {
+        comment: 'Valid keywords for META ES CONTINUOUS.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(SCOPE|CLASSMISSING|CILEVEL|MAXITER|MAXSTEP|CONVERGENCE|ES|VAR|SE
+          |ID|STUDY|SUBGROUP|CUMULATIVE|MODEL|ESTIMATE|ADJUSTSE|VARIABLES|COEFFICIENTS
+          |COVARIATES|FACTORS|INTERCEPT|MULTIPLICATIVE|DISTRIBUTION|SIDE|METHOD|DISPLAY
+          |ADDCOLS|POSITION|SORT|REFLINES|ANNOTATIONS|CROP|PREDICTORS|CENTER|PROPORTION
+          |FITLINE|CI|LABEL|YRANGE|XRANGE|IMPUTE|YAXIS))\\b'
+      }
+      {
+        comment: 'Constants for META ES CONTINUOUS.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(AVAILABLE|LISTWISE|EXCLUDE|INCLUDE|RANDOM|FIXED|REML|ML|BAYES
+          |HEDGES|HUNTER_SCHMIDT|DERSIMONIAN_LAIRD|SIDIK_JONKMAN|NONE|KNAPP_HARTUNG
+          |TRUNCATED_KNAPP_HARTUNG|T|NORMAL|EGGERSLOPE|LEFT|RIGHT|HOMOGENEITY|HETEROGENEITY
+          |INDIVIDUAL|PREDICTION|SE_ES|CIL_ES|CIU_ES|PVAL_ES|WEIGHT|WEIGHT_PCT|CUMSTATS
+          |CUMES|SE_CUMES|CIL_CUMES|CIU_CUMES|PVAL_CUMES|PVAL|ASCENDING|DESCENDING|OVERALL
+          |TEST|UPPER|BOTTOM|INVSE|INVVAR|AUTO))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  metaRegression: {
+    comment: 'META REGRESSION Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(META REGRESSION))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomCriteria' }
+      { include: '#subcomData' }
+      { include: '#subcomInference' }
+      { include: '#subcomPrint' }
+      { include: '#subcomSave' }
+      { include: '#subcomBubblePlot' }
+      {
+        comment: 'Valid keywords for META REGRESSION.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(CLASSMISSING|CILEVEL|MAXITER|MAXSTEP|CONVERGENCE|WEIGHT|VAR|SE
+          |MODEL|INTERCEPT|DISTRIBUTION|ESTIMATE|ADJUSTSE|PREDICTORS|CENTER|PROPORTION
+          |FITLINE|CI|LABEL|YRANGE|XRANGE))\\b'
+      }
+      {
+        comment: 'Constants for META REGRESSION.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(EXCLUDE|INCLUDE|RANDOM|FIXED|T|NORMAL|REML|ML|BAYES|HEDGES
+          |HUNTER_SCHMIDT|DERSIMONIAN_LAIRD|SIDIK_JONKMAN|NONE|KNAPP_HARTUNG
+          |TRUNCATED_KNAPP_HARTUNG|COEFF_TEST|PARAMETER|FIXPRED|SE_FIXPRED|PRED|SE_PRED
+          |CIPREDL|CIPREDU|BLUPS|SE_BLUPS|RESID|SE_RESID|LEVERAGE|AUTO|UPPER|BOTTOM|LEFT
+          |RIGHT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  mixedCommand: {
+    comment: 'MIXED Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MIXED))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomCriteria' }
+      { include: '#subcomEMMeans' }
+      { include: '#subcomFixed' }
+      { include: '#subcomMethod' }
+      { include: '#subcomMissing' }
+      { include: '#subcomPrint' }
+      { include: '#subcomRandom' }
+      { include: '#subcomRegWgt' }
+      { include: '#subcomRepeated' }
+      { include: '#subcomSave' }
+      { include: '#subcomTest' }
+      {
+        comment: 'Valid keywords for MIXED.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(CIN|HCONVERGE|DFMETHOD|LCONVERGE|MXITER|PCONVERGE|MXSTEP|SCORING
+          |SINGULAR|TABLES|COMPARE|REFCAT|ADJ|SSTYPE|HISTORY|SUBJECT|COVTYPE|KRONECKER
+          |SPCOORDS))\\b'
+      }
+      {
+        comment: 'Constants for MIXED.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(SATTERTHWAITE|RESIDUAL|KENWARDROGER|OVERALL|FIRST|LAST|LSD
+          |BONFERRONI|SIDAK|MEAN|INTERCEPT|WITHIN|NOINT|ML|REML|EXCLUDE|INCLUDE|CORB|COVB
+          |CPS|DESCRIPTIVES|G|LMATRIX|R|SOLUTION|TESTCOV|FIXPRED|PRED|RESID|SEFIXP
+          |SEPRED|DFFIXP|DFPRED))\\b'
+      }
+      {
+        comment: 'Covariance structures for MIXED.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(AD1|AR1|ARH1|ARMA11|CS|CSH|CSR|DIAG|FA1|FAH1|HF|ID|TP|TPH
+          |SP_POWER|SP_EXPONENTIAL|SP_GAUSSIAN|SP_LINEAR|SP_LINEARLOG|SP_SPHERICAL|UN_AR1
+          |UN_CS|UN_UN|UN|UNR|VC))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  multilayerPerceptron: {
+    comment: 'MLP Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MLP))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomExcept' }
+      { include: '#subcomRescale' }
+      { include: '#subcomPartition' }
+      { include: '#subcomArchitecture' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomStoppingRules' }
+      { include: '#subcomMissing' }
+      { include: '#subcomPrint' }
+      { include: '#subcomPlot' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      {
+        comment: 'Valid keywords for MLP.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(COVARIATE|DEPENDENT|TRAINING|TESTING|HOLDOUT|VARIABLE|AUTOMATIC
+          |HIDDENLAYERS|HIDDENFUNCTION|OUTPUTFUNCTION|MINIBATCHSIZE|MEMSIZE|OPTIMIZATION
+          |GRADIENTDESCENT|SCALEDCONJUGATE|LEARNINGINITIAL|LEARNINGLOWER|MOMENTUM
+          |LEARNINGEPOCHS|LAMBDAINITIAL|SIGMAINITIAL|INTERVALCENTER|INTERVALOFFSET
+          |ERRORSTEPS|DATA|TRAININGTIMER|MAXTIME|MAXEPOCHS|ERRORCHANGE|ERRORRATIO
+          |USERMISSING|PREDVAL|PSEUDOPROB|MODEL))\\b'
+      }
+      {
+        comment: 'Constants for MLP.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(STANDARDIZED|NORMALIZED|ADJNORMALIZED|NONE|YES|NO|TANH|SIGMOID
+          |IDENTITY|SOFTMAX|BATCH|ONLINE|MINIBATCH|AUTO|BOTH|ON|OFF|EXCLUDE|INCLUDE|CPS
+          |NETWORKINFO|SUMMARY|CLASSIFICATION|SOLUTION|IMPORTANCE|NETWORK|PREDICTED
+          |RESIDUAL|ROC|GAIN|LIFT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  modelHandle: {
+    comment: 'MODEL HANDLE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MODEL HANDLE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomName' }
+      { include: '#subcomFile' }
+      { include: '#subcomOptions' }
+      { include: '#subcomMap' }
+      {
+        comment: 'Valid keywords for MODEL HANDLE.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(MISSING))\\b'
+      }
+      {
+        comment: 'Constants for MODEL HANDLE.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(SYSMIS|SUBSTITUTE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  mrSets: {
+    comment: 'MRSETS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MRSETS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomMDGroup' }
+      { include: '#subcomMCGroup' }
+      { include: '#subcomDelete' }
+      { include: '#subcomDisplay' }
+      {
+        comment: 'Valid keywords for MRSETS.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(NAME|LABEL|LABELSOURCE|CATEGORYLABELS|VARIABLES|VALUE))\\b'
+      }
+      {
+        comment: 'Constants for MRSETS.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(VARLABELS|COUNTEDVALUES))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  multResponse: {
+    comment: 'MULT RESPONSE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MULT RESPONSE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomGroups' }
+      { include: '#subcomVariables' }
+      { include: '#subcomFrequencies' }
+      { include: '#subcomTables' }
+      { include: '#subcomCells' }
+      { include: '#subcomBase' }
+      { include: '#subcomMissing' }
+      { include: '#subcomFormat' }
+      {
+        comment: 'Constants for MULT RESPONSE.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(PAIRED|COUNT|ROW|COLUMN|TOTAL|CASES|RESPONSES|TABLE|MDGROUP
+          |MRGROUP|INCLUDE|LABELS|NOLABELS|DOUBLE|CONDENSE|ONEPAGE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  multipleCorrespondence: {
+    comment: 'MULTIPLE CORRESPONDENCE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MULTIPLE CORRESPONDENCE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomAnalysis' }
+      { include: '#subcomDiscretization' }
+      { include: '#subcomMissing' }
+      { include: '#subcomSupplementary' }
+      { include: '#subcomConfiguration' }
+      { include: '#subcomDimension' }
+      { include: '#subcomNormalization' }
+      { include: '#subcomMaxIter' }
+      { include: '#subcomCritIter' }
+      { include: '#subcomPrint' }
+      { include: '#subcomPlot' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      {
+        comment: 'Valid keywords for MULTIPLE CORRESPONDENCE.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(WEIGHT|GROUPING|NCAT|EQINTV|PASSIVE|ACTIVE|LISTWISE|OBJECT
+          |VARIABLE|INITIAL|FIXED|DESCRIP|QUANT|CATEGORY|TRANS|RESID|BIPLOT|JOINTCAT|NDIM
+          |TRDATA|DISCRDATA))\\b'
+      }
+      {
+        comment: 'Constants for MULTIPLE CORRESPONDENCE.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(NORMAL|UNIFORM|RANKING|MULTIPLYING|MODEIMPU|EXTRACAT|VPRINCIPAL
+          |OPRINCIPAL|SYMMETRICAL|INDEPENDENT|DISCRIM|HISTORY|CORR|OCORR|NONE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  multipleImputation: {
+    comment: 'MULTIPLE IMPUTATION Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MULTIPLE IMPUTATION))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomImpute' }
+      { include: '#subcomConstraints' }
+      { include: '#subcomMissingSummaries' }
+      { include: '#subcomImputationSummaries' }
+      { include: '#subcomAnalysisWeight' }
+      { include: '#subcomOutfile' }
+      {
+        comment: 'Valid keywords for MULTIPLE IMPUTATION.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(METHOD|NIMPUTATIONS|SCALEMODEL|INTERACTIONS|MAXPCTMISSING
+          |MAXCASEDRAWS|MAXPARAMDRAWS|MAXITER|SINGULAR|MAXMODELPARAM|MIN|MAX|RND|ROLE
+          |VARIABLES|MAXVARS|MINPCTMISSING))\\b'
+      }
+      {
+        comment: 'Constants for MULTIPLE IMPUTATION.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(AUTO|MONOTONE|FCS|NONE|PMM|LINEAR|TWOWAY|NO|BOTH|DEP|IND
+          |OVERALL|PATTERNS|MODELS|DESCRIPTIVES|IMPUTATIONS|FCSITERATIONS))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  missingValuesAnalysis: {
+    comment: 'MVA Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MVA))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomCategorical' }
+      { include: '#subcomMaxCat' }
+      { include: '#subcomID' }
+      { include: '#subcomNoUnivariate' }
+      { include: '#subcomTTest' }
+      { include: '#subcomCrossTab' }
+      { include: '#subcomMismatch' }
+      { include: '#subcomDPattern' }
+      { include: '#subcomMPattern' }
+      { include: '#subcomTPattern' }
+      { include: '#subcomListwise' }
+      { include: '#subcomPairwise' }
+      { include: '#subcomEM' }
+      { include: '#subcomRegression' }
+      {
+        comment: 'Valid keywords for MVA.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(PERCENT|SORT|DESCRIBE|TOLERANCE|CONVERGENCE|ITERATIONS|TDF
+          |LAMBDA|PROPORTION|OUTFILE|FLIMIT|NPREDICTORS|ADDTYPE))\\b'
+      }
+      {
+        comment: 'Constants for MVA.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(T|NOT|DF|NODF|PROB|NOPROB|COUNTS|NOCOUNTS|MEANS|NOMEANS|NOSORT
+          |RESIDUAL|NORMAL|NONE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
   # Common subcommands:
   subcomAnalysis: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ANALYSIS))\\b'
   }
+  subcomAnalysisWeight: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ANALYSISWEIGHT))\\b'
+  }
+  subcomAppend: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(APPEND))\\b'
+  }
   subcomApply: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(APPLY))\\b'
+  }
+  subcomArchitecture: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ARCHITECTURE))\\b'
   }
   subcomArrangement: {
     name: 'support.function.subcommand.spss'
@@ -3562,9 +4231,21 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(BARCHART))\\b'
   }
+  subcomBase: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(BASE))\\b'
+  }
+  subcomBias: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(BIAS))\\b'
+  }
   subcomBPDesign: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(BPDESIGN))\\b'
+  }
+  subcomBubblePlot: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(BUBBLEPLOT))\\b'
   }
   subcomBuildOptions: {
     name: 'support.function.subcommand.spss'
@@ -3666,6 +4347,14 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CONSTANT))\\b'
   }
+  subcomConstraints: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CONSTRAINTS))\\b'
+  }
+  subcomContents: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CONTENTS))\\b'
+  }
   subcomContinuous: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CONTINUOUS))\\b'
@@ -3690,6 +4379,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CRITITER))\\b'
   }
+  subcomCrossTab: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CROSSTAB))\\b'
+  }
   subcomCrossValidation: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CROSSVALIDATION))\\b'
@@ -3697,6 +4390,10 @@ repository:
   subcomCStructure: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CSTRUCTURE))\\b'
+  }
+  subcomCumForestPlot: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CUMFORESTPLOT))\\b'
   }
   subcomCustom: {
     name: 'support.function.subcommand.spss'
@@ -3721,6 +4418,10 @@ repository:
   subcomDelCase: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DELCASE))\\b'
+  }
+  subcomDelete: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DELETE))\\b'
   }
   subcomDelimiters: {
     name: 'support.function.subcommand.spss'
@@ -3762,9 +4463,17 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DISCRIM))\\b'
   }
+  subcomDisplay: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DISPLAY))\\b'
+  }
   subcomDomain: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DOMAIN))\\b'
+  }
+  subcomDPattern: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DPATTERN))\\b'
   }
   subcomDrop: {
     name: 'support.function.subcommand.spss'
@@ -3773,6 +4482,10 @@ repository:
   subcomDuplicate: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DUPLICATE))\\b'
+  }
+  subcomEM: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(EM))\\b'
   }
   subcomEMMeans: {
     name: 'support.function.subcommand.spss'
@@ -3898,6 +4611,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FOOTNOTE))\\b'
   }
+  subcomForestPlot: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FORESTPLOT))\\b'
+  }
   subcomFormat: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FORMAT))\\b'
@@ -3914,9 +4631,21 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FRAME))\\b'
   }
+  subcomFrequencies: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FREQUENCIES))\\b'
+  }
   subcomFunctions: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FUNCTIONS))\\b'
+  }
+  subcomFunnelPlot: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FUNNELPLOT))\\b'
+  }
+  subcomGalbraithPlot: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(GALBRAITHPLOT))\\b'
   }
   subcomGLOR: {
     name: 'support.function.subcommand.spss'
@@ -3982,6 +4711,14 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(IMPORTCASE))\\b'
   }
+  subcomImpute: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(IMPUTE))\\b'
+  }
+  subcomImputationSummaries: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(IMPUTATIONSUMMARIES))\\b'
+  }
   subcomIn: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(IN))\\b'
@@ -4034,6 +4771,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(KMATRIX))\\b'
   }
+  subcomLabbePlot: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(LABBEPLOT))\\b'
+  }
   subcomLast: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(LAST))\\b'
@@ -4049,6 +4790,10 @@ repository:
   subcomLink: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(LINK))\\b'
+  }
+  subcomListwise: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(LISTWISE))\\b'
   }
   subcomLMatrix: {
     name: 'support.function.subcommand.spss'
@@ -4082,6 +4827,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MAX))\\b'
   }
+  subcomMaxCat: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MAXCAT))\\b'
+  }
   subcomMaxIter: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MAXITER))\\b'
@@ -4097,6 +4846,14 @@ repository:
   subcomMBPDesign: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MBPDESIGN))\\b'
+  }
+  subcomMCGroup: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MCGROUP))\\b'
+  }
+  subcomMDGroup: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MDGROUP))\\b'
   }
   subcomMean: {
     name: 'support.function.subcommand.spss'
@@ -4126,9 +4883,17 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MIN))\\b'
   }
+  subcomMismatch: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MISMATCH))\\b'
+  }
   subcomMissing: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MISSING))\\b'
+  }
+  subcomMissingSummaries: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MISSINGSUMMARIES))\\b'
   }
   subcomMIterate: {
     name: 'support.function.subcommand.spss'
@@ -4153,6 +4918,10 @@ repository:
   subcomMOS: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MOS))\\b'
+  }
+  subcomMPattern: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MPATTERN))\\b'
   }
   subcomMPrint: {
     name: 'support.function.subcommand.spss'
@@ -4234,6 +5003,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NOTOTAL))\\b'
   }
+  subcomNoUnivariate: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(NOUNIVARIATE))\\b'
+  }
   subcomNTiles: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NTILES))\\b'
@@ -4273,6 +5046,10 @@ repository:
   subcomOutput: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(OUTPUT))\\b'
+  }
+  subcomPairwise: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PAIRWISE))\\b'
   }
   subcomPanel: {
     name: 'support.function.subcommand.spss'
@@ -4410,6 +5187,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(RECORDS))\\b'
   }
+  subcomRegression: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(REGRESSION))\\b'
+  }
   subcomRegWgt: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(REGWGT))\\b'
@@ -4421,6 +5202,10 @@ repository:
   subcomRepeated: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(REPEATED))\\b'
+  }
+  subcomReplace: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(REPLACE))\\b'
   }
   subcomResample: {
     name: 'support.function.subcommand.spss'
@@ -4550,6 +5335,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(STATUS))\\b'
   }
+  subcomStoppingRules: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(STOPPINGRULES))\\b'
+  }
   subcomStrata: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(STRATA))\\b'
@@ -4622,6 +5411,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TOTAL))\\b'
   }
+  subcomTPattern: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TPATTERN))\\b'
+  }
   subcomTrailingSpaces: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TRAILINGSPACES))\\b'
@@ -4633,6 +5426,14 @@ repository:
   subcomTrend: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TREND))\\b'
+  }
+  subcomTrimFill: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TRIMFILL))\\b'
+  }
+  subcomTTest: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TTEST))\\b'
   }
   subcomType: {
     name: 'support.function.subcommand.spss'
