@@ -203,6 +203,13 @@ repository:
       { include: '#multipleCorrespondence' }
       { include: '#multipleImputation' }
       { include: '#missingValuesAnalysis' }
+      { include: '#naiveBayes' }
+      { include: '#nlrCommand' }
+      { include: '#cnlrCommand' }
+      { include: '#modelProgram' }
+      { include: '#derivativesCommand' }
+      { include: '#constrainedFunctions' }
+      { include: '#clearModelPrograms' }
     ]
   }
   metaCommandsDeprecated: {
@@ -211,6 +218,7 @@ repository:
       { include: '#exportCommand' }
       { include: '#iGraphCommand' }
       { include: '#infoCommand' }
+      { include: '#reformatCommand' }
       { include: '#simprepBegin' }
     ]
   }
@@ -332,7 +340,10 @@ repository:
     begin: '\\b(?i:(ADD DOCUMENT|ADD VALUE LABELS|CACHE|CD|CLEAR TIME PROGRAM
       |CLEAR TRANSFORMATIONS|COUNT|DATASET CLOSE|DATASET DISPLAY|DELETE VARIABLES
       |DOCUMENT|DROP DOCUMENTS|ECHO|EXECUTE|FILE LABEL|FINISH|FORMATS|LEAVE|MISSING VALUES
-      |MODEL CLOSE|MODEL LIST|MODEL NAME|N OF CASES))\\b'
+      |MODEL CLOSE|MODEL LIST|MODEL NAME|N OF CASES|NEW FILE|NUMERIC|OMSINFO|OUTPUT DISPLAY
+      |PREDICT|PRESERVE|PRINT FORMATS|RENAME VARIABLES|RESTORE|SAMPLE|SELECT|STRING|SUBTITLE
+      |TEMPORARY|TIME PROGRAM|TITLE|TSHOW|VALUE LABELS|VARIABLE LABELS|VARIABLE WIDTH
+      |VECTOR|WRITE FORMATS))\\b'
     beginCaptures:
       1: name: 'support.class.command.spss'
     end: '(\\.\\s*$)|(^\\s*$)'
@@ -1020,23 +1031,6 @@ repository:
     end: '\\b(?i:(END EXPR))\\b((\\.\\s*$)*|(^\\s*$)*)'
     endCaptures:
       0: name: 'support.class.command.end.spss'
-    patterns: [
-      { include: '#subcomOutfile' }
-
-      # Global command includes:
-      { include: '#metaCommandFormatting' }
-    ]
-  }
-
-  simprepBegin: {
-    comment: 'SIMPREP BEGIN-SIMPREP END Command'
-    name: 'meta.class.command.spss'
-    begin: '\\b(?i:(SIMPREP BEGIN))\\b'
-    beginCaptures:
-      1: name: 'invalid.deprecated.command.spss'
-    end: '\\b(?i:(SIMPREP END))\\b((\\.\\s*$)*|(^\\s*$)*)'
-    endCaptures:
-      0: name: 'invalid.deprecated.command.end.spss'
     patterns: [
       { include: '#subcomOutfile' }
 
@@ -4194,6 +4188,201 @@ repository:
     ]
   }
 
+  naiveBayes: {
+    comment: 'NAIVEBAYES Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(NAIVEBAYES))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomExcept' }
+      { include: '#subcomForce' }
+      { include: '#subcomTrainingSample' }
+      { include: '#subcomSubSet' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomMissing' }
+      { include: '#subcomPrint' }
+      { include: '#subcomSave' }
+      { include: '#subcomOutfile' }
+      {
+        comment: 'Valid keywords for NAIVEBAYES.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(FACTORS|COVARIATES|PERCENT|VARIABLE|MAXSIZE|BESTSUBSET|EXACTSIZE
+          |BINS|MEMALLOCATE|TIMER|USERMISSING|PREDVAL|PREDPROB))\\b'
+      }
+      {
+        comment: 'Constants for NAIVEBAYES.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(PSEUDOBIC|TESTDATA|NOSELECTION|EXCLUDE|INCLUDE|CPS|EXCLUDED
+          |SUMMARY|SELECTED|CLASSIFICATION|NONE|MODEL))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  nlrCommand: {
+    comment: 'NLR Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(NLR))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomFile' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomPred' }
+      { include: '#subcomSave' }
+      { include: '#subcomCriteria' }
+      {
+        comment: 'Valid keywords for NLR.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(RESID|CKDER|ITER|SSCON|PCON|RCON))\\b'
+      }
+      {
+        comment: 'Constants for NLR.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(DERIVATIVES))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  cnlrCommand: {
+    comment: 'CNLR Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CNLR))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomFile' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomPred' }
+      { include: '#subcomSave' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomBounds' }
+      { include: '#subcomLoss' }
+      { include: '#subcomBootstrap' }
+      {
+        comment: 'Valid keywords for CNLR.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(RESID|CKDER|ITER|MINORITERATION|CRSHTOL|STEPLIMIT|FTOLERANCE
+          |LFTOLERANCE|NFTOLERANCE|LSTOLERANCE|OPTOLERANCE|FPRECISION|ISTEP))\\b'
+      }
+      {
+        comment: 'Constants for CNLR.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(DERIVATIVES|LOSS))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  modelProgram: {
+    comment: 'MODEL PROGRAM Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(MODEL PROGRAM))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  derivativesCommand: {
+    comment: 'DERIVATIVES Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(DERIVATIVES))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  constrainedFunctions: {
+    comment: 'CONSTRAINED FUNCTIONS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CONSTRAINED FUNCTIONS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  clearModelPrograms: {
+    comment: 'CLEAR MODEL PROGRAMS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(CLEAR MODEL PROGRAMS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  reformatCommand: {
+    comment: 'REFORMAT Command - no longer supported'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(REFORMAT))\\b'
+    beginCaptures:
+      1: name: 'invalid.deprecated.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'invalid.deprecated.command.end.spss'
+    patterns: [
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  simprepBegin: {
+    comment: 'SIMPREP BEGIN-SIMPREP END Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(SIMPREP BEGIN))\\b'
+    beginCaptures:
+      1: name: 'invalid.deprecated.command.spss'
+    end: '\\b(?i:(SIMPREP END))\\b((\\.\\s*$)*|(^\\s*$)*)'
+    endCaptures:
+      0: name: 'invalid.deprecated.command.end.spss'
+    patterns: [
+      { include: '#subcomOutfile' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
   # Common subcommands:
   subcomAnalysis: {
     name: 'support.function.subcommand.spss'
@@ -4238,6 +4427,14 @@ repository:
   subcomBias: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(BIAS))\\b'
+  }
+  subcomBootstrap: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(BOOTSTRAP))\\b'
+  }
+  subcomBounds: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(BOUNDS))\\b'
   }
   subcomBPDesign: {
     name: 'support.function.subcommand.spss'
@@ -4615,6 +4812,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FORESTPLOT))\\b'
   }
+  subcomForce: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FORCE))\\b'
+  }
   subcomFormat: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FORMAT))\\b'
@@ -4802,6 +5003,10 @@ repository:
   subcomLocation: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(LOCATION))\\b'
+  }
+  subcomLoss: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(LOSS))\\b'
   }
   subcomLRECL: {
     name: 'support.function.subcommand.spss'
@@ -5143,6 +5348,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PPROPERTIES))\\b'
   }
+  subcomPred: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PRED))\\b'
+  }
   subcomPrint: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PRINT))\\b'
@@ -5347,6 +5556,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SUBPOP))\\b'
   }
+  subcomSubSet: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SUBSET))\\b'
+  }
   subcomSubTitle: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SUBTITLE))\\b'
@@ -5418,6 +5631,10 @@ repository:
   subcomTrailingSpaces: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TRAILINGSPACES))\\b'
+  }
+  subcomTrainingSample: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TRAININGSAMPLE))\\b'
   }
   subcomTransform: {
     name: 'support.function.subcommand.spss'
@@ -5514,3 +5731,5 @@ repository:
   #     Will fix this later.
   # Reorder keywords alphabetically - easier to keep track of when changes are needed.
   # 'MISSING' is currently in #operatorsNumeric - should it be?
+  # Consider making DATE global.
+  # Consider global formats (e.g. currency formats, F8.2, etc.).
