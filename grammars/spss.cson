@@ -210,6 +210,11 @@ repository:
       { include: '#derivativesCommand' }
       { include: '#constrainedFunctions' }
       { include: '#clearModelPrograms' }
+      { include: '#nomReg' }
+      { include: '#nonparCorr' }
+      { include: '#npTests' }
+      { include: '#nparTests' }
+      { include: '#olapCubes' }
     ]
   }
   metaCommandsDeprecated: {
@@ -4351,6 +4356,202 @@ repository:
     ]
   }
 
+  nomReg: {
+    comment: 'NOMREG Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(NOMREG))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomCriteria' }
+      { include: '#subcomFullFactorial' }
+      { include: '#subcomIntercept' }
+      { include: '#subcomMissing' }
+      { include: '#subcomModel' }
+      { include: '#subcomStepWise' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomPrint' }
+      { include: '#subcomSave' }
+      { include: '#subcomScale' }
+      { include: '#subcomSubPop' }
+      { include: '#subcomTest' }
+      {
+        comment: 'Valid keywords for NOMREG.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(ORDER|BASE|BIAS|CHKSEP|CIN|DELTA|LCONVERGE|MXITER|MXSTEP|PCONVERGE
+          |SINGULAR|BACKWARD|FORWARD|BSTEP|FSTEP|RULE|MINEFFECT|MAXEFFECT|ENTRYMETHOD
+          |REMOVALMETHOD|PIN|POUT|PARAMETER|HISTORY|ACPROB|ESTPROB|PCPROB|PREDCAT|N))\\b'
+      }
+      {
+        comment: 'Constants for NOMREG.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(ASCENDING|DESCENDING|DATA|FIRST|LAST|INCLUDE|EXCLUDE|SINGLE
+          |SFACTOR|CONTAINMENT|NONE|LR|SCORE|WALD|ASSOCIATION|CELLPROB|CLASSTABLE|CORB
+          |CORV|FIT|IC|KERNEL|LRT|SUMMARY|CPS|STEP|MFI|NON|DEVIANCE|PEARSON))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  nonparCorr: {
+    comment: 'NONPAR CORR Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(NONPAR CORR))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomPrint' }
+      { include: '#subcomSample' }
+      { include: '#subcomMissing' }
+      { include: '#subcomMatrix' }
+      { include: '#subcomCI' }
+      {
+        comment: 'Valid keywords for NONPAR CORR.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(OUT|METHOD|CILEVEL))\\b'
+      }
+      {
+        comment: 'Constants for NONPAR CORR.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(TWOTAIL|ONETAIL|SIG|NOSIG|SPEARMAN|KENDALL|BOTH|FULL|LOWER
+          |LNODIAG|NOMATRIX|PAIRWISE|LISTWISE|INCLUDE|CC|BW|FHP))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  npTests: {
+    comment: 'NPTESTS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(NPTESTS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomMissing' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomOneSample' }
+      { include: '#subcomIndependent' }
+      { include: '#subcomRelated' }
+      {
+        comment: 'Valid keywords for NPTESTS.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(SCOPE|USERMISSING|ALPHA|CILEVEL|SEED|TEST|CHISQUARE|EXPECTED
+          |CUSTOM|FREQUENCIES|CATEGORIES|BINOMIAL|TESTVALUE|SUCCESSCATEGORICAL|LIST
+          |SUCCESSCONTINUOUS|CUTPOINT|KOLMOGOROV_SMIRNOV|NSAMPLES|MC_CILEVEL|NORMAL|SAMPLE
+          |SIMULATION|MEAN|SD|UNIFORM|MIN|MAX|POISSON|EXPONENTIAL|RUNS|GROUPCATEGORICAL
+          |GROUPCONTINUOUS|WILCOXON|GROUP|MOSES|TRIMOUTLIERS|KRUSKAL_WALLIS|COMPARE|MEDIAN
+          |JONCKHEERE_TERPSTRA|ORDER|MCNEMAR|SUCCESS|COCHRAN|FRIEDMAN|KENDALL))\\b'
+      }
+      {
+        comment: 'Constants for NPTESTS.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(ANALYSIS|LISTWISE|EXCLUDE|INCLUDE|RANDOM|EQUAL|FIRST|MIDPOINT
+          |CLOPPERPEARSON|JEFFREYS|LIKELIHOOD|SAMPLEMEDIAN|SAMPLEMEAN|MANN_WHITNEY
+          |WALD_WOLFOWITZ|HODGES_LEHMAN|PAIRWISE|STEPWISE|NONE|ASCENDING|DESCENDING|SIGN
+          |MARGINAL_HOMOGENEITY))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  nparTests: {
+    comment: 'NPAR TESTS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(NPAR TESTS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomBinomial' }
+      { include: '#subcomChiSquare' }
+      { include: '#subcomExpected' }
+      { include: '#subcomCochran' }
+      { include: '#subcomFriedman' }
+      { include: '#subcomJT' }
+      { include: '#subcomKS' }
+      { include: '#subcomKSSim' }
+      { include: '#subcomKW' }
+      { include: '#subcomKendall' }
+      { include: '#subcomMW' }
+      { include: '#subcomMcNemar' }
+      { include: '#subcomMedian' }
+      { include: '#subcomMH' }
+      { include: '#subcomMoses' }
+      { include: '#subcomRuns' }
+      { include: '#subcomSign' }
+      { include: '#subcomWW' }
+      { include: '#subcomWilcoxon' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomMissing' }
+      { include: '#subcomSample' }
+      { include: '#subcomMethod' }
+      {
+        comment: 'Valid keywords for NPAR TESTS.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(NORMAL|POISSON|UNIFORM|EXPONENTIAL|CIN|SAMPLES|TIMER))\\b'
+      }
+      {
+        comment: 'Constants for NPAR TESTS.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(EQUAL|MEAN|STDEV|MIN|MAX|NONORMAL|MODE|DESCRIPTIVES|QUARTILES
+          |ANALYSIS|LISTWISE|INCLUDE|MC|EXACT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  olapCubes: {
+    comment: 'OLAP CUBES Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(OLAP CUBES))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomTitle' }
+      { include: '#subcomFootNote' }
+      { include: '#subcomCells' }
+      { include: '#subcomCreate' }
+      { include: '#subcomHideSmallCounts' }
+      {
+        comment: 'Valid keywords for OLAP CUBES.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(NPCT|SPCT|GAC|GPC|VAC|VPC|COUNT))\\b'
+      }
+      {
+        comment: 'Constants for OLAP CUBES.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(MEAN|COUNT|STDDEV|SUM|MEDIAN|GMEDIAN|SEMEAN|MIN|MAX|RANGE
+          |VARIANCE|KURT|SEKURT|SKEW|SESKEW|FIRST|LAST|HARMONIC|GEOMETRIC|DEFAULT|NONE))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
   reformatCommand: {
     comment: 'REFORMAT Command - no longer supported'
     name: 'meta.class.command.spss'
@@ -4428,6 +4629,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(BIAS))\\b'
   }
+  subcomBinomial: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(BINOMIAL))\\b'
+  }
   subcomBootstrap: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(BOOTSTRAP))\\b'
@@ -4484,6 +4689,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CELLS))\\b'
   }
+  subcomChiSquare: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CHISQUARE))\\b'
+  }
   subcomCI: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CI))\\b'
@@ -4515,6 +4724,10 @@ repository:
   subcomClear: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(CLEAR))\\b'
+  }
+  subcomCochran: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(COCHRAN))\\b'
   }
   subcomColorCycle: {
     name: 'support.function.subcommand.spss'
@@ -4567,6 +4780,10 @@ repository:
   subcomCount: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(COUNT))\\b'
+  }
+  subcomCreate: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(CREATE))\\b'
   }
   subcomCriteria: {
     name: 'support.function.subcommand.spss'
@@ -4728,6 +4945,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(EXCEPT))\\b'
   }
+  subcomExpected: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(EXPECTED))\\b'
+  }
   subcomExternal: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(EXTERNAL))\\b'
@@ -4836,6 +5057,14 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FREQUENCIES))\\b'
   }
+  subcomFriedman: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FRIEDMAN))\\b'
+  }
+  subcomFullFactorial: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(FULLFACTORIAL))\\b'
+  }
   subcomFunctions: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(FUNCTIONS))\\b'
@@ -4928,6 +5157,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(INCLPROB))\\b'
   }
+  subcomIndependent: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(INDEPENDENT))\\b'
+  }
   subcomIndex: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(INDEX))\\b'
@@ -4960,9 +5193,17 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(JOINTPROB))\\b'
   }
+  subcomJT: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(J-T|JONCKHEERE-TERPSTRA))\\b'
+  }
   subcomKeep: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(KEEP))\\b'
+  }
+  subcomKendall: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(KENDALL))\\b'
   }
   subcomKey: {
     name: 'support.function.subcommand.spss'
@@ -4971,6 +5212,18 @@ repository:
   subcomKMatrix: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(KMATRIX))\\b'
+  }
+  subcomKS: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(K-S|KOLMOGOROV-SMIRNOV))\\b'
+  }
+  subcomKSSim: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(K-S_SIM|KOLMOGOROV-SMIRNOV SIMULATION))\\b'
+  }
+  subcomKW: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(K-W|KRUSKAL-WALLIS))\\b'
   }
   subcomLabbePlot: {
     name: 'support.function.subcommand.spss'
@@ -5056,6 +5309,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MCGROUP))\\b'
   }
+  subcomMcNemar: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MCNEMAR))\\b'
+  }
   subcomMDGroup: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MDGROUP))\\b'
@@ -5083,6 +5340,10 @@ repository:
   subcomMExpand: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MEXPAND))\\b'
+  }
+  subcomMH: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MH))\\b'
   }
   subcomMin: {
     name: 'support.function.subcommand.spss'
@@ -5124,6 +5385,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MOS))\\b'
   }
+  subcomMoses: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MOSES))\\b'
+  }
   subcomMPattern: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MPATTERN))\\b'
@@ -5139,6 +5404,10 @@ repository:
   subcomMultipleSpaces: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MULTIPLESPACES))\\b'
+  }
+  subcomMW: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(M-W|MANN-WHITNEY))\\b'
   }
   subcomMXAuto: {
     name: 'support.function.subcommand.spss'
@@ -5223,6 +5492,10 @@ repository:
   subcomOddsRatios: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ODDSRATIOS))\\b'
+  }
+  subcomOneSample: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ONESAMPLE))\\b'
   }
   subcomOMeans: {
     name: 'support.function.subcommand.spss'
@@ -5404,6 +5677,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(REGWGT))\\b'
   }
+  subcomRelated: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(RELATED))\\b'
+  }
   subcomRename: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(RENAME))\\b'
@@ -5440,6 +5717,14 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ROTATION))\\b'
   }
+  subcomRuns: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(RUNS))\\b'
+  }
+  subcomSample: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SAMPLE))\\b'
+  }
   subcomSampleFile: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SAMPLEFILE))\\b'
@@ -5447,6 +5732,10 @@ repository:
   subcomSave: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SAVE))\\b'
+  }
+  subcomScale: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SCALE))\\b'
   }
   subcomScatterPlot: {
     name: 'support.function.subcommand.spss'
@@ -5483,6 +5772,10 @@ repository:
   subcomSheet: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SHEET))\\b'
+  }
+  subcomSign: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SIGN))\\b'
   }
   subcomSize: {
     name: 'support.function.subcommand.spss'
@@ -5543,6 +5836,10 @@ repository:
   subcomStatus: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(STATUS))\\b'
+  }
+  subcomStepWise: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(STEPWISE))\\b'
   }
   subcomStoppingRules: {
     name: 'support.function.subcommand.spss'
@@ -5696,6 +5993,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(WEIGHT))\\b'
   }
+  subcomWilcoxon: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(WILCOXON))\\b'
+  }
   subcomWild: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(WILD))\\b'
@@ -5715,6 +6016,10 @@ repository:
   subcomWSFactors: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(WSFACTORS))\\b'
+  }
+  subcomWW: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(W-W|WALD-WOLFOWITZ))\\b'
   }
 
   # Add highlighting for other system variables. We have $SYSMIS here but there are others.
