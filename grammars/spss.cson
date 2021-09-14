@@ -218,6 +218,15 @@ repository:
       { include: '#omsCommand' }
       { include: '#omsEnd' }
       { include: '#omsLog' }
+      { include: '#onewayANOVA' }
+      { include: '#optimalBinning' }
+      { include: '#orthoPlan' }
+      { include: '#outputActivateEtc' }
+      { include: '#outputExport' }
+      { include: '#outputModify' }
+      { include: '#outputOpen' }
+      { include: '#outputSave' }
+      { include: '#overAls' }
     ]
   }
   metaCommandsDeprecated: {
@@ -4634,6 +4643,317 @@ repository:
     ]
   }
 
+  onewayANOVA: {
+    comment: 'ONEWAY Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(ONEWAY))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomPolynomial' }
+      { include: '#subcomContrast' }
+      { include: '#subcomPostHoc' }
+      { include: '#subcomRanges' }
+      { include: '#subcomPlotMeans' }
+      { include: '#subcomStatistics' }
+      { include: '#subcomMissing' }
+      { include: '#subcomMatrix' }
+      { include: '#subcomTemplate' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomEs' }
+      {
+        comment: 'Valid keywords for ONEWAY.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(ALPHA|DUNNETT|DUNNETTL|DUNNETTR|WALLER|IN|OUT|CILEVEL|CONTRAST))\\b'
+      }
+      {
+        comment: 'Constants for ONEWAY.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(SNK|TUKEY|BTUKEY|DUNCAN|SCHEFFE|BONFERRONI|LSD|SIDAK|GT2|GABRIEL
+          |FREGW|QREGW|T2|T3|GH|C|MODLSD|LSDMOD|BROWNFORSYTHE|WELCH|DESRIPTIVES|EFFECTS
+          |HOMOGENEITY|NONE|ANALYSIS|LISTWISE|INCLUDE|EXCLUDE|OVERALL|POOLED))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  optimalBinning: {
+    comment: 'OPTIMAL BINNING Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(OPTIMAL BINNING))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomCriteria' }
+      { include: '#subcomMissing' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomPrint' }
+      {
+        comment: 'Valid keywords for OPTIMAL BINNING.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(GUIDE|BIN|BINS|SAVE|INTO|PREPROCESS|EQUALFREQ|METHOD|LOWEREND
+          |UPPEREND|LOWERLIMIT|FORCEMERGE|SCOPE|RULES))\\b'
+      }
+      {
+        comment: 'Constants for OPTIMAL BINNING.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(NO|YES|NONE|MDLP|UNBOUNDED|OBSERVED|INCLUSIVE|EXCLUSIVE|PAIRWISE
+          |LISTWISE|ENDPOINTS|DESCRIPTIVES|ENTROPY))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  orthoPlan: {
+    comment: 'ORTHOPLAN Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(ORTHOPLAN))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomFactors' }
+      { include: '#subcomReplace' }
+      { include: '#subcomOutfile' }
+      { include: '#subcomMinimum' }
+      { include: '#subcomHoldout' }
+      { include: '#subcomMixHold' }
+      {
+        comment: 'Constants for ORTHOPLAN.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(YES|NO))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  outputActivateEtc: {
+    comment: 'OUTPUT ACTIVATE/CLOSE/NAME/NEW Commands'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(OUTPUT (ACTIVATE|CLOSE|NAME|NEW)))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'Valid keywords for OUTPUT ACTIVATE/CLOSE/NAME/NEW.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(NAME))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  outputExport: {
+    comment: 'OUTPUT EXPORT Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(OUTPUT EXPORT))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomContents' }
+      { include: '#subcomDoc' }
+      { include: '#subcomHtml' }
+      { include: '#subcomPdf' }
+      { include: '#subcomPpt' }
+      { include: '#subcomText' }
+      { include: '#subcomXls' }
+      { include: '#subcomBmp' }
+      { include: '#subcomEmf' }
+      { include: '#subcomEps' }
+      { include: '#subcomJpg' }
+      { include: '#subcomPng' }
+      { include: '#subcomTif' }
+      {
+        comment: 'Valid keywords for OUTPUT EXPORT.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(NAME|EXPORT|LAYERS|MODELVIEWS|DOCUMENTFILE|PAGESIZE|INCHES|MM
+          |TOPMARGIN|BOTTOMMARGIN|LEFTMARGIN|RIGHTMARGIN|NOTESCAPTIONS|WIDETABLES|PAGEBREAKS
+          |IMAGEFORMAT|STYLING|INTERACTIVELAYERS|EMBEDBOOKMARKS|EMBEDFONTS|SLIDESIZE
+          |SLIDETITLES|ENCODING|SEPARATOR|COLUMNWIDTH|ROWBORDER|COLUMNBORDER|OPERATION
+          |SHEET|LOCATION|STARTCELL|IMAGEROOT|PERCENTSIZE|COMPRESS|WIDTH|PERCENT|CM|POINTS
+          |PREVIEW|FONTHANDLING|GRAYSCALE|DEPTH))\\b'
+      }
+      {
+        comment: 'Constants for OUTPUT EXPORT.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(VISIBLE|PRINTSETTING|YES|NO|WRAP|SHRINK|ASIS|LOCALE|UTF8|UTF16
+          |SPACE|TAB|AUTOFIT|CREATEFILE|CREATESHEET|MODIFYSHEET|LASTCOLUMN|LASTROW|REFERENCE
+          |CURVES|SCREEN|BLACKWHITE|GRAYS256|COLORS16|COLORS256|TRUE24BIT|TRUE32BIT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  outputModify: {
+    comment: 'OUTPUT MODIFY Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(OUTPUT MODIFY))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomName' }
+      { include: '#subcomSelect' }
+      { include: '#subcomDeleteObject' }
+      { include: '#subcomIndexing' }
+      { include: '#subcomObjectProperties' }
+      { include: '#subcomTable' }
+      { include: '#subcomTableCells' }
+      { include: '#subcomGraphs' }
+      { include: '#subcomTexts' }
+      { include: '#subcomReport' }
+      {
+        comment: 'Valid keywords for OUTPUT MODIFY.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(NAME|EXCEPT|COMMANDS|SUBTYPES|LABELS|INSTANCES|VISIBLEONLY
+          |DELETE|INDEXTYPE|INDEXSTART|VISIBLE|OUTLINELABEL|SIZE|PERCENT|CENTIMETERS
+          |INCHES|POINTS|TABLETITLE|TRANSPOSE|TLOOK|SORT|SORTDIRECTION|COLLABEL|COLPOSITION
+          |SELECTEDLAYER|TABLESUMMARY|PIVOT|POSITION|SELECTDIMENSION|SELECTCONDITION|TOP
+          |BOTTOM|PARENT|CHILD|COLUMNWIDTH|APPLYTO|REVERTTODEFAULT|FORMAT|FONT|FONTSIZE
+          |STYLE|TEXTCOLOR|BACKGROUNDCOLOR|RGB|REPLACE|HIDE|UNGROUP|CTEMPLATE|VIZSTYLESHEET
+          |TEXT|PRINTREPORT))\\b'
+      }
+      {
+        comment: 'Constants for OUTPUT MODIFY.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(CHARTS|HEADINGS|LOGS|MODELS|TABLES|TREES|WARNINGS|OUTLINEHEADERS
+          |PAGETITLE|NOTES|UNKNOWN|OTHER|LAST|EXACT|CONTAINS|BEGINS|ENDS|YES|NO|NUMBER
+          |LETTERLOW|LETTERCAP|ROMANLOW|ROMANCAP|ASIS|DATE|ADATE|SDATE|EDATE|TIME|ETIME
+          |INDEX|LABEL|PROPORTIONAL|NONE|ASCENDING|DESCENDING|PROCEDURE|DATASET|TITLE|BODY
+          |HEADERS|FOOTNOTES|CAPTION|COUNT|MEAN|MEDIAN|RESIDUAL|SIGNIFICANCE|VALID|TOTAL
+          |MISSING|CUMULATIVEPERCENTAGE|VALIDPERCENT|CORRELATION|COLUMNS|ROWS|BOTH|ABS|CELL
+          |ROW|COLUMN|COLUMNDATA|ROWDATA|COLUMNHEADER|ROWHEADER|BOLD|ITALIC|UNDERLINE|REGULAR
+          |BLACK|BLUE|CYAN|DARKGRAY|GRAY|GREEN|LIGHTGRAY|MAGENTA|ORANGE|PINK|RED|WHITE|YELLOW))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  outputOpen: {
+    comment: 'OUTPUT OPEN Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(OUTPUT OPEN))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'Valid keywords for OUTPUT OPEN.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(FILE|NAME|LOCK|PASSWORD))\\b'
+      }
+      {
+        comment: 'Constants for OUTPUT OPEN.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(YES|NO))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  outputSave: {
+    comment: 'OUTPUT SAVE Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(OUTPUT SAVE))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      {
+        comment: 'Valid keywords for OUTPUT SAVE.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(NAME|OUTFILE|TYPE|LOCK|STOREMODEL|PASSPROTECT|PASSWORD|ENCRYPTEDPW))\\b'
+      }
+      {
+        comment: 'Constants for OUTPUT SAVE.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(YES|NO|NONE|SPV))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  overAls: {
+    comment: 'OVERALS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(OVERALS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomVariables' }
+      { include: '#subcomAnalysis' }
+      { include: '#subcomSets' }
+      { include: '#subcomNObservations' }
+      { include: '#subcomDimension' }
+      { include: '#subcomInitial' }
+      { include: '#subcomMaxIter' }
+      { include: '#subcomConvergence' }
+      { include: '#subcomPrint' }
+      { include: '#subcomPlot' }
+      { include: '#subcomSave' }
+      { include: '#subcomMatrix' }
+      {
+        comment: 'Valid keywords for OVERALS.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(OBJECT|QUANT|CENTROID|NDIM|TRANS))\\b'
+      }
+      {
+        comment: 'Constants for OVERALS.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(MNOM|SNOM|ORDI|NUME|NUMERICAL|RANDOM|FREQ|HISTORY|FIT
+          |WEIGHTS|DEFAULT|NONE|LOADINGS))\\b'
+      }
+      {
+        comment: 'Variables created by OVERALS.'
+        name: 'support.variable.spss'
+        match: '(/?)\\b(?i:(ROWTYPE_|LEVEL|VARNAME_|VARTYPE_|SET_|DIM([0-9]+)))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
   reformatCommand: {
     comment: 'REFORMAT Command - no longer supported'
     name: 'meta.class.command.spss'
@@ -4714,6 +5034,10 @@ repository:
   subcomBinomial: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(BINOMIAL))\\b'
+  }
+  subcomBmp: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(BMP))\\b'
   }
   subcomBootstrap: {
     name: 'support.function.subcommand.spss'
@@ -4923,6 +5247,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DELETE))\\b'
   }
+  subcomDeleteObject: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DELETEOBJECT))\\b'
+  }
   subcomDelimiters: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DELIMITERS))\\b'
@@ -4971,6 +5299,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DISPLAY))\\b'
   }
+  subcomDoc: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DOC))\\b'
+  }
   subcomDomain: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DOMAIN))\\b'
@@ -4990,6 +5322,10 @@ repository:
   subcomEM: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(EM))\\b'
+  }
+  subcomEmf: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(EMF))\\b'
   }
   subcomEMMeans: {
     name: 'support.function.subcommand.spss'
@@ -5011,6 +5347,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ENSEMBLES))\\b'
   }
+  subcomEps: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(EPS))\\b'
+  }
   subcomError: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ERROR))\\b'
@@ -5022,6 +5362,10 @@ repository:
   subcomErrors: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ERRORS))\\b'
+  }
+  subcomEs: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(ES))\\b'
   }
   subcomESTBF: {
     name: 'support.function.subcommand.spss'
@@ -5179,6 +5523,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(GRAPHDATASET))\\b'
   }
+  subcomGraphs: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(GRAPHS))\\b'
+  }
   subcomGraphSpec: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(GRAPHSPEC))\\b'
@@ -5223,6 +5571,14 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(HISTORY))\\b'
   }
+  subcomHoldout: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(HOLDOUT))\\b'
+  }
+  subcomHtml: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(HTML))\\b'
+  }
   subcomID: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(ID))\\b'
@@ -5259,6 +5615,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(INDEX))\\b'
   }
+  subcomIndexing: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(INDEXING))\\b'
+  }
   subcomInference: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(INFERENCE))\\b'
@@ -5286,6 +5646,10 @@ repository:
   subcomJointProb: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(JOINTPROB))\\b'
+  }
+  subcomJpg: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(JPG))\\b'
   }
   subcomJT: {
     name: 'support.function.subcommand.spss'
@@ -5447,6 +5811,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MIN))\\b'
   }
+  subcomMinimum: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MINIMUM))\\b'
+  }
   subcomMismatch: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MISMATCH))\\b'
@@ -5462,6 +5830,10 @@ repository:
   subcomMIterate: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(MITERATE))\\b'
+  }
+  subcomMixHold: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(MIXHOLD))\\b'
   }
   subcomMMatrix: {
     name: 'support.function.subcommand.spss'
@@ -5587,6 +5959,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NTILES))\\b'
   }
+  subcomObjectProperties: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(OBJECTPROPERTIES))\\b'
+  }
   subcomOBS: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(OBS))\\b'
@@ -5659,6 +6035,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PCOMPUTE))\\b'
   }
+  subcomPdf: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PDF))\\b'
+  }
   subcomPercentiles: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PERCENTILES))\\b'
@@ -5699,9 +6079,21 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PLOT))\\b'
   }
+  subcomPlotMeans: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PLOT MEANS))\\b'
+  }
   subcomPMeans: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PMEANS))\\b'
+  }
+  subcomPng: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PNG))\\b'
+  }
+  subcomPolynomial: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(POLYNOMIAL))\\b'
   }
   subcomPopSize: {
     name: 'support.function.subcommand.spss'
@@ -5722,6 +6114,10 @@ repository:
   subcomPProperties: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(PPROPERTIES))\\b'
+  }
+  subcomPpt: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(PPT))\\b'
   }
   subcomPred: {
     name: 'support.function.subcommand.spss'
@@ -5750,6 +6146,10 @@ repository:
   subcomRange: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(RANGE))\\b'
+  }
+  subcomRanges: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(RANGES))\\b'
   }
   subcomRate: {
     name: 'support.function.subcommand.spss'
@@ -5794,6 +6194,10 @@ repository:
   subcomReplace: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(REPLACE))\\b'
+  }
+  subcomReport: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(REPORT))\\b'
   }
   subcomResample: {
     name: 'support.function.subcommand.spss'
@@ -5866,6 +6270,10 @@ repository:
   subcomSelectRule: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(SELECTRULE))\\b'
+  }
+  subcomSets: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(SETS))\\b'
   }
   subcomShape: {
     name: 'support.function.subcommand.spss'
@@ -5987,6 +6395,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TABLE))\\b'
   }
+  subcomTableCells: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TABLECELLS))\\b'
+  }
   subcomTables: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TABLES))\\b'
@@ -6010,6 +6422,18 @@ repository:
   subcomTest: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TEST))\\b'
+  }
+  subcomText: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TEXT))\\b'
+  }
+  subcomTexts: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TEXTS))\\b'
+  }
+  subcomTif: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TIF))\\b'
   }
   subcomTitle: {
     name: 'support.function.subcommand.spss'
@@ -6126,6 +6550,10 @@ repository:
   subcomWW: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(W-W|WALD-WOLFOWITZ))\\b'
+  }
+  subcomXls: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(XLS|XLSX|XLSM))\\b'
   }
 
   # Add highlighting for other system variables. We have $SYSMIS here but there are others.
