@@ -215,6 +215,9 @@ repository:
       { include: '#npTests' }
       { include: '#nparTests' }
       { include: '#olapCubes' }
+      { include: '#omsCommand' }
+      { include: '#omsEnd' }
+      { include: '#omsLog' }
     ]
   }
   metaCommandsDeprecated: {
@@ -4552,6 +4555,85 @@ repository:
     ]
   }
 
+  omsCommand: {
+    comment: 'OMS Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(OMS))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomSelect' }
+      { include: '#subcomExceptIf' }
+      { include: '#subcomDestination' }
+      { include: '#subcomColumns' }
+      { include: '#subcomTag' }
+      { include: '#subcomNoWarn' }
+      {
+        comment: 'Valid keywords for OMS.'
+        name: 'keyword.other.spss'
+        match: '(/?)\\b(?i:(COMMANDS|SUBTYPES|LABELS|INSTANCES|FORMAT|NUMBERED|IMAGES
+          |IMAGEFORMAT|CHARTSIZE|IMAGEROOT|IMAGEMAP|TREEFORMAT|CHARTFORMAT|MODELFORMAT
+          |TABLES|OUTFILE|XMLWORKSPACE|OUTPUTSET|FOLDER|VIEWER|DIMNAMES|SEQUENCE))\\b'
+      }
+      {
+        comment: 'Constants for OMS.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(CHARTS|HEADINGS|LOGS|MODELS|TABLES|TEXTS|TREES|WARNINGS|DOC
+          |HTML|OXML|PDF|SAV|SPV|TEXT|TABTEXT|XLS|XLSX|YES|NO|PNG|JPG|BMP|IMAGE|PIVOTABLE
+          |STATIC|CALL|RALL|LALL))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  omsEnd: {
+    comment: 'OMSEND Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(OMSEND))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomTag' }
+      { include: '#subcomFile' }
+      { include: '#subcomLog' }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
+  omsLog: {
+    comment: 'OMSLOG Command'
+    name: 'meta.class.command.spss'
+    begin: '\\b(?i:(OMSLOG))\\b'
+    beginCaptures:
+      1: name: 'support.class.command.spss'
+    end: '(\\.\\s*$)|(^\\s*$)'
+    endCaptures:
+      0: name: 'support.class.command.end.spss'
+    patterns: [
+      { include: '#subcomFile' }
+      { include: '#subcomAppend' }
+      { include: '#subcomFormat' }
+      {
+        comment: 'Constants for OMSLOG.'
+        name: 'support.constant.spss'
+        match: '(/?)\\b(?i:(NO|YES|XML|TEXT))\\b'
+      }
+
+      # Global command includes:
+      { include: '#metaCommandFormatting' }
+    ]
+  }
+
   reformatCommand: {
     comment: 'REFORMAT Command - no longer supported'
     name: 'meta.class.command.spss'
@@ -4733,6 +4815,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(COLORCYCLE))\\b'
   }
+  subcomColumns: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(COLUMNS))\\b'
+  }
   subcomCompare: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(COMPARE))\\b'
@@ -4845,6 +4931,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DESIGN))\\b'
   }
+  subcomDestination: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(DESTINATION))\\b'
+  }
   subcomDFE: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(DFE))\\b'
@@ -4944,6 +5034,10 @@ repository:
   subcomExcept: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(EXCEPT))\\b'
+  }
+  subcomExceptIf: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(EXCEPTIF))\\b'
   }
   subcomExpected: {
     name: 'support.function.subcommand.spss'
@@ -5257,6 +5351,10 @@ repository:
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(LOCATION))\\b'
   }
+  subcomLog: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(LOG))\\b'
+  }
   subcomLoss: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(LOSS))\\b'
@@ -5480,6 +5578,10 @@ repository:
   subcomNoUnivariate: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(NOUNIVARIATE))\\b'
+  }
+  subcomNoWarn: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(NOWARN))\\b'
   }
   subcomNTiles: {
     name: 'support.function.subcommand.spss'
@@ -5888,6 +5990,10 @@ repository:
   subcomTables: {
     name: 'support.function.subcommand.spss'
     match: '(/?)\\b(?i:(TABLES))\\b'
+  }
+  subcomTag: {
+    name: 'support.function.subcommand.spss'
+    match: '(/?)\\b(?i:(TAG))\\b'
   }
   subcomTarget: {
     name: 'support.function.subcommand.spss'
